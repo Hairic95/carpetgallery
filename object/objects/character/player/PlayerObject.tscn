@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsfcnpfwmvloo"]
+
+[ext_resource type="PackedScene" uid="uid://d0jtpuoqndmkh" path="res://object/objects/character/CharacterObject.tscn" id="1_n0wm2"]
+[ext_resource type="Shader" path="res://framework/HitFlash.gdshader" id="2_vo5d8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mj27i"]
+resource_local_to_scene = true
+shader = ExtResource("2_vo5d8")
+shader_parameter/flash = false
+
+[node name="PlayerObject" instance=ExtResource("1_n0wm2")]
+
+[node name="Sprite" parent="Flip" index="1"]
+material = SubResource("ShaderMaterial_mj27i")
