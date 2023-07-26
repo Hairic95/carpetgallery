@@ -13,6 +13,12 @@ var body: BaseObjectBody2D:
 @export var apply_drag = true
 @export var apply_physics = true
 
+func get_component(type) -> BaseComponent:
+	return object.get_component(type)
+
+func get_components(type: Script) -> Array[BaseComponent]:
+	return object.get_components(type)
+
 func _update_shared(delta):
 	if apply_physics:
 #		if apply_gravity:

@@ -1,4 +1,4 @@
-extends BaseComponent
+extends Node
 
 var kbm_up = KEY_W
 var kbm_down = KEY_S

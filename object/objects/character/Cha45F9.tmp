@@ -1,0 +1,25 @@
+[gd_scene load_steps=7 format=3 uid="uid://wbwn3fyc5bx0"]
+
+[ext_resource type="PackedScene" uid="uid://ckdj8lntj2rnd" path="res://object/BaseObject2D.tscn" id="1_mn6tm"]
+[ext_resource type="Shader" path="res://framework/HitFlash.gdshader" id="2_qknj7"]
+[ext_resource type="Script" path="res://object/component/HealthComponent.gd" id="3_54x1s"]
+[ext_resource type="Script" path="res://object/component/CharacterIntentComponent.gd" id="5_b6nee"]
+[ext_resource type="PackedScene" uid="uid://cwy4ru0l7wcjd" path="res://object/component/hurtbox_component.tscn" id="6_pde5r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ylep2"]
+resource_local_to_scene = true
+shader = ExtResource("2_qknj7")
+shader_parameter/flash = false
+
+[node name="BaseObject2D" instance=ExtResource("1_mn6tm")]
+
+[node name="Sprite" parent="Flip" index="1"]
+material = SubResource("ShaderMaterial_ylep2")
+
+[node name="HealthComponent" type="Node2D" parent="Components" index="0"]
+script = ExtResource("3_54x1s")
+
+[node name="HurtboxComponent" parent="Components" index="1" instance=ExtResource("6_pde5r")]
+
+[node name="CharacterIntentComponent" type="Node2D" parent="Components" index="2"]
+script = ExtResource("5_b6nee")

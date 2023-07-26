@@ -91,10 +91,13 @@ func queue_state(new_state, data=null, old_state=state):
 		queued_data.append(data)
 
 func update(delta):
+
 	if queued_states.size() > 0:
 		var state = queued_states.pop_front()
 		var data = queued_data.pop_front()
 		_change_state(state, data)
+	elif !state.update:
+		return
 	var next_state_name = state._update_shared(delta)
 	if next_state_name == null:
 		next_state_name = state._update(delta)

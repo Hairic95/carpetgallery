@@ -1,39 +1,40 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0jtpuoqndmkh"]
+[gd_scene load_steps=10 format=3 uid="uid://wbwn3fyc5bx0"]
 
 [ext_resource type="PackedScene" uid="uid://ckdj8lntj2rnd" path="res://object/BaseObject2D.tscn" id="1_mn6tm"]
 [ext_resource type="Shader" path="res://framework/HitFlash.gdshader" id="2_qknj7"]
-[ext_resource type="Script" path="res://object/objects/character/states/Idle.gd" id="3_kxbcs"]
-[ext_resource type="Script" path="res://object/objects/character/states/Move.gd" id="4_v1356"]
-[ext_resource type="Script" path="res://object/objects/character/states/Die.gd" id="5_l1tme"]
-[ext_resource type="PackedScene" uid="uid://cwy4ru0l7wcjd" path="res://object/component/hurtbox_component.tscn" id="6_pde5r"]
-[ext_resource type="Script" path="res://object/component/HealthComponent.gd" id="7_ni8it"]
-[ext_resource type="Script" path="res://object/component/CharacterIntentComponent.gd" id="8_vqseo"]
+[ext_resource type="Script" path="res://object/component/HealthComponent.gd" id="3_54x1s"]
+[ext_resource type="Script" path="res://object/component/CharacterIntentComponent.gd" id="5_b6nee"]
+[ext_resource type="PackedScene" uid="uid://c2frq1qhl2yty" path="res://object/component/map_traversal_component.tscn" id="5_v4o8a"]
+[ext_resource type="Script" path="res://object/objects/character/states/Idle.gd" id="6_a6rd1"]
+[ext_resource type="Script" path="res://object/objects/character/states/Move.gd" id="7_mcxbw"]
+[ext_resource type="Script" path="res://object/objects/character/states/Die.gd" id="8_wx3fr"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qrni2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ylep2"]
 resource_local_to_scene = true
 shader = ExtResource("2_qknj7")
 shader_parameter/flash = false
 
-[node name="CharacterObject" instance=ExtResource("1_mn6tm")]
+[node name="BaseObject2D" instance=ExtResource("1_mn6tm")]
 
 [node name="Sprite" parent="Flip" index="1"]
-material = SubResource("ShaderMaterial_qrni2")
+material = SubResource("ShaderMaterial_ylep2")
 
-[node name="Idle" type="Node2D" parent="Flip/StateMachine" index="0"]
-script = ExtResource("3_kxbcs")
+[node name="HealthComponent" type="Node2D" parent="Components" index="0"]
+script = ExtResource("3_54x1s")
 
-[node name="Move" type="Node2D" parent="Flip/StateMachine" index="1"]
-script = ExtResource("4_v1356")
+[node name="CharacterIntentComponent" type="Node2D" parent="Components" index="1"]
+script = ExtResource("5_b6nee")
 
-[node name="Die" type="Node2D" parent="Flip/StateMachine" index="2"]
-script = ExtResource("5_l1tme")
+[node name="MapTraversalComponent" parent="Components" index="2" instance=ExtResource("5_v4o8a")]
 
-[node name="HurtboxComponent" parent="Components" index="0" instance=ExtResource("6_pde5r")]
+[node name="StateMachine" parent="." index="3"]
+visible = false
 
-[node name="HealthComponent" type="Node2D" parent="Components" index="1"]
-script = ExtResource("7_ni8it")
+[node name="Idle" type="Node2D" parent="StateMachine" index="0"]
+script = ExtResource("6_a6rd1")
 
-[node name="CharacterIntentComponent" type="Node2D" parent="Components" index="2"]
-script = ExtResource("8_vqseo")
+[node name="Move" type="Node2D" parent="StateMachine" index="1"]
+script = ExtResource("7_mcxbw")
 
-[editable path="Components/HurtboxComponent"]
+[node name="Die" type="Node2D" parent="StateMachine" index="2"]
+script = ExtResource("8_wx3fr")

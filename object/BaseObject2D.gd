@@ -24,9 +24,15 @@ var hitstopped = false
 var hit_tween
 var rng = BetterRng.new()
 var fx = ObjectFx.new(self)
+var map: BaseMap:
+	get:
+		return get_parent()
+		
+var world: World:
+	get:
+		return map.get_parent().get_parent()
 
-var sounds = {
-}
+var sounds = {}
 
 @onready var body: BaseObjectBody2D = %Body
 @onready var components: ComponentContainer = %Components
@@ -34,7 +40,6 @@ var sounds = {
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var state_machine: StateMachine2D = %StateMachine
 @onready var flip: Node2D = $"%Flip"
-
 
 func _ready():
 	body.moved.connect(follow_body)
@@ -52,15 +57,16 @@ func _ready():
 func reset_rotation():
 	flip.rotation = 0
 	body.rotation = 0
-	sprite.rotation = 0
 
 func set_flip(dir):
 	if dir < 0:
 		flip.scale.x = -1
+		state_machine.scale.x = -1
 		components.set_flip(-1)
 	elif dir > 0:
 		flip.scale.x = 1
 		components.set_flip(1)
+		state_machine.scale.x = 1
 
 func follow_body(xy: Vector2):
 	self.xy = xy
@@ -89,4 +95,4 @@ func _physics_process(delta):
 	if !hitstopped and state_machine:
 		state_machine.update(delta)
 	flip.rotation = body.rotation
-	flip.position = body.position
+	state_machine.rotation = body.rotation

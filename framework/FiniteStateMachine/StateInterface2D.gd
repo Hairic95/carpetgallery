@@ -6,6 +6,7 @@ class_name StateInterface2D
 @export var has_animation = true
 @export_range(0.0, 10.0, 0.001) var animation_player_blend_time = 0.00
 
+@export var update = true
 # State interface for StateMachine
 @onready var state_name = name
 

@@ -2,17 +2,23 @@ extends Node2D
 
 class_name ComponentContainer
 
-@export var host: BaseObject2D
+@export var object: BaseObject2D
 @export var body: BaseObjectBody2D
 
 var component_names = {}
 var component_types = {}
+
+var flip_components = []
+var rotate_components = []
 
 var is_setup = false
 
 func _ready():
 	setup()
 	is_setup = true
+
+func _physics_process(delta):
+	apply_body_rotation()
 
 func setup():
 	for cname in component_names:
@@ -45,7 +51,7 @@ func get_components(type: Script=null) -> Array[BaseComponent]:
 			cs.append(component)
 	return cs
 
-func add(component: BaseComponent):
+func add(component: BaseComponent, deferred=true):
 	component_names[component.name] = component
 
 	if !component_types.has(component.script):
@@ -53,26 +59,36 @@ func add(component: BaseComponent):
 	else:
 		component_types[component.script].append(component)
 
-	component.host = host
+	component.object = object
 	component.body = body
 	component.container = self
-	if component.get_parent() != self:
-		component.get_parent().remove_child.call_deferred(component)
-		add_child.call_deferred(component)
-	component.setup.call_deferred()
-
-func set_flip(dir):
-	for component in get_components():
-		if component.can_apply_flip:
-			component.scale.x = dir
+	if deferred:
+		if component.get_parent() != self:
+			component.get_parent().remove_child.call_deferred(component)
+			add_child.call_deferred(component)
+		component.setup.call_deferred()
 
 func remove(component):
 	if component is BaseComponent:
 		if component.get_parent() == self:
 			component_names.erase(component.name)
+			component_types.erase(component.name)
 			component.queue_free()
+			if component.apply_flip:
+				flip_components.erase(component)
+			if component.follow_body_rotation:
+				rotate_components.erase(component)
+			
 	elif component is String:
 		if component in component_names:
 			remove(component_names[component])
 		else:
-			print("tried to remove nonexistent component %s from object %s, ignoring." % [component, host])
+			print("tried to remove nonexistent component %s from object %s, ignoring." % [component, object])
+
+func set_flip(dir):
+	for component in flip_components:
+		component.scale.x = dir
+
+func apply_body_rotation():
+	for component in rotate_components:
+		component.rotation = body.rotation

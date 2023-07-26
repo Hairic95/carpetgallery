@@ -6,9 +6,10 @@ class_name KinematicObject2D
 const PUSH_SPEED = 0.1
 
 signal moved(pos)
+signal collided(collision)
 
 #@export var gravity = 400
-@export_range(0.0, 10.0) var drag = 0.1;
+@export_range(0.0, 10.0) var drag = 0.90;
 #@export_range(0.0, 10.0) var drag_vert = 0.001;
 #@export_range(0.0, 2000.0) var ground_friction = 500;
 #@export_range(0.0, 2000.0) var wall_friction = 50;
@@ -72,7 +73,10 @@ func apply_physics(delta):
 	accel = Vector2(0, 0)
 	impulses = Vector2(0, 0)
 	if global_position != prev_position:
-		moved.emit()
+		moved.emit(global_position)
+	for i in range(get_slide_collision_count() - 1):
+		var collision = get_slide_collision(i)
+		collided.emit(collision)
 
 func reset_momentum():
 	velocity = Vector2()

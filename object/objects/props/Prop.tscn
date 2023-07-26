@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxj8c4je48ejt"]
+
+[ext_resource type="PackedScene" uid="uid://ckdj8lntj2rnd" path="res://object/BaseObject2D.tscn" id="1_8cx8j"]
+[ext_resource type="Shader" path="res://framework/HitFlash.gdshader" id="2_jwrdd"]
+[ext_resource type="Script" path="res://object/state/ObjectState.gd" id="3_8wh5t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jmgm5"]
+resource_local_to_scene = true
+shader = ExtResource("2_jwrdd")
+shader_parameter/flash = false
+
+[node name="Prop" instance=ExtResource("1_8cx8j")]
+
+[node name="Sprite" parent="Flip" index="1"]
+material = SubResource("ShaderMaterial_jmgm5")
+
+[node name="Body" parent="." index="1"]
+collision_mask = 7
+
+[node name="Idle" type="Node2D" parent="StateMachine" index="0"]
+script = ExtResource("3_8wh5t")
+update = false

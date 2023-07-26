@@ -30,8 +30,8 @@ func damage(amount):
 	damaged.emit(amount)
 	if health <= 0:
 		health_zero.emit()
-	host.fx.hit_effect()
+	object.fx.hit_effect()
 
 func on_health_zero():
-	host.state_machine.queue_state("Die")
+	object.change_state("Die")
 	dead = true

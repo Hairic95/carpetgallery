@@ -31,11 +31,7 @@ func _ready():
 
 
 func bump(dir:=Vector2(), amount:=default_screenshake_amount, time:=default_screenshake_time):
-#	if amount < shake_amount:
-#		return
-#	if shake_tween is Tween:
 
-		
 	var shake_tween = create_tween()
 	shake_tween.set_parallel(false)
 	shake_tween.set_trans(Tween.TRANS_CIRC)

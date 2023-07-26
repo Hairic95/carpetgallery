@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpkt8uk6jv343"]
+
+[ext_resource type="Script" path="res://object/component/CameraComponent.gd" id="1_3mbnc"]
+[ext_resource type="Script" path="res://framework/GoodCamera.gd" id="2_qawmk"]
+
+[node name="CameraComponent" type="Node2D"]
+script = ExtResource("1_3mbnc")
+
+[node name="GoodCamera" type="Camera2D" parent="."]
+process_callback = 0
+position_smoothing_enabled = true
+script = ExtResource("2_qawmk")

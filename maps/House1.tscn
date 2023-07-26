@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ebac84yjmndr"]
+
+[ext_resource type="PackedScene" uid="uid://d32qqlgba5t66" path="res://maps/BaseMap.tscn" id="1_f85pa"]
+[ext_resource type="Script" path="res://maps/MapEntrance.gd" id="2_dkm8s"]
+[ext_resource type="PackedScene" uid="uid://c8lob8qiba1er" path="res://maps/MapExit.tscn" id="3_wihgv"]
+
+[node name="House1" instance=ExtResource("1_f85pa")]
+layer_0/tile_data = PackedInt32Array(-65537, 65536, 3, -1, 65536, 4, -131072, 131072, 3, -65536, 131072, 4)
+
+[node name="FrontDoor" type="Marker2D" parent="." index="0"]
+position = Vector2(0, -28)
+script = ExtResource("2_dkm8s")
+
+[node name="MapExit" parent="." index="1" instance=ExtResource("3_wihgv")]
+position = Vector2(0, -8)
+map = "Suburb1"
+entrance = "House1FrontDoor"

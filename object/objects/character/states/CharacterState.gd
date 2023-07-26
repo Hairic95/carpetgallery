@@ -2,9 +2,14 @@ extends ObjectState
 
 class_name CharacterState
 
-@export var aim = true
+@export var update_flip = true
 
 var intent: CharacterIntentComponent
 
 func init():
-	intent = object.get_component(CharacterIntentComponent)
+	intent = get_component(CharacterIntentComponent)
+
+func _update_shared(delta):
+	super._update_shared(delta)
+	if update_flip:
+		object.set_flip(sign(body.velocity.x))

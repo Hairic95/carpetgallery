@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3n6hi53dowqo"]
+
+[ext_resource type="PackedScene" uid="uid://by5c463m57u0r" path="res://Game.tscn" id="1_blm35"]
+
+[node name="Node" type="Node"]
+
+[node name="BGLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="BGLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 1)
+
+[node name="GameLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Game" parent="GameLayer" instance=ExtResource("1_blm35")]

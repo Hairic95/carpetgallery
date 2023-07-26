@@ -12,16 +12,8 @@ shader = ExtResource("3_w8llo")
 shader_parameter/flash = false
 
 [node name="BaseObject2D" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_we4mw")
-
-[node name="Body" type="CharacterBody2D" parent="." node_paths=PackedStringArray("host") groups=["Object"]]
-unique_name_in_owner = true
-collision_layer = 4
-motion_mode = 1
-script = ExtResource("2_o81ii")
-host = NodePath("..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
 
 [node name="Flip" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -38,14 +30,24 @@ metadata/_edit_lock_ = true
 [node name="Sounds" type="Node2D" parent="Flip"]
 unique_name_in_owner = true
 
-[node name="StateMachine" type="Node2D" parent="Flip" node_paths=PackedStringArray("animation_players", "animated_sprites")]
+[node name="Body" type="CharacterBody2D" parent="." node_paths=PackedStringArray("host") groups=["Object"]]
 unique_name_in_owner = true
-script = ExtResource("4_pmtwg")
-animation_players = [NodePath("../AnimationPlayer")]
-animated_sprites = [NodePath("../Sprite")]
+collision_layer = 4
+motion_mode = 1
+script = ExtResource("2_o81ii")
+host = NodePath("..")
+drag = 0.999
 
-[node name="Components" type="Node2D" parent="." node_paths=PackedStringArray("host", "body")]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+
+[node name="Components" type="Node2D" parent="." node_paths=PackedStringArray("object", "body")]
 unique_name_in_owner = true
 script = ExtResource("5_kc68d")
-host = NodePath("..")
+object = NodePath("..")
 body = NodePath("../Body")
+
+[node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("animation_players", "animated_sprites")]
+unique_name_in_owner = true
+script = ExtResource("4_pmtwg")
+animation_players = [NodePath("../Flip/AnimationPlayer")]
+animated_sprites = [NodePath("../Flip/Sprite")]

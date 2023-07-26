@@ -2,11 +2,12 @@ extends Node2D
 
 class_name BaseComponent
 
-var can_apply_flip = true
+var apply_flip = true
+var follow_body_rotation = false
 
 var container: ComponentContainer
 
-var host: 
+var object: BaseObject2D
 var body: BaseObjectBody2D
 
 func get_component(type) -> BaseComponent:
