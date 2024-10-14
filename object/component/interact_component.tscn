@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqtxg7aa6q3hn"]
+
+[ext_resource type="Script" path="res://object/component/InteractComponent.gd" id="1_8d3jd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cgkw1"]
+radius = 5.15
+height = 24.75
+
+[node name="InteractComponent" type="Node2D"]
+script = ExtResource("1_8d3jd")
+
+[node name="Area2D" type="Area2D" parent="."]
+process_mode = 3
+disable_mode = 1
+collision_layer = 0
+collision_mask = 256
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_cgkw1")
+
+[node name="Sprite" type="Sprite2D" parent="."]

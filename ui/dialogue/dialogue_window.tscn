@@ -1,0 +1,254 @@
+[gd_scene load_steps=19 format=3 uid="uid://bwjphk8ld3jvs"]
+
+[ext_resource type="Script" path="res://ui/dialogue/DialogueWindow.gd" id="1_m502j"]
+[ext_resource type="FontFile" uid="uid://2ynke1kaxte2" path="res://ui/font/pixel_operator/PixelOperator.ttf" id="2_qndyb"]
+[ext_resource type="FontFile" uid="uid://dedq6nnrq1hg1" path="res://ui/font/pixel_operator/PixelOperator8-Bold.ttf" id="3_dgmok"]
+[ext_resource type="Texture2D" uid="uid://d0bwidqgbmfae" path="res://ui/dialogue/dummyportrait.png" id="3_jgxd4"]
+[ext_resource type="Script" path="res://ui/dialogue/DialogueLabel.gd" id="4_ghmks"]
+[ext_resource type="Texture2D" uid="uid://dbi00l64wkewf" path="res://ui/next.png" id="6_6hmsg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjkio"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7noq"]
+bg_color = Color(1, 1, 1, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xham"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cigxb"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3p60d"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_akmts"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="Theme" id="Theme_fhq6q"]
+default_base_scale = 1.0
+default_font = ExtResource("2_qndyb")
+default_font_size = 16
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/styles/disabled = SubResource("StyleBoxFlat_bjkio")
+Button/styles/focus = SubResource("StyleBoxFlat_o7noq")
+Button/styles/hover = SubResource("StyleBoxFlat_7xham")
+Button/styles/normal = SubResource("StyleBoxFlat_bjkio")
+Button/styles/pressed = SubResource("StyleBoxFlat_cigxb")
+DialogueButton/base_type = &"Button"
+DialogueButton/colors/font_color = Color(0.501961, 0.501961, 0.501961, 1)
+Panel/styles/panel = SubResource("StyleBoxFlat_3p60d")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_akmts")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xbyym"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vlmnh"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="Gradient" id="Gradient_3aoac"]
+offsets = PackedFloat32Array(0, 0.980843)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_otuth"]
+gradient = SubResource("Gradient_3aoac")
+width = 8
+height = 8
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_jsfih"]
+frames = 2
+frame_0/texture = ExtResource("6_6hmsg")
+frame_0/duration = 0.3
+frame_1/texture = SubResource("GradientTexture2D_otuth")
+frame_1/duration = 0.5
+
+[node name="DialogueWindow" type="CanvasLayer"]
+process_mode = 3
+layer = 128
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
+script = ExtResource("1_m502j")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 10.0
+offset_right = 318.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = SubResource("Theme_fhq6q")
+
+[node name="CharacterPanel" type="PanelContainer" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -2.0
+offset_top = -1.0
+offset_right = 3.0
+offset_bottom = 14.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xbyym")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/CharacterPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = -2
+theme_override_constants/margin_right = 2
+
+[node name="CharacterLabel" type="Label" parent="Control/CharacterPanel/MarginContainer"]
+unique_name_in_owner = true
+z_index = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_dgmok")
+theme_override_font_sizes/font_size = 8
+text = "test"
+horizontal_alignment = 1
+
+[node name="Panel" type="PanelContainer" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -158.0
+offset_top = 8.0
+offset_right = 158.0
+offset_bottom = 15.0
+grow_horizontal = 2
+theme = SubResource("Theme_fhq6q")
+theme_override_styles/panel = SubResource("StyleBoxFlat_vlmnh")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 3
+
+[node name="DialogueContainer" type="HBoxContainer" parent="Control/Panel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Portrait" type="TextureRect" parent="Control/Panel/MarginContainer/DialogueContainer"]
+unique_name_in_owner = true
+visible = false
+clip_contents = true
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_jgxd4")
+expand_mode = 4
+stretch_mode = 3
+
+[node name="DialogueLabel" type="RichTextLabel" parent="Control/Panel/MarginContainer/DialogueContainer"]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "dasfsdafjsah
+sadfhj;asfkl;asdlfjsadf
+asdklj;fsal;kjfasl;df"
+fit_content = true
+scroll_active = false
+visible_characters_behavior = 1
+script = ExtResource("4_ghmks")
+seconds_per_step = 0.005
+pause_at_characters = ".?!:;,"
+
+[node name="Control" type="Control" parent="Control/Panel/MarginContainer/DialogueContainer/DialogueLabel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = 4.0
+offset_right = 20.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Panel/MarginContainer/DialogueContainer/DialogueLabel/Control"]
+layout_mode = 0
+offset_left = -138.0
+offset_right = 178.0
+offset_bottom = 48.0
+
+[node name="OptionsList" type="VBoxContainer" parent="Control/Panel/MarginContainer/DialogueContainer/DialogueLabel/Control/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Button" type="Button" parent="Control/Panel/MarginContainer/DialogueContainer/DialogueLabel/Control/MarginContainer/OptionsList"]
+layout_mode = 2
+theme_type_variation = &"DialogueButton"
+theme_override_font_sizes/font_size = 9
+alignment = 0
+
+[node name="Button2" type="Button" parent="Control/Panel/MarginContainer/DialogueContainer/DialogueLabel/Control/MarginContainer/OptionsList"]
+layout_mode = 2
+theme_type_variation = &"DialogueButton"
+text = "testsdfsdfsdfsdfsdfsdfsdf"
+alignment = 0
+
+[node name="Button3" type="Button" parent="Control/Panel/MarginContainer/DialogueContainer/DialogueLabel/Control/MarginContainer/OptionsList"]
+layout_mode = 2
+theme_type_variation = &"DialogueButton"
+text = "test"
+alignment = 0
+
+[node name="Button4" type="Button" parent="Control/Panel/MarginContainer/DialogueContainer/DialogueLabel/Control/MarginContainer/OptionsList"]
+layout_mode = 2
+theme_type_variation = &"DialogueButton"
+text = "test"
+alignment = 0
+
+[node name="Control" type="Control" parent="Control/Panel"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Blinker" type="TextureRect" parent="Control/Panel/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -8.0
+offset_right = 2.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = SubResource("AnimatedTexture_jsfih")
+stretch_mode = 3

@@ -1,0 +1,169 @@
+[gd_scene load_steps=15 format=3 uid="uid://cvqgysheewwu1"]
+
+[ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_cteef"]
+[ext_resource type="FontFile" uid="uid://xvat2pp7jfcv" path="res://ui/font/pixel_operator/PixelOperator8.ttf" id="2_uh76n"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="3_5jcgs"]
+[ext_resource type="Script" path="res://ui/dialogue/balloon.gd" id="4_nlrm7"]
+[ext_resource type="Script" path="res://ui/dialogue/balloonlabel.gd" id="4_r0omr"]
+[ext_resource type="FontFile" uid="uid://dedq6nnrq1hg1" path="res://ui/font/pixel_operator/PixelOperator8-Bold.ttf" id="6_qrmtf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjkio"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7noq"]
+bg_color = Color(1, 1, 1, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xham"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cigxb"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3p60d"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_akmts"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="Theme" id="Theme_67qjn"]
+default_base_scale = 1.0
+default_font = ExtResource("2_uh76n")
+default_font_size = 8
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/styles/disabled = SubResource("StyleBoxFlat_bjkio")
+Button/styles/focus = SubResource("StyleBoxFlat_o7noq")
+Button/styles/hover = SubResource("StyleBoxFlat_7xham")
+Button/styles/normal = SubResource("StyleBoxFlat_bjkio")
+Button/styles/pressed = SubResource("StyleBoxFlat_cigxb")
+DialogueButton/base_type = &"Button"
+DialogueButton/colors/font_color = Color(0.501961, 0.501961, 0.501961, 1)
+Panel/styles/panel = SubResource("StyleBoxFlat_3p60d")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_akmts")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udoex"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="ExampleBalloon" type="CanvasLayer"]
+layer = 100
+script = ExtResource("4_nlrm7")
+
+[node name="Balloon" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -38.0
+offset_right = -4.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_67qjn")
+
+[node name="Panel" type="PanelContainer" parent="Balloon"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -116.0
+offset_top = -48.0
+offset_right = 116.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Dialogue" type="MarginContainer" parent="Balloon/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Balloon/Panel/Dialogue"]
+layout_mode = 2
+
+[node name="DialogueLabel" parent="Balloon/Panel/Dialogue/VBoxContainer" instance=ExtResource("2_cteef")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/line_separation = 1
+script = ExtResource("4_r0omr")
+skip_action = &"skip_text"
+seconds_per_step = 0.01
+skip_pause_at_abbreviations = ["Mr", "Mrs", "Ms", "Dr", "etc", "eg", "ex"]
+seconds_per_pause_step = 0.1
+
+[node name="Control" type="Control" parent="Balloon/Panel"]
+layout_mode = 2
+
+[node name="Responses" type="MarginContainer" parent="Balloon/Panel/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 4.0
+offset_top = -23.0
+offset_right = 116.0
+offset_bottom = -3.0
+grow_horizontal = 2
+metadata/_edit_group_ = true
+
+[node name="ResponsesMenu" type="VBoxContainer" parent="Balloon/Panel/Control/Responses"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 0
+script = ExtResource("3_5jcgs")
+
+[node name="ResponseExample" type="Button" parent="Balloon/Panel/Control/Responses/ResponsesMenu"]
+layout_mode = 2
+text = "Response Example"
+
+[node name="ResponseExample2" type="Button" parent="Balloon/Panel/Control/Responses/ResponsesMenu"]
+layout_mode = 2
+text = "Response Example"
+
+[node name="Control" type="Control" parent="Balloon/Panel/Control"]
+anchors_preset = 0
+offset_right = 36.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Balloon/Panel/Control/Control"]
+z_index = -1
+layout_mode = 1
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = -2.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_udoex")
+
+[node name="CharacterLabel" type="Label" parent="Balloon/Panel/Control/Control/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_qrmtf")
+vertical_alignment = 1
+
+[connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
+[connection signal="response_selected" from="Balloon/Panel/Control/Responses/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]

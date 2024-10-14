@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://d32qqlgba5t66"]
+
+[ext_resource type="TileSet" uid="uid://dn1lepwsghsui" path="res://worlds/map/TileSet.tres" id="1_j7pr7"]
+[ext_resource type="Script" path="res://worlds/map/MapColors.gd" id="2_0wudk"]
+[ext_resource type="Script" path="res://worlds/map/BaseMap.gd" id="2_o02fw"]
+
+[sub_resource type="Resource" id="Resource_g15di"]
+script = ExtResource("2_0wudk")
+col_1 = Color(0, 0, 0, 1)
+col_2 = Color(0, 0, 1, 1)
+col_3 = Color(0, 1, 0, 1)
+col_4 = Color(1, 1, 1, 1)
+col_highlight = Color(1, 0, 0, 1)
+
+[node name="BaseMap" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("2_o02fw")
+map_colors = SubResource("Resource_g15di")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+tile_set = ExtResource("1_j7pr7")
+
+[node name="PlayerStart" type="Marker2D" parent="."]
+
+[node name="CameraBoundsStart" type="Marker2D" parent="."]
+position = Vector2(-160, -90)
+
+[node name="CameraBoundsEnd" type="Marker2D" parent="."]
+position = Vector2(160, 90)

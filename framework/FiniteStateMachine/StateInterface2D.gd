@@ -5,6 +5,7 @@ class_name StateInterface2D
 @export var custom_animation: String
 @export var has_animation = true
 @export_range(0.0, 10.0, 0.001) var animation_player_blend_time = 0.00
+@export var next_state: String
 
 @export var update = true
 # State interface for StateMachine

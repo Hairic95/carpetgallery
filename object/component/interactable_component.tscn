@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://blutqyopaowqo"]
+
+[ext_resource type="Script" path="res://object/component/InteractableComponent.gd" id="1_pii35"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mvcc2"]
+radius = 8.0
+
+[node name="InteractableComponent" type="Node2D"]
+script = ExtResource("1_pii35")
+
+[node name="Area2D" type="Area2D" parent="."]
+disable_mode = 1
+collision_layer = 256
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_mvcc2")

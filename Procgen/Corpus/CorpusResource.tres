@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="CorpusResource" load_steps=11 format=3 uid="uid://bx6j4btdlf85v"]
+
+[ext_resource type="Script" path="res://Procgen/Corpus/DialogueCorpus.gd" id="1_nyfaj"]
+[ext_resource type="Script" path="res://Procgen/Corpus/CorpusResource.gd" id="2_kogup"]
+
+[sub_resource type="Resource" id="Resource_a04le"]
+script = ExtResource("1_nyfaj")
+name = "test 1"
+weight = 1000.0
+dialogues = "theme test 1
+THEME test 1"
+
+[sub_resource type="Resource" id="Resource_epslr"]
+script = ExtResource("1_nyfaj")
+name = "test 2"
+weight = 1000.0
+dialogues = "theme test 2
+THEME test 2"
+
+[sub_resource type="Resource" id="Resource_a1cdw"]
+script = ExtResource("1_nyfaj")
+name = "test 3"
+weight = 1000.0
+dialogues = "theme test 3
+THEME test 3"
+
+[sub_resource type="Resource" id="Resource_h6mjr"]
+script = ExtResource("1_nyfaj")
+name = "test 4"
+weight = 1000.0
+dialogues = "theme test 4
+THEME test 4"
+
+[sub_resource type="Resource" id="Resource_y3kht"]
+script = ExtResource("1_nyfaj")
+name = "test 5"
+weight = 1000.0
+dialogues = "theme test 5
+THEME test 5"
+
+[sub_resource type="Resource" id="Resource_500b8"]
+script = ExtResource("1_nyfaj")
+name = "fast food"
+weight = 1000.0
+dialogues = "burger
+fries
+hot dog
+milk shake"
+
+[sub_resource type="Resource" id="Resource_h5p4q"]
+script = ExtResource("1_nyfaj")
+name = "romance"
+weight = 1000.0
+dialogues = "love
+kiss
+hug
+romance"
+
+[sub_resource type="Resource" id="Resource_lonot"]
+script = ExtResource("1_nyfaj")
+name = "hatred"
+weight = 1000.0
+dialogues = "hatred
+anger
+being mad
+suffering"
+
+[resource]
+script = ExtResource("2_kogup")
+dialogue_corpora = Array[ExtResource("1_nyfaj")]([SubResource("Resource_a04le"), SubResource("Resource_epslr"), SubResource("Resource_a1cdw"), SubResource("Resource_h6mjr"), SubResource("Resource_y3kht")])
+theme_corpora = Array[ExtResource("1_nyfaj")]([SubResource("Resource_500b8"), SubResource("Resource_h5p4q"), SubResource("Resource_lonot")])

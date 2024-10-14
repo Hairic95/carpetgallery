@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddpmcelqunldi"]
+
+[ext_resource type="Script" path="res://screens/game_view.gd" id="1_logd5"]
+[ext_resource type="Script" path="res://framework/IntegerScaleViewportContainer.gd" id="2_y24nh"]
+
+[node name="GameView" type="CanvasLayer" node_paths=PackedStringArray("game_layer")]
+process_priority = -3
+follow_viewport_enabled = true
+script = ExtResource("1_logd5")
+game_layer = NodePath("SubViewportContainer/SubViewport/GameLayer")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_y24nh")
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+audio_listener_enable_2d = true
+size = Vector2i(2, 2)
+render_target_update_mode = 4
+
+[node name="GameLayer" type="CanvasLayer" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+
+[node name="ScreenOverlayLayer" type="CanvasLayer" parent="SubViewportContainer/SubViewport"]
+layer = 128
+
+[node name="ScreenFadeRect" type="ColorRect" parent="SubViewportContainer/SubViewport/ScreenOverlayLayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+color = Color(0, 0, 0, 0)

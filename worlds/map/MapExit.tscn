@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8lob8qiba1er"]
+
+[ext_resource type="Script" path="res://worlds/map/MapExit.gd" id="1_0t6b5"]
+[ext_resource type="Theme" uid="uid://cbmpq55a2rjgw" path="res://ui/theme.tres" id="2_dq2mp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0vwut"]
+size = Vector2(18, 18)
+
+[node name="MapExit" type="Area2D"]
+z_index = 1000
+collision_layer = 512
+collision_mask = 512
+script = ExtResource("1_0t6b5")
+map = "Map"
+entrance = "Entrance"
+map_color = Color(0, 0.815686, 0.513726, 1)
+entrance_color = Color(0.984314, 0.384314, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0vwut")
+
+[node name="EditorLabel" type="RichTextLabel" parent="."]
+modulate = Color(1, 1, 1, 0.811765)
+clip_contents = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -24.0
+offset_right = 28.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_dq2mp")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+bbcode_enabled = true
+text = "[center]< [color=00d083ff]Map[/color] >
+< [color=fb6200ff]Entrance[/color] >"
+fit_content = true
+autowrap_mode = 0
+metadata/_edit_use_anchors_ = true

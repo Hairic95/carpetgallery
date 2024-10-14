@@ -1,8 +1,26 @@
 extends Node
 
-var enabled = false
-var draw = true
-var show_object_info = true
+signal draw_updated
+signal draw_toggled(on: bool)
+
+const DEBUG_LAYER = preload("res://framework/Autoloads/Debug/DebugLayer.tscn")
+const HISTORY_SIZE = 500
+
+var enabled := true
+var profiling := true
+var draw := false:
+	get:
+		return draw and enabled
+	set(value):
+		var different = draw != value
+		draw = value
+		if different:
+			draw_updated.emit()
+			draw_toggled.emit(value)
+
+var show_object_info := true
+
+var profiler := GameProfiler.new()
 
 var items = {
 }
@@ -10,18 +28,54 @@ var items = {
 var times = {
 }
 
-var dbg_function: Callable
+var histories = {
+	
+}
 
-func dbg_enabled(id, value):
+var history_data = {
+}
+
+var dbg_function: Callable
+var dbg_history_function: Callable
+
+var rng := BetterRng.new()
+
+func dbg_enabled(id: String, value: Variant) -> void:
 #	return
 	items[id] = value
 
-func dbg_disabled(_id, _value):
+func dbg_disabled(_id: String, _value: Variant) -> void:
 	pass
 
-#func _input(event):
-#	if event.is_action_pressed("ui_toggle_debug_draw") and enabled:
-#		draw = !draw
+func dbg_enabled_history(id: String, v: float, color:= Color.WHITE, min: float=-1000.0, max: float=1000.0) -> void:
+	dbg_enabled(id, v)
+	var arr: PackedFloat64Array
+	if histories.has(id):
+		arr = histories[id]
+	else:
+		arr = []
+		histories[id] = arr
+		history_data[id] = {
+			"color": color,
+			"min": min,
+			"max": max,
+		}
+
+	arr.append(v)
+	
+	if arr.size() >= HISTORY_SIZE:
+		arr = arr.slice(arr.size() - HISTORY_SIZE)
+		histories[id] = arr
+	pass
+
+func dbg_disabled_history(_id: String, _v: Variant, _color:= Color.WHITE, _min: float=-1000.0, _max: float=1000.0) -> void:
+	pass
+
+func clear_items():
+	items.clear()
+	histories.clear()
+	history_data.clear()
+	times.clear()
 
 class TimeLength:
 	var length
@@ -42,13 +96,28 @@ func time_function(method: Callable):
 		times[method.get_method()] = [TimeLength.new(method.get_method(), end - start)]
 
 func _enter_tree():
+	if !OS.is_debug_build():
+		enabled = false
+		return
+
+	if profiling:
+		EngineDebugger.register_profiler("main", profiler)
+		EngineDebugger.profiler_enable("main", true)
+	
+	var layer = DEBUG_LAYER.instantiate()
+	
+	get_parent().add_child.call_deferred(layer)
+
 	if enabled:
 		dbg_function = dbg_enabled
+		dbg_history_function = dbg_enabled_history
+		set_process(true)
 	else:
 		dbg_function = dbg_disabled
+		dbg_history_function = dbg_disabled_history
+		set_process(false)
 
 func _process(delta):
-#	yield(get_tree(), "idle_frame")
 	for time_array in times:
 		var total_time = 0
 		var counter = 0
@@ -60,12 +129,21 @@ func _process(delta):
 		dbg_max(time_array + " max", total_time)
 #		times.erase(time_array)
 
+	if GlobalInput.is_action_just_pressed("debug_show") and Debug.enabled:
+		draw = !draw
 
+	if GlobalInput.is_action_just_pressed("debug_restart"):
+		if Debug.enabled:
+			get_tree().reload_current_scene()
+	
 func dbg_prop(object: Object, prop: String):
 	dbg(prop, object.get(prop))
 
-func dbg(id, v):
+func dbg(id: String, v: Variant):
 	dbg_function.call(id, v)
+
+func dbg_history(id: String, v: Variant, color:= Color.WHITE, min: float=-1000.0, max: float=1000.0):
+	dbg_history_function.call(id, v, color, min, max) 
 
 func dbg_dict(dict: Dictionary):
 	for key in dict:

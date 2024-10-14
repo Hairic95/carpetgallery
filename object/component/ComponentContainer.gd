@@ -14,19 +14,23 @@ var rotate_components = []
 var is_setup = false
 
 func _ready():
-	setup()
-	is_setup = true
+	if object.auto_setup_components:
+		setup()
 
 func _physics_process(delta):
 	apply_body_rotation()
 
 func setup():
-	for cname in component_names:
-		if !is_instance_valid(component_names[cname]):
-			component_names.erase(cname)
+	cleanup()
 	for child in get_children():
 		if child is BaseComponent:
 			add(child)
+	is_setup = true
+
+func cleanup():
+	for cname in component_names:
+		if !is_instance_valid(component_names[cname]):
+			component_names.erase(cname)
 
 func get_component(type) -> BaseComponent:
 	# will get the component with the specified name if `type` is String, else
@@ -64,9 +68,17 @@ func add(component: BaseComponent, deferred=true):
 	component.container = self
 	if deferred:
 		if component.get_parent() != self:
-			component.get_parent().remove_child.call_deferred(component)
+			if component.get_parent():
+				component.get_parent().remove_child.call_deferred(component)
 			add_child.call_deferred(component)
 		component.setup.call_deferred()
+	else:
+		if component.get_parent() != self:
+			if component.get_parent():
+				component.get_parent().remove_child(component)
+			add_child(component)
+		component.setup()
+	cleanup()
 
 func remove(component):
 	if component is BaseComponent:
@@ -84,6 +96,7 @@ func remove(component):
 			remove(component_names[component])
 		else:
 			print("tried to remove nonexistent component %s from object %s, ignoring." % [component, object])
+	cleanup()
 
 func set_flip(dir):
 	for component in flip_components:

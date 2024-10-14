@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://d3n6hi53dowqo"]
+[gd_scene load_steps=3 format=3 uid="uid://d3n6hi53dowqo"]
 
-[ext_resource type="PackedScene" uid="uid://by5c463m57u0r" path="res://Game.tscn" id="1_blm35"]
+[ext_resource type="Script" path="res://Main.gd" id="1_fjrl4"]
+[ext_resource type="PackedScene" uid="uid://ddpmcelqunldi" path="res://screens/GameView.tscn" id="2_2gmjv"]
 
-[node name="Node" type="Node"]
+[node name="Main" type="Node"]
+script = ExtResource("1_fjrl4")
+start_screen = "res://screens/MainMenu.tscn"
+start_screen_debug = "res://screens/MainMenu.tscn"
 
 [node name="BGLayer" type="CanvasLayer" parent="."]
 
@@ -16,7 +20,5 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color(0, 0, 0, 1)
 
-[node name="GameLayer" type="CanvasLayer" parent="."]
-follow_viewport_enabled = true
-
-[node name="Game" parent="GameLayer" instance=ExtResource("1_blm35")]
+[node name="GameView" parent="." instance=ExtResource("2_2gmjv")]
+unique_name_in_owner = true

@@ -6,6 +6,10 @@ var object: BaseObject2D:
 	get:
 		return host
 
+var components: ComponentContainer:
+	get:
+		return object.components
+
 var body: BaseObjectBody2D:
 	get:
 		return object.body

@@ -9,7 +9,7 @@ signal moved(pos)
 signal collided(collision)
 
 #@export var gravity = 400
-@export_range(0.0, 10.0) var drag = 0.90;
+@export_range(0.0, 20.0) var drag = 0.90;
 #@export_range(0.0, 10.0) var drag_vert = 0.001;
 #@export_range(0.0, 2000.0) var ground_friction = 500;
 #@export_range(0.0, 2000.0) var wall_friction = 50;
@@ -45,8 +45,8 @@ var is_moving = false
 var dir = Vector2()
 
 func apply_drag(delta, drag=self.drag):
-	velocity.x = Utils.damp(velocity.x, 0, 1 - drag, delta)
-	velocity.y = Utils.damp(velocity.y, 0, 1 - drag, delta)
+	velocity.x = Math.damp(velocity.x, 0, drag, delta)
+	velocity.y = Math.damp(velocity.y, 0, drag, delta)
 
 func apply_physics(delta):
 	var prev_position = global_position

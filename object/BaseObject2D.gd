@@ -24,15 +24,26 @@ var hitstopped = false
 var hit_tween
 var rng = BetterRng.new()
 var fx = ObjectFx.new(self)
+
+var auto_setup_components = true
+
 var map: BaseMap:
 	get:
 		return get_parent()
-		
+
+var room: RandomRoom:
+	get:
+		return map
+
 var world: World:
 	get:
 		return map.get_parent().get_parent()
 
 var sounds = {}
+
+@export var story_variables = {}
+
+@export var start_flipped = false
 
 @onready var body: BaseObjectBody2D = %Body
 @onready var components: ComponentContainer = %Components
@@ -43,6 +54,7 @@ var sounds = {}
 
 func _ready():
 	body.moved.connect(follow_body)
+	if start_flipped: set_flip(-1)
 
 	state_machine.init()
 	if animation_player and animation_player.has_animation("RESET"):
@@ -53,6 +65,10 @@ func _ready():
 		return
 	for sound in %Sounds.get_children():
 		sounds[sound.name] = sound
+	for child in get_children():
+		if child is BaseComponent:
+			remove_child.call_deferred(child)
+			components.add.call_deferred(child)
 
 func reset_rotation():
 	flip.rotation = 0
@@ -72,6 +88,9 @@ func follow_body(xy: Vector2):
 	self.xy = xy
 	body.position *= 0
 
+func add_component(component: BaseComponent) -> void:
+	components.add(component)
+
 func get_component(type) -> BaseComponent:
 	return components.get_component(type)
 
@@ -84,6 +103,17 @@ func play_sound(sound_name: String):
 		sound.go()
 	else:
 		sounds[sound_name].play()
+
+func set_story_variable(key, value):
+	story_variables[key] = value
+
+func get_story_variable(key):
+	if key in story_variables:
+		return story_variables[key]
+	return false
+
+func get_nearby_object(object_name: String) -> BaseObject2D:
+	return map.get_object(object_name)
 
 func stop_sound(sound_name: String):
 	sounds[sound_name].stop()

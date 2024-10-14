@@ -1,0 +1,284 @@
+[gd_scene load_steps=20 format=3 uid="uid://bhsmf5jajpiwx"]
+
+[ext_resource type="PackedScene" uid="uid://d32qqlgba5t66" path="res://worlds/map/BaseMap.tscn" id="1_j24tu"]
+[ext_resource type="Script" path="res://worlds/InfiniteWorld/maps/random_room.gd" id="2_0stkl"]
+[ext_resource type="Script" path="res://worlds/map/MapColors.gd" id="3_rvtdq"]
+[ext_resource type="Script" path="res://worlds/map/MapEntrance.gd" id="4_8umeq"]
+[ext_resource type="Texture2D" uid="uid://dvagedsolu0vi" path="res://Procgen/Map/assets/arrow1.png" id="5_4at03"]
+[ext_resource type="Script" path="res://worlds/InfiniteWorld/maps/ExitArrow.gd" id="5_kbena"]
+[ext_resource type="Texture2D" uid="uid://bjw121h1vdsb8" path="res://Procgen/Map/assets/arrow2.png" id="6_23udm"]
+[ext_resource type="PackedScene" uid="uid://c8lob8qiba1er" path="res://worlds/map/MapExit.tscn" id="8_ihjeg"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_epego"]
+noise_type = 4
+seed = 2045318618
+frequency = 0.200552
+fractal_type = 3
+fractal_gain = 0.354365
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4byve"]
+noise_type = 0
+seed = -499120308
+frequency = 0.0
+fractal_gain = -0.0155229
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pap62"]
+noise_type = 5
+seed = 52348656
+frequency = 0.0
+fractal_type = 2
+fractal_gain = 0.133167
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0de66"]
+noise_type = 0
+seed = 1035416080
+frequency = 0.0
+fractal_type = 3
+fractal_gain = 0.1601
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_skgog"]
+noise_type = 0
+seed = 1993271822
+frequency = 0.0
+fractal_type = 2
+fractal_gain = 0.462795
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ms32p"]
+noise_type = 3
+seed = -192823959
+frequency = 0.0
+fractal_gain = 0.0505164
+
+[sub_resource type="Resource" id="Resource_t1qna"]
+script = ExtResource("3_rvtdq")
+col_1 = Color(0, 0, 0, 1)
+col_2 = Color(0, 0, 1, 1)
+col_3 = Color(0, 1, 0, 1)
+col_4 = Color(1, 1, 1, 1)
+col_highlight = Color(1, 0, 0, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_suo4r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_4at03")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_23udm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5g3e0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w6ltg"]
+size = Vector2(200, 200)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_eyymq"]
+normal = Vector2(1, 0)
+
+[node name="RandomRoom" instance=ExtResource("1_j24tu")]
+script = ExtResource("2_0stkl")
+MAP_SIZE_CELLS = Vector2i(28, 20)
+expand_camera_bounds = true
+noise_1 = SubResource("FastNoiseLite_epego")
+noise_2 = SubResource("FastNoiseLite_4byve")
+noise_3 = SubResource("FastNoiseLite_pap62")
+noise_4 = SubResource("FastNoiseLite_0de66")
+noise_5 = SubResource("FastNoiseLite_skgog")
+noise_6 = SubResource("FastNoiseLite_ms32p")
+map_colors = SubResource("Resource_t1qna")
+
+[node name="WestArrow" type="AnimatedSprite2D" parent="." index="0"]
+visible = false
+z_index = -1
+z_as_relative = false
+position = Vector2(-112, 0)
+rotation = 3.14159
+sprite_frames = SubResource("SpriteFrames_suo4r")
+autoplay = "default"
+offset = Vector2(4.2745, 0)
+script = ExtResource("5_kbena")
+
+[node name="StartupTimer" type="Timer" parent="WestArrow" index="0"]
+wait_time = 0.5
+one_shot = true
+
+[node name="EastArrow" type="AnimatedSprite2D" parent="." index="1"]
+visible = false
+z_index = -1
+z_as_relative = false
+position = Vector2(112, 0)
+sprite_frames = SubResource("SpriteFrames_suo4r")
+autoplay = "default"
+offset = Vector2(4.2745, 0)
+script = ExtResource("5_kbena")
+
+[node name="StartupTimer" type="Timer" parent="EastArrow" index="0"]
+wait_time = 0.5
+one_shot = true
+
+[node name="NorthArrow" type="AnimatedSprite2D" parent="." index="2"]
+visible = false
+z_index = -1
+z_as_relative = false
+position = Vector2(0, -80)
+rotation = -1.5708
+sprite_frames = SubResource("SpriteFrames_suo4r")
+autoplay = "default"
+offset = Vector2(4, 0)
+script = ExtResource("5_kbena")
+flash_offset = 3
+
+[node name="StartupTimer" type="Timer" parent="NorthArrow" index="0"]
+wait_time = 0.5
+one_shot = true
+
+[node name="SouthArrow" type="AnimatedSprite2D" parent="." index="3"]
+visible = false
+z_index = -1
+z_as_relative = false
+position = Vector2(0, 80)
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_suo4r")
+autoplay = "default"
+offset = Vector2(4.2745, 0)
+script = ExtResource("5_kbena")
+flash_offset = 3
+
+[node name="StartupTimer" type="Timer" parent="SouthArrow" index="0"]
+wait_time = 0.5
+one_shot = true
+
+[node name="TileMapLayer" parent="." index="4"]
+z_index = -1
+material = SubResource("ShaderMaterial_5g3e0")
+
+[node name="FloorTiles" type="Marker2D" parent="." index="5"]
+z_index = -4096
+position = Vector2(-108, -76)
+
+[node name="WallTiles" type="Marker2D" parent="." index="6"]
+z_index = -2
+y_sort_enabled = true
+position = Vector2(-108, -76)
+
+[node name="Objects" type="Marker2D" parent="." index="7"]
+y_sort_enabled = true
+position = Vector2(-108, -76)
+
+[node name="CameraBoundsStart" parent="." index="9"]
+position = Vector2(-120, -88)
+
+[node name="CameraBoundsEnd" parent="." index="10"]
+position = Vector2(120, 88)
+
+[node name="WestEntrance" type="Marker2D" parent="." index="11"]
+position = Vector2(-117, 8)
+script = ExtResource("4_8umeq")
+
+[node name="EastEntrance" type="Marker2D" parent="." index="12"]
+position = Vector2(117, 8)
+script = ExtResource("4_8umeq")
+
+[node name="NorthEntrance" type="Marker2D" parent="." index="13"]
+position = Vector2(0, -85)
+script = ExtResource("4_8umeq")
+
+[node name="SouthEntrance" type="Marker2D" parent="." index="14"]
+position = Vector2(0, 85)
+script = ExtResource("4_8umeq")
+
+[node name="CenterEntrance" type="Marker2D" parent="." index="15"]
+script = ExtResource("4_8umeq")
+
+[node name="CenterEntrance2" type="Marker2D" parent="." index="16"]
+script = ExtResource("4_8umeq")
+
+[node name="WestExit" parent="." index="17" instance=ExtResource("8_ihjeg")]
+position = Vector2(-128, 0)
+map = "Room -1_0_0"
+entrance = "EastEntrance"
+
+[node name="CollisionShape2D" parent="WestExit" index="0"]
+position = Vector2(-100, 0)
+shape = SubResource("RectangleShape2D_w6ltg")
+
+[node name="EditorLabel" parent="WestExit" index="1"]
+text = "[center]< [color=00d083ff]Room -1_0_0[/color] >
+< [color=fb6200ff]EastEntrance[/color] >"
+
+[node name="EastExit" parent="." index="18" instance=ExtResource("8_ihjeg")]
+position = Vector2(128, 0)
+map = "Room 1_0_0"
+entrance = "WestEntrance"
+
+[node name="CollisionShape2D" parent="EastExit" index="0"]
+position = Vector2(100, 0)
+shape = SubResource("RectangleShape2D_w6ltg")
+
+[node name="EditorLabel" parent="EastExit" index="1"]
+text = "[center]< [color=00d083ff]Room 1_0_0[/color] >
+< [color=fb6200ff]WestEntrance[/color] >"
+
+[node name="NorthExit" parent="." index="19" instance=ExtResource("8_ihjeg")]
+position = Vector2(0, -96)
+map = "Room 0_-1_0"
+entrance = "SouthEntrance"
+
+[node name="CollisionShape2D" parent="NorthExit" index="0"]
+position = Vector2(0, -100)
+shape = SubResource("RectangleShape2D_w6ltg")
+
+[node name="EditorLabel" parent="NorthExit" index="1"]
+text = "[center]< [color=00d083ff]Room 0_-1_0[/color] >
+< [color=fb6200ff]SouthEntrance[/color] >"
+
+[node name="SouthExit" parent="." index="20" instance=ExtResource("8_ihjeg")]
+position = Vector2(0, 96)
+map = "Room 0_1_0"
+entrance = "NorthEntrance"
+
+[node name="CollisionShape2D" parent="SouthExit" index="0"]
+position = Vector2(0, 100)
+shape = SubResource("RectangleShape2D_w6ltg")
+
+[node name="EditorLabel" parent="SouthExit" index="1"]
+text = "[center]< [color=00d083ff]Room 0_1_0[/color] >
+< [color=fb6200ff]NorthEntrance[/color] >"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." index="21"]
+
+[node name="WestBoundary" type="CollisionShape2D" parent="StaticBody2D" index="0"]
+unique_name_in_owner = true
+position = Vector2(-112, 0)
+shape = SubResource("WorldBoundaryShape2D_eyymq")
+disabled = true
+
+[node name="EastBoundary" type="CollisionShape2D" parent="StaticBody2D" index="1"]
+unique_name_in_owner = true
+position = Vector2(112, 0)
+rotation = -3.14159
+shape = SubResource("WorldBoundaryShape2D_eyymq")
+disabled = true
+
+[node name="NorthBoundary" type="CollisionShape2D" parent="StaticBody2D" index="2"]
+unique_name_in_owner = true
+position = Vector2(0, -80)
+rotation = 1.57079
+shape = SubResource("WorldBoundaryShape2D_eyymq")
+disabled = true
+
+[node name="SouthBoundary" type="CollisionShape2D" parent="StaticBody2D" index="3"]
+unique_name_in_owner = true
+position = Vector2(0, 80)
+rotation = -1.57079
+shape = SubResource("WorldBoundaryShape2D_eyymq")
+disabled = true
+
+[editable path="WestExit"]
+[editable path="EastExit"]
+[editable path="NorthExit"]
+[editable path="SouthExit"]

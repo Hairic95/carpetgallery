@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://btlx8iajpjatb"]
+
+[ext_resource type="PackedScene" uid="uid://blutqyopaowqo" path="res://object/component/interactable_component.tscn" id="1_kcyxt"]
+[ext_resource type="Script" path="res://object/component/DialogueComponent.gd" id="2_iklqj"]
+
+[node name="DialogueComponent" instance=ExtResource("1_kcyxt")]
+script = ExtResource("2_iklqj")
+dialogue_resource = null
+starting_title = "0"

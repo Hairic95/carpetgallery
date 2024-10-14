@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqff2hn61r8t7"]
+
+[ext_resource type="Script" path="res://framework/Autoloads/Debug/DebugLabel.gd" id="1_yw7pw"]
+[ext_resource type="Script" path="res://framework/Autoloads/Debug/debug_history.gd" id="2_vylpg"]
+
+[node name="DebugLayer" type="CanvasLayer"]
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/line_spacing = -1
+theme_override_constants/outline_size = 2
+script = ExtResource("1_yw7pw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Control2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
+mouse_filter = 2
+
+[node name="Control2" type="Control" parent="VBoxContainer/Control2"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="DebugHistory" type="Control" parent="VBoxContainer/Control2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+mouse_filter = 2
+script = ExtResource("2_vylpg")
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2

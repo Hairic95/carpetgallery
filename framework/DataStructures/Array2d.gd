@@ -32,22 +32,22 @@ func clear() -> void:
 			arr.append(row)
 	used_cells = {}
 
-func get_cell(x, y):
-#	if safe and !contains(x, y):
-#		return self.default
+func get_cell(x, y) -> Variant:
+	if !contains(x, y):
+		return self.default
 	var value = arr[y][x]
 	if value == null:
 		used_cells.erase(Vector2i(x, y))
 	return value
 
-func get_cell_v(xy: Vector2i):
+func get_cell_v(xy: Vector2i) -> Variant:
 	return get_cell(xy.x, xy.y)
 
-func get_cell_v_unsafe(xy: Vector2i):
+func get_cell_v_unsafe(xy: Vector2i) -> Variant:
 #	if contains(xy.x, xy.y):
 	return arr[xy.y][xy.x]
 
-func get_cell_unsafe(x: int, y: int):
+func get_cell_unsafe(x: int, y: int) -> Variant:
 #	if contains(xy.x, xy.y):
 	return arr[x][y]
 
@@ -61,6 +61,13 @@ func set_cell(x: int, y: int, value, set_used=true) -> void:
 	arr[y][x] = value
 	if set_used and value != null:
 		used_cells[Vector2i(x, y)] = value
+
+func set_cell_force_used(x, y, value):
+	arr[y][x] = value
+	used_cells[Vector2i(x, y)] = value
+
+func random_coordinate(rng: RandomNumberGenerator) -> Vector2i:
+	return Vector2i(rng.randi() % width, rng.randi() % height)
 
 func neighbors(cell: Vector2i, diagonal=false) -> Array[Vector2i]:
 	var dirs = [Vector2i(1, 0), Vector2i(0, 1), Vector2i(-1, 0), Vector2i(0, -1)]
@@ -100,7 +107,6 @@ func used() -> Array:
 
 func rows() -> Array:
 	return arr
-	
 
 func used_positions() -> Array[Vector2i]:
 	var positions: Array[Vector2i] = []

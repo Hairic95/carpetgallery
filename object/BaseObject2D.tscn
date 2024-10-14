@@ -1,15 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ckdj8lntj2rnd"]
+[gd_scene load_steps=5 format=3 uid="uid://ckdj8lntj2rnd"]
 
 [ext_resource type="Script" path="res://object/BaseObject2D.gd" id="1_we4mw"]
 [ext_resource type="Script" path="res://object/BaseObjectBody2D.gd" id="2_o81ii"]
-[ext_resource type="Shader" path="res://framework/HitFlash.gdshader" id="3_w8llo"]
 [ext_resource type="Script" path="res://framework/FiniteStateMachine/StateMachine2D.gd" id="4_pmtwg"]
 [ext_resource type="Script" path="res://object/component/ComponentContainer.gd" id="5_kc68d"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lh2tm"]
-resource_local_to_scene = true
-shader = ExtResource("3_w8llo")
-shader_parameter/flash = false
 
 [node name="BaseObject2D" type="Node2D"]
 y_sort_enabled = true
@@ -24,7 +18,7 @@ root_node = NodePath("../../Body")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Flip"]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_lh2tm")
+texture_filter = 1
 metadata/_edit_lock_ = true
 
 [node name="Sounds" type="Node2D" parent="Flip"]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://it3rvrkxo16s"]
+
+[ext_resource type="Script" path="res://ui/room browser/3d_room.gd" id="1_4g3ql"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dxy5b"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_color = Color(0.716864, 0.323275, 0.797753, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qx6bm"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_dxy5b")
+size = Vector3(1.4, 1, 0.4)
+
+[node name="3dRoom" type="Node3D"]
+script = ExtResource("1_4g3ql")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_qx6bm")

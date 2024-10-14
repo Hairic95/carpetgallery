@@ -4,65 +4,64 @@ class_name GoodCamera
 
 @export var default_screenshake_amount := 2.0
 @export var default_screenshake_time := 1.0
-#@onready var noise = FastNoiseLite.new()
-#var noise_y = 0
+
+@export var target: Node2D
+@export var smoothing_enabled = false
+@export_range(0.0, 30.0, 0.01, "or_greater") var smoothing_half_life = 1.0
 
 #var shake_tween
 var shake_amount = 0
-var rng = BetterRng.new()
+static var rng = BetterRng.new()
 
-var offsets = []
-var tweens = []
+var offs_dir = Vector2()
+var offs_value = 0
+var shake_freq = 1.0
+var t = 0.0
 
-class Offset extends Object:
-	var value:
-		get:
-			if !random:
-				return dir * amount
-			else:
-				return amount * rng.random_vec()
-	var rng: BetterRng
-	var dir = Vector2()
-	var amount: float = 0
-	var random = false
-	
-func _ready():
+var shake_tween: Tween
+
+func _ready() -> void:
 	rng.randomize()
+	add_to_group("Camera")
+	if target:
+		while target.has_method("get_camera_target"):
+			target = target.get_camera_target()
+		global_position = target.global_position
+		reset_physics_interpolation.call_deferred()
 
-
-func bump(dir:=Vector2(), amount:=default_screenshake_amount, time:=default_screenshake_time):
-
-	var shake_tween = create_tween()
+func bump(dir:=Vector2(), amount:=default_screenshake_amount, time:=default_screenshake_time, frequency=40.0) -> void:
+	if shake_tween:
+		shake_tween.kill()
+	shake_tween = create_tween()
 	shake_tween.set_parallel(false)
 	shake_tween.set_trans(Tween.TRANS_CIRC)
 	shake_tween.set_ease(Tween.EASE_OUT)
-	var offs = Offset.new()
-	offs.dir = dir
-	offs.rng = rng
-	
-	if dir == Vector2():
-		offs.random = true
-	
-	offsets.append(offs)
-	
-	shake_tween.tween_property(offs, "amount", amount, 0.0025)
-	shake_tween.set_trans(Tween.TRANS_ELASTIC)
-	shake_tween.set_ease(Tween.EASE_OUT)
-	
-#	shake_tween.set_parallel(true)
-#	shake_tween.tween_property(self, "shake_amount", 0, time)
-	shake_tween.tween_property(offs, "amount", 0.0, time)
-#	tweens.append(shake_tween)
-	await shake_tween.finished 
-	shake_tween.kill()
-#	offsets.erase(offs)
-	offsets.erase(offs)
-	offs.free()
+	offs_dir = dir * -1
+	t = 0
+	offs_value = amount
+	shake_freq = frequency
+	shake_tween.tween_property(self, "offs_value", 0, time)
 
+func set_bounds(start: Vector2, end: Vector2):
+	limit_left = start.x
+	limit_top = start.y
+	limit_right = end.x
+	limit_bottom = end.y
 
-func _process(delta):
+func _process(delta: float) -> void:
 	offset = Vector2()
-	var offset_values = []
-	for offs in offsets:
-		offset += offs.value
-		offset_values.append(offs.value)
+	if offs_value > 0:
+		t += delta
+		if offs_dir != Vector2():
+			offset += offs_dir * offs_value * sin(shake_freq * t)
+		else:
+			offset += offs_value * rng.random_vec(true)
+
+func _physics_process(delta: float) -> void:
+	if target:
+		#print(smoothing_speed)
+		if smoothing_enabled:
+			var dir = (target.global_position - global_position).normalized()
+			global_position = Math.splerp_vec(global_position, target.global_position, delta, smoothing_half_life)
+		else:
+			global_position = target.global_position

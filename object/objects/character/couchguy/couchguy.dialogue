@@ -1,0 +1,31 @@
+~ west
+%2 Couch Josh: Internet gone... Videogame lore tube essays gone... What's life?
+% Couch Josh: Orb spelled backwards is bro.
+% Couch Josh: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+#if get_var("test")
+#	Couch Jeff: What do you want from me?
+=> END
+
+~ north
+if !vars.lifestory and percent(50)
+	Hugo Big Lungs: I am known for my capacity to inhale, but I hope I'm remembered for my kind heart.
+	do set_var("lifestory", true)
+else
+	%2 Hugo Big Lungs: Huuufff. Huuuuufff.
+	%2 Hugo Big Lungs: Huuuufffff.
+	%2 Hugo Big Lungs: Wheeze.
+	% Hugo Big Lungs: Snort.
+	% Hugo Big Lungs: Huuuuuuhhhhh.
+	% Hugo Big Lungs: Sniff.
+=> END
+
+~ tv
+Television: The hero is surrounded by jubilant townsfolk. His task complete, he receives their cheers as cruel gibes. Thousands dead by his pursuit of the ORB.
+Television: Strong +1
+Television: Brain +1
+Television: Fast +1
+Television: Tough +1
+Television: Magic +1
+Television: Brave +1
+=> END

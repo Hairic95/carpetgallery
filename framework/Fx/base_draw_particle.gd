@@ -13,9 +13,8 @@ signal finished()
 @export var duration_variance: float = 0.25
 
 @export var color: Color = Color.WHITE
-	
 var time: float
-var rng: BetterRng = BetterRng.new()
+static var rng: BetterRng = BetterRng.new()
 	
 #	func apply_forces(delta):
 #		vel += accel * delta
@@ -27,7 +26,7 @@ var rng: BetterRng = BetterRng.new()
 var tweens: Array[Tween] = []
 
 	
-static func ang2vec(angle):
+static func angle_to_vec2(angle):
 	return Vector2(cos(angle), sin(angle))
 	
 static func map(value, istart: float, istop: float, ostart: float, ostop: float):
@@ -63,7 +62,7 @@ func start():
 	tween.tween_callback(emit_signal.bind("finished"))
 		
 func _process(delta):
-	update()
+	queue_redraw()
 
 func setup():
 	pass

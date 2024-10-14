@@ -11,3 +11,10 @@ var aim_local: Vector2:
 var aim_dir: Vector2:
 	get:
 		return aim_local.normalized()
+
+var interact = false
+
+func reset():
+	interact = false
+	move_dir = Vector2()
+	aim_global = Vector2()

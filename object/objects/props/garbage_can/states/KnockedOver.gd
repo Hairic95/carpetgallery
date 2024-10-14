@@ -1,9 +1,9 @@
 extends ObjectState
 
 func _enter():
-#	body.shape.disabled = true
+	object.components.remove(get_component(DialogueComponent))
 	pass
 
 func _update(delta):
-	if body.velocity.length_squared() == 0:
+	if body.velocity.length_squared() <= 0.01:
 		update = false

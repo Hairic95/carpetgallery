@@ -1,0 +1,54 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://cbmpq55a2rjgw"]
+
+[ext_resource type="FontFile" uid="uid://xvat2pp7jfcv" path="res://ui/font/pixel_operator/PixelOperator8.ttf" id="1_hw74h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjkio"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7noq"]
+bg_color = Color(1, 1, 1, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xham"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cigxb"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3p60d"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_akmts"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
+
+[resource]
+default_base_scale = 1.0
+default_font = ExtResource("1_hw74h")
+default_font_size = 8
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/styles/disabled = SubResource("StyleBoxFlat_bjkio")
+Button/styles/focus = SubResource("StyleBoxFlat_o7noq")
+Button/styles/hover = SubResource("StyleBoxFlat_7xham")
+Button/styles/normal = SubResource("StyleBoxFlat_bjkio")
+Button/styles/pressed = SubResource("StyleBoxFlat_cigxb")
+DialogueButton/base_type = &"Button"
+DialogueButton/colors/font_color = Color(0.501961, 0.501961, 0.501961, 1)
+Panel/styles/panel = SubResource("StyleBoxFlat_3p60d")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_akmts")

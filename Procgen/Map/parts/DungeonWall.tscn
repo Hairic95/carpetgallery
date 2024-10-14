@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqntx47benfvg"]
+
+[ext_resource type="Texture2D" uid="uid://bqe85mx7w50vt" path="res://Procgen/Map/assets/dungeon_style_wall/dungeon_wall2.png" id="1_4nsns"]
+[ext_resource type="Shader" path="res://screen_palette.gdshader" id="1_5hg28"]
+[ext_resource type="Script" path="res://Procgen/Map/parts/dungeon_wall.gd" id="2_67em6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4jt4f"]
+shader = ExtResource("1_5hg28")
+shader_parameter/col_1 = Color(0.306923, 0.306923, 0.306923, 1)
+shader_parameter/col_2 = Color(0.190762, 0.190762, 0.190762, 1)
+shader_parameter/col_3 = Color(0.359069, 0.359069, 0.359069, 1)
+shader_parameter/col_4 = Color(1, 1, 1, 1)
+shader_parameter/col_highlight = Color(0.31802, 0.31802, 0.31802, 1)
+shader_parameter/col_highlight2 = Color(0, 0, 0, 1)
+shader_parameter/col_highlight3 = Color(0.724643, 0.724643, 0.724643, 1)
+shader_parameter/tile = 1
+
+[node name="DungeonWall" type="Sprite2D"]
+material = SubResource("ShaderMaterial_4jt4f")
+texture = ExtResource("1_4nsns")
+region_enabled = true
+region_rect = Rect2(48, 0, 8, 8)
+script = ExtResource("2_67em6")
+coords = Vector2i(6, 0)

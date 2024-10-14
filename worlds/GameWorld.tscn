@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://by5c463m57u0r"]
+
+[ext_resource type="Script" path="res://World.gd" id="1_oka5v"]
+[ext_resource type="PackedScene" uid="uid://c4xyucl0qhhel" path="res://object/objects/character/player/PlayerObject.tscn" id="2_3ddsv"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_oka5v")
+
+[node name="PlayerObject" parent="." instance=ExtResource("2_3ddsv")]
+y_sort_enabled = true
+
+[node name="ActiveMap" type="Node2D" parent="."]
+y_sort_enabled = true
+metadata/_edit_lock_ = true
+
+[node name="InactiveMaps" type="SubViewport" parent="."]
+process_mode = 4
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="TransitionScreen" type="ColorRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+metadata/_edit_use_anchors_ = true

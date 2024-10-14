@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_12"
+type="Resource"
+uid="uid://5aw8h7dgn7nt"
+path="res://.godot/imported/garbagecan1.dialogue-ac1c010c24760505e9c2a1632a940a8c.tres"
+
+[deps]
+
+source_file="res://dialogue/garbagecan1.dialogue"
+dest_files=["res://.godot/imported/garbagecan1.dialogue-ac1c010c24760505e9c2a1632a940a8c.tres"]
+
+[params]
+
+defaults=true
