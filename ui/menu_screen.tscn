@@ -1,0 +1,104 @@
+[gd_scene load_steps=6 format=3 uid="uid://bd1yhnn11tfkh"]
+
+[ext_resource type="Script" path="res://worlds/InfiniteWorld/menu_screen.gd" id="1_0jiuc"]
+[ext_resource type="Texture2D" uid="uid://crpnshk7udgap" path="res://ui/main_menu_select.png" id="2_ctnyb"]
+[ext_resource type="FontFile" uid="uid://dedq6nnrq1hg1" path="res://ui/font/pixel_operator/PixelOperator8-Bold.ttf" id="3_kmww1"]
+[ext_resource type="FontFile" uid="uid://dgft7p0iu1uxn" path="res://ui/font/pixel_operator/PixelOperator-Bold.ttf" id="4_wl20h"]
+[ext_resource type="AudioStream" uid="uid://bpxy1am8juuuc" path="res://sound/ui/blip9.wav" id="5_0jt8t"]
+
+[node name="MenuScreen" type="Node2D"]
+script = ExtResource("1_0jiuc")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -37.0
+offset_top = -24.0
+offset_right = 37.0
+offset_bottom = 24.0
+color = Color(0, 0, 0, 0.498039)
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="Pointer" type="Sprite2D" parent="Node2D"]
+unique_name_in_owner = true
+position = Vector2(-32, 8)
+texture = ExtResource("2_ctnyb")
+
+[node name="Start" type="Node2D" parent="Node2D"]
+unique_name_in_owner = true
+position = Vector2(0, 8)
+
+[node name="Label" type="Label" parent="Node2D/Start"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -26.0
+offset_top = -4.0
+offset_right = 27.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_kmww1")
+theme_override_font_sizes/font_size = 8
+text = "resume"
+metadata/_edit_use_anchors_ = true
+
+[node name="Options" type="Node2D" parent="Node2D"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, 16)
+
+[node name="Label" type="Label" parent="Node2D/Options"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -26.0
+offset_top = -4.0
+offset_right = 27.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_kmww1")
+theme_override_font_sizes/font_size = 8
+text = "options"
+
+[node name="Quit" type="Node2D" parent="Node2D"]
+unique_name_in_owner = true
+position = Vector2(0, 24)
+
+[node name="Label" type="Label" parent="Node2D/Quit"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -26.0
+offset_top = -4.0
+offset_right = 27.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_kmww1")
+theme_override_font_sizes/font_size = 8
+text = "quit"
+
+[node name="Label2" type="Label" parent="Node2D"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -68.0
+offset_right = 36.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_wl20h")
+theme_override_font_sizes/font_size = 16
+text = "THE TITLE OF GAME"
+horizontal_alignment = 1
+
+[node name="Blip" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_0jt8t")
+volume_db = -10.0
+pitch_scale = 2.0
+bus = &"Fx"

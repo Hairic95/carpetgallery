@@ -1,0 +1,79 @@
+[gd_scene load_steps=3 format=3 uid="uid://beak3m83k0m1c"]
+
+[ext_resource type="Script" path="res://ui/room browser/room_options.gd" id="1_4pvlm"]
+[ext_resource type="FontFile" uid="uid://xvat2pp7jfcv" path="res://ui/font/pixel_operator/PixelOperator8.ttf" id="2_nfeo3"]
+
+[node name="RoomOptions" type="Node2D"]
+script = ExtResource("1_4pvlm")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="CoordsLabel" type="Label" parent="Node2D"]
+unique_name_in_owner = true
+offset_right = 67.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_nfeo3")
+theme_override_font_sizes/font_size = 8
+text = "0, 0"
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Node2D2" type="Node2D" parent="."]
+
+[node name="AmplitudeLabel" type="Label" parent="Node2D2"]
+unique_name_in_owner = true
+offset_right = 67.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_nfeo3")
+theme_override_font_sizes/font_size = 8
+text = "0, 0"
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Node2D3" type="Node2D" parent="."]
+
+[node name="NumObjectsLabel" type="Label" parent="Node2D3"]
+unique_name_in_owner = true
+offset_right = 67.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_nfeo3")
+theme_override_font_sizes/font_size = 8
+text = "0, 0"
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Node2D4" type="Node2D" parent="."]
+
+[node name="NumPeopleLabel" type="Label" parent="Node2D4"]
+unique_name_in_owner = true
+offset_right = 67.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_nfeo3")
+theme_override_font_sizes/font_size = 8
+text = "0, 0"
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Node2D5" type="Node2D" parent="."]
+
+[node name="PeopleClassLabel" type="Label" parent="Node2D5"]
+unique_name_in_owner = true
+offset_right = 67.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_nfeo3")
+theme_override_font_sizes/font_size = 8
+text = "0, 0"
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Node2D6" type="Node2D" parent="."]
+
+[node name="DoorClassLabel" type="Label" parent="Node2D6"]
+unique_name_in_owner = true
+offset_right = 67.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_nfeo3")
+theme_override_font_sizes/font_size = 8
+text = "0, 0"
+visible_characters = 0
+visible_ratio = 0.0

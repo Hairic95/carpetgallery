@@ -64,6 +64,8 @@ bg_color = Color(0, 0, 0, 1)
 [node name="ExampleBalloon" type="CanvasLayer"]
 layer = 100
 script = ExtResource("4_nlrm7")
+next_action = &"primary"
+skip_action = &"primary"
 
 [node name="Balloon" type="Control" parent="."]
 unique_name_in_owner = true
@@ -73,9 +75,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
-offset_top = -38.0
+offset_top = -34.0
 offset_right = -4.0
-offset_bottom = -6.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = SubResource("Theme_67qjn")
@@ -146,6 +148,7 @@ layout_mode = 2
 text = "Response Example"
 
 [node name="Control" type="Control" parent="Balloon/Panel/Control"]
+visible = false
 anchors_preset = 0
 offset_right = 36.0
 

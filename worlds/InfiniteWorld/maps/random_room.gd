@@ -100,6 +100,7 @@ var color_scheme_3 := 0
 var color_scheme_4 := 0
 var color_scheme_5 := 0
 var num_total_objects = 0
+var num_total_people = 0
 #var floor_color_indices = {}
 var floor_color_weights = {}
 
@@ -108,7 +109,11 @@ var most_used_color_scheme: ColorGradient
 var occupied_coords = {}
 var generated := false
 
+var has_dialogue
+var has_door
+
 var placed_object_index = 0
+var music_pitch = 1.0
 var total_placed_objects_this_set = 0
 var placed_object_ratio:
 	get:
@@ -148,8 +153,8 @@ var seed: int = 0
 func _ready() -> void:
 	super._ready()
 	update_positions()
-	wall_tiles.visible = !PersistentData.hide_border
-	PersistentData.hide_border_setting_changed.connect(func(): wall_tiles.visible = !PersistentData.hide_border)
+	wall_tiles.visible = !Config.hide_border
+	Config.hide_border_setting_changed.connect(func(): wall_tiles.visible = !PersistentData.hide_border)
 	#tile_map_layer.clear()
 
 func _process(delta: float) -> void:
@@ -213,9 +218,9 @@ func initialize_generation():
 	
 	west_exit.map = RoomInfo.coords_to_name(Vector3i(-1, 0, 0) + room_coords)
 	east_exit.map = RoomInfo.coords_to_name(Vector3i(1, 0, 0) + room_coords)
-	north_exit.map = RoomInfo.coords_to_name(Vector3i(0, -1, 0) + room_coords)
-	south_exit.map = RoomInfo.coords_to_name(Vector3i(0, 1, 0) + room_coords)
-	
+	north_exit.map = RoomInfo.coords_to_name(Vector3i(0, 1, 0) + room_coords)
+	south_exit.map = RoomInfo.coords_to_name(Vector3i(0, -1, 0) + room_coords)
+
 	rng_meta.seed = seed
 	rng_color.seed = seed
 	rng_pattern.seed = seed + 1
@@ -283,6 +288,7 @@ func generate_audio_normal() -> void:
 	footstep_sound = rng_audio.weighted_choice_dict(AudioGen.footstep_sounds)
 	if pow(amplitude, 2) > 0.6 or num_total_objects >= rng_audio.randfn(10, 1) and rng_audio.percent(90):
 		music_stream = rng_audio.choose(AudioGen.music)
+	music_pitch = rng_audio.choose([0.5, 1.0, 1.0, 1.5])
 
 
 func generate_floors_normal() -> void:
@@ -304,6 +310,15 @@ func generate_floors_normal() -> void:
 	var tile_pattern: Callable = rng_pattern.weighted_choice_dict(rng_pattern.choose(pattern_dicts))
 	var wall_pattern: Callable = rng_pattern.weighted_choice_dict(rng_pattern.choose(pattern_dicts))
 
+#
+	var pattern_rotation = 0.0 if rng_pattern.percent(50) else rng_pattern.random_angle_centered()
+	#var color_pattern_rotation = 0.0 if rng_pattern.percent(75) else rng_pattern.random_angle()
+	#var v_flip_pattern_rotation = 0.0 if rng_pattern.percent(75) else rng_pattern.random_angle()
+	#var h_flip_pattern_rotation = 0.0 if rng_pattern.percent(75) else rng_pattern.random_angle()
+	#var rotate_pattern_rotation = 0.0 if rng_pattern.percent(75) else rng_pattern.random_angle()
+	#var tile_pattern_rotation = 0.0 if rng_pattern.percent(75) else rng_pattern.random_angle()
+	#var wall_pattern_rotation = 0.0 if rng_pattern.percent(75) else rng_pattern.random_angle()
+	#var texture_pattern_rotation = 0.0 if rng_pattern.percent(75) else rng_pattern.random_angle()
 
 	var base_color_scheme = rng_pattern.randi() % num_color_schemes
 	
@@ -320,9 +335,14 @@ func generate_floors_normal() -> void:
 	var wall_pattern_index_multiplier = rng_pattern.randi()
 
 	var texture_conforms_to_color = rng_pattern.chance(0.5)
+	var center = floor_map.size / 2
 	
-	var get_pattern_index = func(callable: Callable, x:int, y:int, multiplier: int) -> int:
-		return ((base_color_scheme + callable.call(x, y)) * multiplier) % num_color_schemes
+	var get_pattern_index = func(callable: Callable, x:int, y:int, multiplier: int,rotation=null) -> int:
+		if rotation != null:
+			pattern_rotation = rotation
+		var adjusted = center + Vector2i((Vector2(x, y) - Vector2(center)).rotated(pattern_rotation))
+
+		return ((base_color_scheme + callable.call(adjusted.x, adjusted.y)) * multiplier) % num_color_schemes
 		
 	var tiled_materials = []
 
@@ -507,7 +527,6 @@ func generate_floors_normal() -> void:
 	
 	
 	var solid_cells = []
-	var pattern_mul = rng_pattern.randi()
 
 	var entrance_neighbors = []
 
@@ -517,9 +536,11 @@ func generate_floors_normal() -> void:
 			entrance_neighbors.append(entrance_cell + neighbor)
 	var CONNECTIONS_NEEDED = entrance_cells.size()
 
-	if rng_pattern.percent(90):
+	if rng_pattern.percent(70):
 		for i in range(int(rng_pattern.randfn(1, 2))):
 			for j in range(3):
+				var pattern_mul = rng_pattern.randi()
+				var erase_rotation = rng_pattern.choose([0, rng_pattern.random_angle_centered(), pattern_rotation])
 				solid_cells.clear()
 				astar.clear()
 				astar.region = Rect2i(-1, -1, MAP_SIZE_CELLS.x+2, MAP_SIZE_CELLS.y+2)
@@ -544,7 +565,7 @@ func generate_floors_normal() -> void:
 						continue
 					if cell in entrance_neighbors:
 						continue
-					var solid = (pattern.call(cell.x, cell.y) * pattern_mul) % 2 == 0 and !(erase_pattern.call(cell.x, cell.y) * pattern_mul) % 2 == 0
+					var solid = (get_pattern_index.call(pattern, cell.x, cell.y, pattern_mul)) % 2 == 0 and !(get_pattern_index.call(erase_pattern, cell.x, cell.y, pattern_mul, erase_rotation)) % 2 == 0
 					if solid:
 						astar.set_point_solid(cell, true)
 						solid_cells.append(cell)
@@ -656,6 +677,8 @@ func get_non_noise_pattern_weights() -> Dictionary:
 		pattern_diamond_grid.bind(rng_pattern.randi_range(1, 10)): 1,
 		pattern_spiral.bind(rng_pattern.randf_range(0.0, 2.0)): 1,
 		pattern_diagonal_cross.bind(rng_pattern.randi_range(2, 10), rng_pattern.randi_range(2, 10)): 3,
+		#pattern_random: 10,
+		pattern_random_weighted.bind(int(clamp(abs(rng_pattern.randfn(3, 10)), 2, 50))): 10,
 	}
 	
 func random_noise_pattern(rng: BetterRng) -> Callable:
@@ -677,6 +700,12 @@ func random_noise(rng: BetterRng) -> FastNoiseLite:
 		noise_5,
 		noise_6,
 	])
+
+func pattern_random(x: int, y: int) -> int:
+	return rng_pattern.randi()
+
+func pattern_random_weighted(x: int, y:int, mod:int) -> int:
+	return 2 if rng_pattern.randi() % mod == 0 else 1
 
 func pattern_solid_color(x: int, y: int) -> int:
 	return 1
@@ -757,15 +786,15 @@ func pattern_diamond_grid(x: int, y: int, size: int) -> int:
 func generate_objects_normal():
 	#if pow(amplitude, 2) < MIN_AMPLITUDE_FOR_OBJECT_GENERATION:
 		#return
-	#if rng_object.percent(75):
+	#if rng_object.percent(20):
 		#return
 	
 	const MAX_PATTERN_COUNT = 4
 
-	var num_object_sets := int(clampf((rng_object.randfn(2, 4)), 0, 5) * pow(amplitude, 2))
-	var num_people_sets := mini(int(clampf(abs(rng_object.randfn(1, 1)) * pow(amplitude, 4), 0, 10)), num_object_sets)
+	var num_object_sets := int(clampf((rng_object.randfn(2, 3)), 0, 5) * pow(amplitude, 1.5))
+	var num_people_sets := mini(int(clampf(abs(rng_object.randfn(0.5, 1.)) * pow(amplitude, 1.75), 0, 10)), num_object_sets)
 	num_total_objects = 0
-	var num_total_people := 0
+	num_total_people = 0
 	
 	var object_behavior_weights = get_object_behavior_weights()
 			
@@ -791,16 +820,23 @@ func generate_objects_normal():
 		var num_objects = int(clampf(abs(rng_object.randfn(4, 2)), 1, 100))
 		if is_person:
 			num_objects *= rng_object.randf_range(0.1, 1.0)
-		if rng_object.percent(50) and amplitude > 0.5:
+		if rng_object.percent(25) and amplitude > 0.5:
 			num_objects *= rng_object.randfn(4.0, 3.0)
 		num_objects = int(max(num_objects, 1))
 		
 		var tile_array = SpriteGen.object_tiles if !(is_person) else SpriteGen.person_tiles
-		if rng_object.percent(1):
+		if rng_object.percent(5):
 			tile_array = SpriteGen.object_tiles
 		
 		var object_sprite_index = rng_object.choose_index(tile_array, 2)
 		
+		if tile_array[object_sprite_index] == preload("res://Procgen/Object/assets/object3.png"):
+			if rng_object.percent(80):
+				object_sprite_index = rng_object.choose_index(tile_array, 2)
+			else:
+				num_objects = 1
+				break
+			
 		var idle_loop_speed = clamp(rng_object.randfn(1.0, 2.5), 0.1, 10.0)
 		var walk_loop_speed = rng_object.randfn(0.25, 0.25)
 		var idle_2nd_texture = true
@@ -813,17 +849,40 @@ func generate_objects_normal():
 		
 		var swap_textures = rng_object.percent(50)
 		
+		var flip_percent = rng_object.randfn(50, 30)
+		var start_flip = rng_object.coin_flip()
+		
 		total_placed_objects_this_set = num_objects
 
+		var dialogue_corpus: DialogueCorpus
+		var theme_corpus: DialogueCorpus
+		var markov: MarkovChainGenerator
+		
+		var can_have_dialogue = rng_person.percent(96)
+		
+		if is_person:
+			dialogue_corpus = rng_person.choose(Corpus.corpus_resource.dialogue_corpora)
+			theme_corpus = rng_person.choose(Corpus.corpus_resource.theme_corpora)
+			markov = MarkovChainGenerator.new()
+			markov.process_corpus(dialogue_corpus.lines)
+		
+		var dialogue_chance = clampf(rng_person.randfn(50.0, 25), 0, 100)
 		placed_object_index = 0
 		for j in range(num_objects):
 			
-			if rng_object.percent(0.1):
-				is_person = true
+			var object_is_person = is_person
+			
+			if rng_object.percent(0.25):
+				if !object_is_person:
+					dialogue_corpus = rng_person.choose(Corpus.corpus_resource.dialogue_corpora)
+					theme_corpus = rng_person.choose(Corpus.corpus_resource.theme_corpora)
+					markov = MarkovChainGenerator.new()
+					markov.process_corpus(dialogue_corpus.lines)
+				object_is_person = true
 			
 			var object = BASE_OBJECT.instantiate()
 			object.auto_setup_components = false
-			object.start_flipped = rng_pattern.percent(50)
+			object.start_flipped = start_flip if rng_pattern.percent(flip_percent) else !start_flip
 			object_holder.add_child(object)
 			
 			# mutate
@@ -835,15 +894,21 @@ func generate_objects_normal():
 
 			
 			var frames = SpriteFrames.new()
-			
 			var texture_1 = tile_array[new_object_sprite_index]
 			var texture_2 = tile_array[new_object_sprite_index + 1]
 		
 			var disable_collision = texture_1 in [
 				preload("res://Procgen/Object/assets/object33.png"),
 			]
-		
-			if swap_textures or rng_object.percent(5.0):
+			
+			if texture_1 == preload("res://Procgen/Object/assets/object51.png"):
+				object.rng = BetterRng.new()
+				object.rng.state = rng_object.state
+				rng_object.randi()
+				object.add_component(preload("res://object/component/RandomFastTravelDoorComponent.tscn").instantiate())
+				has_door = true
+			
+			if swap_textures:
 				texture_2 = tile_array[new_object_sprite_index]
 				texture_1 = tile_array[new_object_sprite_index + 1]
 			
@@ -880,6 +945,32 @@ func generate_objects_normal():
 			
 			behavior.call(object)
 
+			if is_person:
+				num_total_people += 1
+
+			if object_is_person and rng_person.percent(80) and can_have_dialogue:
+				has_dialogue = true
+				var text = "~ words\n"
+				#for k in max(abs(rng_person.randfn(1, 2.0)), 1):
+				var dialogue: String
+				if rng_person.percent(50):
+					dialogue = Corpus.generate_dialogue(rng_person, theme_corpus, markov)
+				else:
+					dialogue = Corpus.process_dialogue(rng_person.choose(dialogue_corpus.lines), theme_corpus, rng_person)
+					
+				#var weight = max(rng_person.randfn(1.0, 5.0), 1.0)
+				#weight_dict[dialogue] = int(weight)
+				text += "person: " + dialogue.strip_edges() + "\n"
+				
+				text += "=> END"
+				
+				var dialogue_component = preload("res://object/component/DialogueComponent.tscn").instantiate()
+				var dialogue_resource = DialogueManager.create_resource_from_text(text)
+				dialogue_component.dialogue_resource = dialogue_resource
+				dialogue_component.starting_title = "words"
+				object.add_component(dialogue_component)
+				
+
 			var placement_cell: Vector2i
 			var placement_func = placement
 			
@@ -887,10 +978,10 @@ func generate_objects_normal():
 			
 			for k in range(1000):
 				if k > 100:
-					placement_func = rng_pattern.weighted_choice_dict(placement_dict)
+					placement_func = rng_pattern.choose(placement_dict.keys())
 				placement_cell = placement_func.call()
 				while placement_cell.x < 1 or placement_cell.x > MAP_SIZE_CELLS.x - 1 or placement_cell.y < 1 or placement_cell.y > MAP_SIZE_CELLS.y - 1:
-					placement_cell = rng_pattern.weighted_choice_dict(placement_dict).call()
+					placement_cell = rng_pattern.choose(placement_dict.keys()).call()
 
 				if !(placement_cell in occupied_coords):
 					occupied_coords[placement_cell] = true
@@ -903,8 +994,7 @@ func generate_objects_normal():
 			object.position = placement_pos
 			object.components.setup()
 			placed_object_index += 1
-			if is_person:
-				num_total_people += 1
+
 			
 			
 		num_total_objects += num_objects
@@ -921,12 +1011,16 @@ func object_behavior_do_nothing(object: BaseObject2D) -> void:
 
 
 func get_object_placement_weights() -> Dictionary:
+
 	return {
 		object_placement_random: 500,
 		object_placement_cluster.bind(object_placement_random(), absf(rng_pattern.randfn(1.0, 5.0))): 1000,
 		object_placement_noise.bind(random_noise(rng_pattern), min(rng_pattern.randfn(0.8, 0.25), 1.0)): 500,
-		object_placement_ring.bind(object_placement_random(), max(absf(rng_pattern.randfn(2.0, 5.0)), 1.0), randf() * TAU, rng_pattern.rand_sign()): 1000,
+		object_placement_ring.bind(object_placement_random(), max(absf(rng_pattern.randfn(2.0, 5.0)), 1.0), rng_pattern.randf() * TAU, rng_pattern.rand_sign()): 1000,
 		object_placement_terrain_pattern.bind(rng_pattern.weighted_choice_dict(rng_pattern.choose(object_terrain_pattern_dicts)), rng_pattern.randi()): 1000,
+		#object_placement_spiral.bind(object_placement_random(), int(max(absf(rng_pattern.randfn(15.0, 30.0)), 3.0)), clamp(abs(rng_pattern.randfn(2.0, 5.0)), 1.0, 5.0), clamp(abs(rng_pattern.randfn(2.0, 5.0)), 1.0, 5.0)): 500,
+		object_placement_grid.bind(object_placement_random(), rng_pattern.rand_sign(), rng_pattern.rand_sign(), int(max(absf(rng_pattern.randfn(5.0, 6.0)), 1.0)), clamp(abs(rng_pattern.randfn(3.0, 5.0)), 1.0, 13.0), clamp(abs(rng_pattern.randfn(3.0, 5.0)), 1.0, 13.0), rng_pattern.coin_flip()): 1200,
+		object_placement_line.bind(object_placement_random(), rng_pattern.random_vec(true), rng_pattern.randf_range(1, 5)): 500
 	}
 
 func object_placement_noise(noise: FastNoiseLite, start_threshold: float) -> Vector2i:
@@ -958,9 +1052,37 @@ func object_placement_terrain_pattern(pattern, multiplier) -> Vector2i:
 		var y = rng_pattern.randi()
 		if (multiplier * pattern.call(x, y)) % 2 == 0:
 			return Vector2i(x, y)
-		
 	return object_placement_random()
+
+func object_placement_line(start: Vector2i, dir: Vector2, spacing: int):
+	if total_placed_objects_this_set < 3:
+		return object_placement_random()
+	var line = Shape.line(Vector2i(), Vector2i(dir * total_placed_objects_this_set), true)
+	if placed_object_index >= line.size() / spacing:
+		return object_placement_random()
+	return start + line[placed_object_index]
+
+func object_placement_grid(start: Vector2i, h_dir: int, v_dir: int, width: int, h_sep: int, v_sep: int, rotate_dir: bool) -> Vector2i:
+	var y = placed_object_index / width
+	var x = placed_object_index % width
 	
+	if rotate_dir:
+		y = placed_object_index % width
+		x = placed_object_index % width
+	
+	return start + Vector2i(x * h_dir * h_sep, y * v_dir * v_sep)
+
+func object_placement_spiral(center: Vector2i, size: int, width_mod: int, height_mod: int) -> Vector2i:
+	var spiral = Spiral.new(size)
+	var c = 0
+	for xy in spiral:
+		if c == placed_object_index:
+			return center + xy * Vector2i(width_mod, height_mod)
+
+		c += 1
+	
+	return object_placement_random()
+
 
 # TODO: separate placement functions for objects vs people
 
@@ -1021,9 +1143,10 @@ func on_player_entered():
 	south_arrow.startup_timer.start()
 	if !generated:
 		await generation_finished
-	AudioGen.play_song(music_stream)
+	AudioGen.play_song(music_stream, music_pitch)
 	PersistentData.add_memory(self)
 	PersistentData.player_room_coords = room_coords
+	PersistentData.save_game()
 
 func closest_unoccupied_cell_to_center():
 	var avg = Vector2i()

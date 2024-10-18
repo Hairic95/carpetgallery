@@ -14,6 +14,7 @@ var aim_dir: Vector2:
 
 var interact = false
 
+
 func reset():
 	interact = false
 	move_dir = Vector2()

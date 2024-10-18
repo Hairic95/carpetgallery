@@ -5,7 +5,6 @@ extends Node
 @onready var game_view: GameView = %GameView
 
 func _ready() -> void:
-	#ProjectSettings.set("rendering/environment/defaults/default_clear_color", Color.BLACK)
 	
 	var screen := start_screen
 	
@@ -16,7 +15,6 @@ func _ready() -> void:
 	game_view.screen_transition_end(GameView.ScreenTransitionType.Fade)
 
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
-	
 
 func _on_focus_changed(node: Control) -> void:
 	#print(node)

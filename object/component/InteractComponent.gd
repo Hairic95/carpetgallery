@@ -35,8 +35,9 @@ func _process(delta: float) -> void:
 	if component and component.object:
 		var tex = component.get_interact_texture()
 		# TODO: make the texture its own node
-		sprite.global_position = (component.object.xy) + Vector2(0, -14) - (tex.get_size() / 2)
+		sprite.global_position = (component.object.xy) + Vector2(0, -17)
 		sprite.texture = tex
+		sprite.z_index = 10
 		sprite.show()
 
 func update_sprite_parent():

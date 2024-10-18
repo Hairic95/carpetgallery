@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://f66jd6jmjdww"]
+
+[ext_resource type="Theme" uid="uid://cbmpq55a2rjgw" path="res://ui/theme.tres" id="1_mv8bp"]
+
+[node name="TextEdit" type="LineEdit"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -42.0
+offset_top = 3.0
+offset_right = 42.0
+offset_bottom = 13.0
+grow_horizontal = 2
+theme = ExtResource("1_mv8bp")
+placeholder_text = "17 -38"
+alignment = 1
+expand_to_text_length = true
+caret_blink = true
+caret_blink_interval = 0.2

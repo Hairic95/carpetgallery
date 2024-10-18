@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://vlktod5eq55c"]
+
+[ext_resource type="Script" path="res://ui/room browser/map_option.gd" id="1_c53mm"]
+[ext_resource type="FontFile" uid="uid://xvat2pp7jfcv" path="res://ui/font/pixel_operator/PixelOperator8.ttf" id="1_h1pq4"]
+
+[node name="MapOption" type="Node2D"]
+script = ExtResource("1_c53mm")
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -4.0
+offset_right = 65.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_h1pq4")
+theme_override_font_sizes/font_size = 8
+text = "MapOption"
+horizontal_alignment = 1

@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnhq53p2ec1gj"]
+
+[ext_resource type="PackedScene" uid="uid://blutqyopaowqo" path="res://object/component/interactable_component.tscn" id="1_sen0b"]
+[ext_resource type="Script" path="res://object/component/random_fast_travel_door_component.gd" id="2_g0ps6"]
+
+[node name="InteractableComponent" instance=ExtResource("1_sen0b")]
+script = ExtResource("2_g0ps6")

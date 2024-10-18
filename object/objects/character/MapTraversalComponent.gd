@@ -2,6 +2,8 @@ extends BaseComponent
 
 class_name MapTraversalComponent
 
+signal fast_travel_initiated(coords: Vector3i)
+
 @onready var area = $Area2D
 
 

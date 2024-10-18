@@ -2,24 +2,50 @@ extends CanvasLayer
 
 class_name PauseScreenLayer
 
+signal exit_requested
+
 @export var player: BaseObject2D
 @export var camera: GoodCamera
 @export var world: InfiniteWorld
 #@onready var pause_screen: PauseScreen = %PauseScreen
+@export var room_browser: RoomBrowser2D
+@onready var pause_screen: PauseScreen = %PauseScreen
+@onready var menu_screen: MenuScreen = $MenuScreen
 
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var menu_open = false
 
+func _ready():
+	room_browser.exit.connect(_on_room_browser_exit)
+	pass
+
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("pause") and !world.transitioning:
+	if !world.transitioning and !player.get_component(PlayerControlComponent).busy:
 		if !menu_open:
-			menu_open = true
-			player.get_component(PlayerControlComponent).busy = true
-			
-			animation_player.play("Pause")
-		else:
-			menu_open = false
-			player.get_component(PlayerControlComponent).busy = false
-			animation_player.play("Unpause")
+			if Input.is_action_just_pressed("secondary"):
+				menu_open = true
+				player.get_component(PlayerControlComponent).busy = true
+				
+				animation_player.play("Pause")
+			if Input.is_action_just_pressed("menu"):
+				open_menu_screen.call_deferred()
+
+func open_menu_screen():
+	menu_open = true
+	player.get_component(PlayerControlComponent).busy = true
+	menu_screen.open()
+	var selection = await menu_screen.option_selected
+	if selection == "resume":
+		menu_screen.close()
+		menu_open = false
+		player.get_component(PlayerControlComponent).busy = false
+	if selection == "quit":
+		exit_requested.emit()
+
+
+func _on_room_browser_exit():
+	menu_open = false
+	player.get_component(PlayerControlComponent).busy = false
+	animation_player.play("Unpause")

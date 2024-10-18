@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cxr6ncr17xqdn"]
+[gd_scene load_steps=11 format=3 uid="uid://cxr6ncr17xqdn"]
 
 [ext_resource type="Script" path="res://ui/pause_screen.gd" id="1_425c8"]
 [ext_resource type="Theme" uid="uid://cbmpq55a2rjgw" path="res://ui/theme.tres" id="1_l50wy"]
 [ext_resource type="PackedScene" uid="uid://bhlbnqxjhlfxi" path="res://ui/room browser/room_browser_2d.tscn" id="3_f3hq1"]
+[ext_resource type="AudioStream" uid="uid://bovw2pb6e5mh1" path="res://sound/ui/zoom out.wav" id="4_nigu7"]
+[ext_resource type="AudioStream" uid="uid://l7gqhi2beff4" path="res://sound/ui/zoom in.wav" id="5_cls1d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jy06a"]
 bg_color = Color(0, 0, 0, 1)
@@ -38,7 +40,7 @@ tracks/1/keys = {
 resource_name = "Close"
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath("Panel2:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -92,9 +94,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ut457"]
 _data = {
-&"Open": SubResource("Animation_sxjok"),
 &"RESET": SubResource("Animation_kvhaf"),
-&"Close": SubResource("Animation_gludp")
+&"Close": SubResource("Animation_gludp"),
+&"Open": SubResource("Animation_sxjok")
 }
 
 [node name="PauseScreen" type="Control"]
@@ -104,6 +106,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("1_l50wy")
 script = ExtResource("1_425c8")
 metadata/_edit_lock_ = true
@@ -115,6 +118,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
@@ -125,6 +129,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 stretch = true
 metadata/_edit_lock_ = true
 
@@ -143,9 +148,9 @@ unique_name_in_owner = true
 
 [node name="Panel2" type="PanelContainer" parent="."]
 layout_mode = 2
-offset_top = 156.0
+offset_top = 176.0
 offset_right = 240.0
-offset_bottom = 176.0
+offset_bottom = 196.0
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_jy06a")
 
@@ -153,3 +158,17 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_jy06a")
 libraries = {
 &"": SubResource("AnimationLibrary_ut457")
 }
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Open" type="AudioStreamPlayer" parent="Sounds"]
+unique_name_in_owner = true
+stream = ExtResource("4_nigu7")
+volume_db = -15.0
+bus = &"Fx"
+
+[node name="Close" type="AudioStreamPlayer" parent="Sounds"]
+unique_name_in_owner = true
+stream = ExtResource("5_cls1d")
+volume_db = -15.0
+bus = &"Fx"

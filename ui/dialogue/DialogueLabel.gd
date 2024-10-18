@@ -37,7 +37,7 @@ func _type_next(delta: float, seconds_needed: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if self.is_typing and visible_ratio < 1 and visible_characters > 0 and event.is_action_pressed(skip_action):
-		get_viewport().set_input_as_handled()
+		#get_viewport().set_input_as_handled()
 
 		# Run any inline mutations that haven't been run yet
 		for i in range(visible_characters, get_total_character_count()):

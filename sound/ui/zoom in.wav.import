@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://l7gqhi2beff4"
+path="res://.godot/imported/zoom in.wav-dd69a02bcea7123455132b05b3c3dcd3.sample"
+
+[deps]
+
+source_file="res://sound/ui/zoom in.wav"
+dest_files=["res://.godot/imported/zoom in.wav-dd69a02bcea7123455132b05b3c3dcd3.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

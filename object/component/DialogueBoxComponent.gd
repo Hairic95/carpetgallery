@@ -22,11 +22,15 @@ func _start(dialogue: DialogueResource, title: String, extra = []):
 #	window.tree_exited.connect(set.bind("window", null))
 #	object.world.process_mode = PROCESS_MODE_DISABLED
 	window.start(dialogue, title, extra)
+	object.get_component(PlayerControlComponent).busy = true
+	object.get_component(CharacterIntentComponent).interact = false
 	active = true
 
 func end():
 	get_component(CharacterIntentComponent).reset()
 	get_component(InteractComponent).reset()
+	object.get_component(PlayerControlComponent).busy = false
+	object.get_component(PlayerControlComponent).interact_timer.start()
 	active = false
 #	object.world.process_mode = PROCESS_MODE_INHERIT
 	if window:

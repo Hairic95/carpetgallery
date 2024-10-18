@@ -5,6 +5,7 @@ var arr: Array = []
 var width
 var height
 var length
+var size: Vector2i
 var default
 var used_cells: Dictionary
 
@@ -15,6 +16,7 @@ func _init(w, h, default=null):
 	self.width = w
 	self.height = h
 	self.length = w * h
+	self.size = Vector2i(w, h)
 	self.default = default
 	clear()
 

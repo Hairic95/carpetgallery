@@ -99,7 +99,8 @@ func _ready() -> void:
 
 func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing
-	get_viewport().set_input_as_handled()
+	#get_viewport().set_input_as_handled()
+	pass
 
 
 func _notification(what: int) -> void:
@@ -137,22 +138,34 @@ func _on_mutated(_mutation: Dictionary) -> void:
 			balloon.hide()
 	)
 
+func _physics_process(delta: float) -> void:
+	if dialogue_label.is_typing:
+		if Input.is_action_just_pressed(skip_action):
+			dialogue_label.skip_typing()
+
+	if not is_waiting_for_input: return
+	if dialogue_line.responses.size() > 0: return
+
+	if Input.is_action_just_pressed(next_action):
+		next(dialogue_line.next_id)
+	elif Input.is_action_just_pressed(next_action):
+		next(dialogue_line.next_id)
 
 func _on_balloon_gui_input(event: InputEvent) -> void:
 	# See if we need to skip typing of the dialogue
-	if dialogue_label.is_typing:
-		var mouse_was_clicked: bool = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()
-		var skip_button_was_pressed: bool = event.is_action_pressed(skip_action)
-		if mouse_was_clicked or skip_button_was_pressed:
-			get_viewport().set_input_as_handled()
-			dialogue_label.skip_typing()
-			return
+	#if dialogue_label.is_typing:
+		#var mouse_was_clicked: bool = event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed()
+		#var skip_button_was_pressed: bool = event.is_action_pressed(skip_action)
+		#if mouse_was_clicked or skip_button_was_pressed:
+			#get_viewport().set_input_as_handled()
+			#dialogue_label.skip_typing()
+			#return
 
 	if not is_waiting_for_input: return
 	if dialogue_line.responses.size() > 0: return
 
 	# When there are no response options the balloon itself is the clickable thing
-	get_viewport().set_input_as_handled()
+	#get_viewport().set_input_as_handled()
 
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 		next(dialogue_line.next_id)

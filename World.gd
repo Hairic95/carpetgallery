@@ -66,7 +66,7 @@ func activate_map(map: String) -> void:
 	active_map.on_player_entered()
 
 
-func map_transition(map: String) -> void:
+func map_transition(map: String, fade=true) -> void:
 	transitioning = true
 	transition_screen.color = Color("00000000")
 	active_map_node.process_mode = Node.PROCESS_MODE_DISABLED
@@ -76,7 +76,7 @@ func map_transition(map: String) -> void:
 	started_map_transition.emit(old_map, new_map)
 	#tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	tween.set_parallel(false)
-	tween.tween_property(transition_screen, "color", Color("000000ff"), 0.1)
+	tween.tween_property(transition_screen, "color", Color("000000ff" if fade else "00000000"), 0.1)
 	await tween.finished
 
 	await activate_map(map)
@@ -85,7 +85,7 @@ func map_transition(map: String) -> void:
 	
 	tween = create_tween()
 	tween.set_parallel(false)
-	tween.tween_property(transition_screen, "color", Color("00000000"), 0.1).set_delay(0.1)
+	tween.tween_property(transition_screen, "color", Color("00000000"), 0.05).set_delay(0.1)
 	await tween.finished
 	transitioning = false
 

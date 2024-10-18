@@ -27,15 +27,15 @@ func process_dialogue(dialogue: String, theme_corpus: DialogueCorpus, rng: Bette
 	var re = RegEx.new()
 	var text = dialogue
 	re.compile("theme")
+	
 	while re.search(text):
-		text = re.sub(dialogue, rng.choose(theme_corpus.lines))
+		text = re.sub(text, rng.choose(theme_corpus.lines))
 	re.compile("THEME")
 	while re.search(text):
-		text = re.sub(dialogue, rng.choose(theme_corpus.lines).to_upper())
+		text = re.sub(text, rng.choose(theme_corpus.lines).to_upper())
 	return text
 
-func generate_dialogue(rng: BetterRng, theme_corpus: DialogueCorpus, dialogue_corpus: DialogueCorpus) -> String:
-	var markov := corpus_markovs[dialogue_corpus.name]
+func generate_dialogue(rng: BetterRng, theme_corpus: DialogueCorpus, markov: MarkovChainGenerator) -> String:
 	return process_dialogue(markov.generate(rng), theme_corpus, rng)
 
 func generate_room_dialogues(rng: BetterRng, count: int, theme_corpus: DialogueCorpus=null, dialogue_corpus: DialogueCorpus=null) -> PackedStringArray:
@@ -44,7 +44,12 @@ func generate_room_dialogues(rng: BetterRng, count: int, theme_corpus: DialogueC
 		theme_corpus = random_theme_corpus(rng)
 	if dialogue_corpus == null:
 		dialogue_corpus = random_dialogue_corpus(rng)
+	
+	var markov = MarkovChainGenerator.new()
+	
+	markov.process_corpus(dialogue_corpus.lines)
+	
 	for i in range(count):
-		arr.append(generate_dialogue(rng, theme_corpus, dialogue_corpus))
+		arr.append(generate_dialogue(rng, theme_corpus, markov))
 		pass
 	return arr

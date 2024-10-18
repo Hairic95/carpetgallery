@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfke8jqiv7gk6"]
+
+[ext_resource type="Theme" uid="uid://cbmpq55a2rjgw" path="res://ui/theme.tres" id="1_wis4v"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -56.0
+offset_top = -7.0
+offset_right = 60.0
+offset_bottom = 1.0
+theme = ExtResource("1_wis4v")
+text = "go to coords"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -58.0
+offset_top = 16.0
+offset_right = 59.0
+offset_bottom = 24.0
+theme = ExtResource("1_wis4v")
+text = "confirm with enter"
+horizontal_alignment = 1

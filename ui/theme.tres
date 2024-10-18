@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://cbmpq55a2rjgw"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://cbmpq55a2rjgw"]
 
 [ext_resource type="FontFile" uid="uid://xvat2pp7jfcv" path="res://ui/font/pixel_operator/PixelOperator8.ttf" id="1_hw74h"]
 
@@ -26,6 +26,18 @@ border_width_top = 1
 border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkgow"]
+bg_color = Color(0, 0, 0, 1)
+border_width_bottom = 1
+border_color = Color(0.239216, 0.239216, 0.239216, 1)
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25uhl"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a4ysm"]
+bg_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3p60d"]
 bg_color = Color(0, 0, 0, 1)
 
@@ -50,5 +62,8 @@ Button/styles/normal = SubResource("StyleBoxFlat_bjkio")
 Button/styles/pressed = SubResource("StyleBoxFlat_cigxb")
 DialogueButton/base_type = &"Button"
 DialogueButton/colors/font_color = Color(0.501961, 0.501961, 0.501961, 1)
+LineEdit/styles/focus = SubResource("StyleBoxFlat_bkgow")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_25uhl")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_a4ysm")
 Panel/styles/panel = SubResource("StyleBoxFlat_3p60d")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_akmts")

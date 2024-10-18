@@ -29,17 +29,24 @@ func load_scene(scene_path: StringName, scene_data: Dictionary={}) -> GameScene:
 
 	var progress = [0]
 	
-	var scene: PackedScene = await Utils.load_resource_threaded(scene_path, func() -> Signal: return get_tree().process_frame, update_progress)
+	var scene: PackedScene
+	if OS.get_name() == "Web":
+		scene = ResourceLoader.load(scene_path)
+	else:
+		scene = await Utils.load_resource_threaded(scene_path, func() -> Signal: return get_tree().process_frame, update_progress)
 	
 	if game_layer.get_child_count() > 0:
 		game_layer.get_child(0).free()
-
-	instantiate_scene_threaded(scene)
-
-
-	var child: GameScene = await scene_instantiated
 	
-	instantiation_thread.wait_to_finish()
+	var child: GameScene
+	
+	if OS.get_name() == "Web":
+		child = scene.instantiate()
+		scene_instantiated.emit(child)
+	else:
+		instantiate_scene_threaded(scene)
+		child = await scene_instantiated
+		instantiation_thread.wait_to_finish()
 	
 	child.scene_change_triggered.connect(on_scene_change_triggered, CONNECT_DEFERRED)
 	
@@ -78,7 +85,7 @@ func screen_transition_start(type: ScreenTransitionType):
 		ScreenTransitionType.Fade:
 			screen_fade_rect.color.a = 0.0
 			var tween = create_tween()
-			tween.tween_property(screen_fade_rect, "color:a", 1.0, 0.125)
+			tween.tween_property(screen_fade_rect, "color:a", 1.0, 0.25)
 			await tween.finished
 			return
 
@@ -89,7 +96,7 @@ func screen_transition_end(type: ScreenTransitionType):
 		ScreenTransitionType.Fade:
 			screen_fade_rect.color.a = 1.0
 			var tween = create_tween()
-			tween.tween_property(screen_fade_rect, "color:a", 0.0, 0.125)
+			tween.tween_property(screen_fade_rect, "color:a", 0.0, 0.25)
 			await tween.finished
 			return
 

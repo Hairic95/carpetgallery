@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://glm86300rhs6"]
+
+[ext_resource type="Script" path="res://ui/room browser/map_options.gd" id="1_qh8fn"]
+[ext_resource type="AudioStream" uid="uid://dgyr3s8gfg8v8" path="res://sound/ui/blip7.wav" id="3_5ti3v"]
+[ext_resource type="Texture2D" uid="uid://ba73erhr6is70" path="res://ui/room browser/map_options_arrow.png" id="3_8e4ss"]
+[ext_resource type="AudioStream" uid="uid://cyqer35586wm5" path="res://sound/ui/blip8.wav" id="4_3cwp0"]
+
+[node name="MapOptions" type="Node2D"]
+z_index = 4096
+script = ExtResource("1_qh8fn")
+
+[node name="OptionsHolder" type="Node2D" parent="."]
+
+[node name="MapOptionsArrow" type="Sprite2D" parent="."]
+position = Vector2(-96, 0)
+texture = ExtResource("3_8e4ss")
+
+[node name="MapOptionsArrow2" type="Sprite2D" parent="."]
+position = Vector2(96, 0)
+texture = ExtResource("3_8e4ss")
+flip_h = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -243.0
+offset_top = -4.0
+offset_right = 247.0
+offset_bottom = 4.0
+color = Color(0, 0, 0, 1)
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Blip1" type="AudioStreamPlayer" parent="Sounds"]
+unique_name_in_owner = true
+stream = ExtResource("3_5ti3v")
+volume_db = -15.0
+pitch_scale = 2.0
+bus = &"Fx"
+
+[node name="Blip2" type="AudioStreamPlayer" parent="Sounds"]
+unique_name_in_owner = true
+stream = ExtResource("4_3cwp0")
+volume_db = -15.0
+pitch_scale = 1.5
+bus = &"Fx"

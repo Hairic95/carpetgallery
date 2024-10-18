@@ -34,7 +34,15 @@ const COLOR_SPLERP_HALF_LIFE = 4.0
 
 @onready var floor_texture: Sprite2D = %FloorTexture
 
+@onready var player_room_indicator: Sprite2D = %PlayerRoomIndicator
+@onready var bookmark_indicator: Sprite2D = %BookmarkIndicator
+@onready var dialogue_indicator: Sprite2D = %DialogueIndicator
+@onready var door_indicator: Sprite2D = %DoorIndicator
+@onready var music_indicator: Sprite2D = %MusicIndicator
+@onready var object_indicator: Sprite2D = %ObjectIndicator
+@onready var indicators: Node2D = %Indicators
 
+@onready var close_timer: Timer = $CloseTimer
 
 var coords
 var memory: VisitedRoomMemory
@@ -58,37 +66,38 @@ var old_color_4: Color = Color.BLACK
 
 var t = 0.0
 
+var is_bookmarked = false
+var has_dialogue = false
+var has_door = false
+var has_music = false
+var has_object = false
+
+
 func _ready():
 	t = randf() * 1000
 	#label.text = ""
 	#label_shadow.text = ""
 #
+	floor_texture.texture = ImageTexture.new()
+
 	#label.text = "%s,%s" % [coords.x, coords.y]
 	#label_shadow.text = label.text
 
 	mat = texture_rect.material
 	
-	# what the fuck am i doing
-	set_col_1 = func(col): 
-		mat.set_shader_parameter("col_1", col)
-		old_color_1 = col
-	set_col_2 = func(col): 
-		mat.set_shader_parameter("col_2", col)
-		old_color_2 = col
-	set_col_3 = func(col): 
-		mat.set_shader_parameter("col_3", col)
-		old_color_3 = col
-	set_col_4 = func(col): 
-		mat.set_shader_parameter("col_4", col)
-		old_color_4 = col
-		
+	dialogue_indicator.material = mat
+	door_indicator.material = mat
+	music_indicator.material = mat
+	object_indicator.material = mat
+
 	assert(grid_div_1 <= grid_div_2)
 	
 	h_bar.color = grid_line_color
 	v_bar.color = grid_line_color
 
-	PersistentData.room_memory_updated.connect(update_memory)
-	PersistentData.player_notes_updated.connect(update_notes)
+	#PersistentData.room_memory_updated.connect(update_memory)
+	#PersistentData.player_location_changed.connect(update_player_room)
+	#PersistentData.bookmarks_updated.connect(update_bookmark)
 	update()
 	
 	label_holder.hide()
@@ -101,16 +110,44 @@ func initialize() -> void:
 	var new_shadow_color = unknown_color_shadow
 	var new_outline_color = unknown_color_outline
 
-	set_col_1.call(unknown_color_1)
-	set_col_2.call(unknown_color_2)
-	set_col_3.call(unknown_color_3)
-	set_col_4.call(unknown_color_4)
+	set_col(1, unknown_color_1)
+	set_col(2, unknown_color_2)
+	set_col(3, unknown_color_3)
+	set_col(4, unknown_color_4)
 	
 	color_rect_shadow.color =  new_shadow_color
 	color_rect_outline.color = new_outline_color
 
+func set_col(index: int, color: Color):
+	mat.set_shader_parameter("col_%s" % index, color)
+	set("old_color_%s" % index, color)
 
-func _process(delta: float) -> void:
+func close_anim():
+	close_timer.start()
+	indicators.visible = false
+	await close_timer.timeout
+	indicators.visible = true
+
+func open_anim():
+	show_label_timer.start()
+	indicators.visible = false
+	await show_label_timer.timeout
+	indicators.visible = true
+
+#
+#func _process(delta: float) -> void:
+	#if is_visible_in_tree():
+		#
+		#var can_show_labels = close_timer.is_stopped() and show_label_timer.is_stopped()
+		#player_room_indicator.visible = player_room and can_show_labels
+		#bookmark_indicator.visible = is_bookmarked and can_show_labels
+		#dialogue_indicator.visible = has_dialogue and can_show_labels
+		#door_indicator.visible = has_door and can_show_labels
+		#music_indicator.visible = has_music and can_show_labels
+		#object_indicator.visible = has_object and can_show_labels
+
+func update_display() -> void:
+	
 	var new_color_1 = unknown_color_1
 	var new_color_2 = unknown_color_2
 	var new_color_3 = unknown_color_3
@@ -118,73 +155,85 @@ func _process(delta: float) -> void:
 	var new_label_color = unknown_color_coords
 	var new_shadow_color = unknown_color_shadow
 	var new_outline_color = unknown_color_outline
+	
+
 	if memory != null:
 		new_color_1 = memory.most_used_color.color_1.lerp(memory.most_used_color.color_2, 0.5)
 		new_color_2 = memory.most_used_color.color_2
 		new_color_3 = memory.most_used_color.color_3
 		new_color_4 = memory.most_used_color.color_4
-		new_label_color = memory.most_used_color.color_4
 		new_shadow_color = memory.most_used_color.color_4
-		new_outline_color = memory.most_used_color.color_3
-
-
-	if (new_color_1 != old_color_1 or new_color_2 != old_color_2 or new_color_3 != old_color_3 or new_color_4 != old_color_4) and visible:
-		
-		set_col_1.call(Math.splerp_color(old_color_1, new_color_1, delta, COLOR_SPLERP_HALF_LIFE))
-		set_col_2.call(Math.splerp_color(old_color_2, new_color_2, delta, COLOR_SPLERP_HALF_LIFE))
-		set_col_3.call(Math.splerp_color(old_color_3, new_color_3, delta, COLOR_SPLERP_HALF_LIFE))
-		set_col_4.call(Math.splerp_color(old_color_4, new_color_4, delta, COLOR_SPLERP_HALF_LIFE))
-
-		color_rect_shadow.color =  Math.splerp_color(color_rect_shadow.color, new_shadow_color, delta, COLOR_SPLERP_HALF_LIFE)
-		color_rect_outline.color = Math.splerp_color(color_rect_outline.color, new_outline_color, delta, COLOR_SPLERP_HALF_LIFE)
-	
-	#var show_label = (selected) and show_label_timer.is_stopped()
-	#label_holder.modulate.a = Math.splerp(label_holder.modulate.a, (1.0 if show_label else 0.0), delta, 1 if show_label_timer.is_stopped() else 0.)
-#
-	#var label_color = label.get("theme_override_colors/font_color")
-	#if new_label_color != label_color and visible:
-		#label.set("theme_override_colors/font_color", Math.splerp_color(label_color, new_label_color, delta, COLOR_SPLERP_HALF_LIFE))
-	#
-	
-	player_room = PersistentData.player_room_coords == coords
 	
 	
+	set_col(1, new_color_1)
+	set_col(2, new_color_2)
+	set_col(3, new_color_3)
+	set_col(4, new_color_4)
+	color_rect_shadow.color = new_shadow_color
+	
+	floor_texture.visible = memory and memory.image
+	player_room_indicator.visible = player_room
+	bookmark_indicator.visible = is_bookmarked
+	dialogue_indicator.visible = has_dialogue
+	door_indicator.visible = has_door
+	music_indicator.visible = has_music
+	object_indicator.visible = has_object
+	player_room_indicator.visible = player_room
 	
 	var target_pos = Vector2(0, vertical_offset)
-	rect_holder.position = Math.splerp_vec(rect_holder.position, target_pos, delta, 2.0)
-	
-	t += delta
+
+
 
 func select():
 	selected = true
 	vertical_offset = -1
+	var tween = create_tween()
+	tween.tween_property(rect_holder, "position:y", vertical_offset, 0.1)
 
 func deselect():
 	selected = false
 	vertical_offset = 0
+	var tween = create_tween()
+	tween.tween_property(rect_holder, "position:y", vertical_offset, 0.1)
 
 func update():
+	update_player_room()
 	update_memory()
-	update_notes()
+	update_bookmark()
+
+func update_player_room():
+
+	var new_player_room = PersistentData.player_room_coords == coords
+
+	#if player_room == new_player_room:
+		#return
+	player_room = new_player_room
+
+	update_display()
 
 func update_memory():
 	if coords == null:
+		memory = null
 		return
 	load_from_memory(PersistentData.get_memory(coords))
+	update_display()
 
-func update_notes():
-	if coords == null:
-		return
+func update_bookmark():
+	var same_coords = coords in PersistentData.bookmarks
+	#if is_bookmarked == same_coords:
+		#return
+	is_bookmarked = same_coords
+	update_display()
 
 func load_from_memory(memory: VisitedRoomMemory):
-	if memory == self.memory:
-		return
-
-	#if memory:
-		#var tex = ImageTexture.create_from_image(memory.room_picture)
-		#floor_texture.texture = tex
-	#else:
-		#floor_texture.texture = null
-
-
+	
+	has_music = memory and memory.has_music()
+	has_dialogue = memory and memory.has_dialogue()
+	has_door = memory and memory.has_door()
+	has_object = memory and memory.has_objects()
+	
+	if memory and memory.image:
+		if is_instance_valid(memory.image):
+			floor_texture.texture.set_image(memory.image)
+	
 	self.memory = memory

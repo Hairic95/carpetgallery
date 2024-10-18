@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy6fh05tq6gce"]
+
+[ext_resource type="Theme" uid="uid://cbmpq55a2rjgw" path="res://ui/theme.tres" id="1_bjbiy"]
+
+[node name="options menu" type="Node2D"]
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(-13, 0)
+
+[node name="Label" type="Label" parent="Node2D"]
+offset_top = -4.0
+offset_right = 26.0
+offset_bottom = 4.0
+theme = ExtResource("1_bjbiy")

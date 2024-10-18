@@ -2,6 +2,8 @@ extends Control
 
 class_name PauseScreen
 
+signal exit
+
 @export var player: BaseObject2D
 @export var world: InfiniteWorld
 
@@ -12,12 +14,15 @@ class_name PauseScreen
 
 var rng := BetterRng.new()
 
+var map_options_open = false
+
 func open_animation():
-	#bg.color = player.room.color_schemes[0].color_1
 	animation_player.play("Open")
 	room_browser.open_animation()
+	%Open.play()
 	pass
 
 func close_animation():
+	%Close.play()
 	animation_player.play("Close")
 	room_browser.close_animation()

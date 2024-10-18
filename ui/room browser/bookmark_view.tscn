@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsw6upx48nea0"]
+
+[ext_resource type="Script" path="res://ui/room browser/bookmark_view.gd" id="1_l53op"]
+[ext_resource type="Texture2D" uid="uid://ba73erhr6is70" path="res://ui/room browser/map_options_arrow.png" id="2_i1ohb"]
+
+[node name="BookmarkOptions" type="Node2D"]
+z_index = 4096
+script = ExtResource("1_l53op")
+
+[node name="OptionsHolder" type="Node2D" parent="."]
+
+[node name="Node2D" type="Node2D" parent="."]
+rotation = 1.57079
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+z_index = -1
+offset_left = 40.0
+offset_top = -247.0
+offset_right = 530.0
+offset_bottom = -167.0
+rotation = 1.57079
+color = Color(0, 0, 0, 0.498039)
+metadata/_edit_use_anchors_ = true
+
+[node name="SelectArrow" type="Sprite2D" parent="."]
+z_index = 3
+position = Vector2(-16, 0)
+texture = ExtResource("2_i1ohb")
+flip_h = true

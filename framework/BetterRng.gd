@@ -8,7 +8,7 @@ const all_dirs = [Vector2i(1, 0), Vector2i(0, 1), Vector2i(-1, 0), Vector2i(0, -
 
 static func angle_to_vec2(angle: float) -> Vector2:
 	return Vector2(cos(angle), sin(angle))
-	
+
 func random_dir(diagonals:=false, zero:=false) -> Vector2i:
 	var dirs : Array[Vector2i] = []
 	dirs.append_array(cardinal_dirs)
@@ -90,6 +90,12 @@ func percent(percent: float) -> bool:
 
 func percent_delta(percent: float, delta: float, max: float=INF) -> bool:
 	return chance_delta(percent / 100.0, delta, max / 100.0)
+
+func randi() -> int:
+	var rand1 = super.randi()
+	var rand2 = super.randi()
+	rand1 <<= 32
+	return rand1 + rand2
 
 func chance(n:float) -> bool:
 	if n >= 1:

@@ -1,9 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1k6dbyofqkaf"]
+[gd_scene load_steps=13 format=3 uid="uid://c1k6dbyofqkaf"]
 
 [ext_resource type="Script" path="res://ui/room browser/2d_room.gd" id="1_2jana"]
 [ext_resource type="Texture2D" uid="uid://culbonsrvtgi8" path="res://ui/room browser/room.png" id="2_8dj0v"]
 [ext_resource type="FontFile" uid="uid://xvat2pp7jfcv" path="res://ui/font/pixel_operator/PixelOperator8.ttf" id="2_08kt5"]
 [ext_resource type="Shader" path="res://screen_palette.gdshader" id="2_bg7sq"]
+[ext_resource type="Texture2D" uid="uid://vg2osddb3dvo" path="res://ui/room browser/you.png" id="4_8owii"]
+[ext_resource type="Texture2D" uid="uid://0kpb06i5qvbf" path="res://ui/room browser/bookmark.png" id="5_kty31"]
+[ext_resource type="Texture2D" uid="uid://cpyaow7hmsl32" path="res://ui/room browser/dialogue.png" id="6_ghkl3"]
+[ext_resource type="Texture2D" uid="uid://difj6wu83k5p2" path="res://ui/room browser/door.png" id="7_4ix01"]
+[ext_resource type="Texture2D" uid="uid://dmw5dc8ux3gjp" path="res://ui/room browser/music.png" id="8_27nsh"]
+[ext_resource type="Texture2D" uid="uid://ceain6e7sjfew" path="res://ui/room browser/object.png" id="9_rft1o"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_lo0hk"]
 seed = 29890
@@ -68,10 +74,11 @@ offset_left = -16.0
 offset_top = -12.0
 offset_right = 16.0
 offset_bottom = 12.0
-color = Color(0, 0, 0, 1)
+color = Color(0.525101, 0.525101, 0.525101, 1)
 
 [node name="ColorRect" type="TextureRect" parent="RectHolder"]
 unique_name_in_owner = true
+texture_filter = 1
 material = SubResource("ShaderMaterial_xx4ip")
 offset_left = -15.0
 offset_top = -11.0
@@ -81,12 +88,54 @@ texture = ExtResource("2_8dj0v")
 
 [node name="FloorTexture" type="Sprite2D" parent="RectHolder/ColorRect"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.811765)
+texture_filter = 1
 position = Vector2(15, 11)
-region_enabled = true
-region_rect = Rect2(1, 1, 27, 19)
+region_rect = Rect2(4, 4, 26, 18)
+region_filter_clip_enabled = true
+
+[node name="Indicators" type="Node2D" parent="RectHolder"]
+unique_name_in_owner = true
+
+[node name="PlayerRoomIndicator" type="Sprite2D" parent="RectHolder/Indicators"]
+unique_name_in_owner = true
+z_index = 1
+position = Vector2(-1, 0)
+texture = ExtResource("4_8owii")
+
+[node name="BookmarkIndicator" type="Sprite2D" parent="RectHolder/Indicators"]
+unique_name_in_owner = true
+z_index = 1
+position = Vector2(10, -8)
+texture = ExtResource("5_kty31")
+
+[node name="DialogueIndicator" type="Sprite2D" parent="RectHolder/Indicators"]
+unique_name_in_owner = true
+z_index = 1
+position = Vector2(5, 6)
+texture = ExtResource("6_ghkl3")
+
+[node name="DoorIndicator" type="Sprite2D" parent="RectHolder/Indicators"]
+unique_name_in_owner = true
+z_index = 1
+position = Vector2(10, 6)
+texture = ExtResource("7_4ix01")
+
+[node name="MusicIndicator" type="Sprite2D" parent="RectHolder/Indicators"]
+unique_name_in_owner = true
+z_index = 1
+position = Vector2(-3, 6)
+texture = ExtResource("8_27nsh")
+
+[node name="ObjectIndicator" type="Sprite2D" parent="RectHolder/Indicators"]
+unique_name_in_owner = true
+z_index = 1
+position = Vector2(-10, 6)
+texture = ExtResource("9_rft1o")
 
 [node name="LabelHolder" type="Node2D" parent="."]
 unique_name_in_owner = true
+visible = false
 z_index = 1
 position = Vector2(0, 8)
 
@@ -110,6 +159,8 @@ text = "-100,-100"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="LabelShadow" type="Label" parent="LabelHolder/Label"]
 unique_name_in_owner = true
@@ -136,4 +187,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ShowLabelTimer" type="Timer" parent="."]
 wait_time = 0.125
+one_shot = true
+
+[node name="CloseTimer" type="Timer" parent="."]
+wait_time = 0.25
 one_shot = true

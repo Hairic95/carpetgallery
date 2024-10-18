@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4sdt0b2ahk6i"]
+
+[ext_resource type="Script" path="res://ui/room browser/map_option.gd" id="1_yv484"]
+[ext_resource type="FontFile" uid="uid://xvat2pp7jfcv" path="res://ui/font/pixel_operator/PixelOperator8.ttf" id="2_ctsfn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tqwe"]
+bg_color = Color(0, 0, 0, 0.498039)
+
+[node name="MapOption" type="Node2D"]
+script = ExtResource("1_yv484")
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -4.0
+offset_right = 574.0
+offset_bottom = 4.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_ctsfn")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_5tqwe")
+text = "map option"

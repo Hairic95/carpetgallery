@@ -1,42 +1,318 @@
-[gd_resource type="Resource" script_class="CorpusResource" load_steps=11 format=3 uid="uid://bx6j4btdlf85v"]
+[gd_resource type="Resource" script_class="CorpusResource" load_steps=54 format=3 uid="uid://bx6j4btdlf85v"]
 
 [ext_resource type="Script" path="res://Procgen/Corpus/DialogueCorpus.gd" id="1_nyfaj"]
 [ext_resource type="Script" path="res://Procgen/Corpus/CorpusResource.gd" id="2_kogup"]
 
 [sub_resource type="Resource" id="Resource_a04le"]
 script = ExtResource("1_nyfaj")
-name = "test 1"
+name = "protector"
 weight = 1000.0
-dialogues = "theme test 1
-THEME test 1"
+dialogues = "it is our duty to protect theme
+we are sworn protectors of theme
+i will guard theme with my life
+theme is more important to me than theme
+who are you and what do you want with theme
+MUST. PROTECT. THEME.
+it is the opinion of me and the other guardians of theme that you should not be here bothering our beloved theme
+beloved theme
+theme is fragile and needs us around to protect it
+stay outta our way
+i'm watching you
+we're watching you
+what are you doing here"
 
-[sub_resource type="Resource" id="Resource_epslr"]
+[sub_resource type="Resource" id="Resource_lb6h3"]
 script = ExtResource("1_nyfaj")
-name = "test 2"
-weight = 1000.0
-dialogues = "theme test 2
-THEME test 2"
+name = "all caps rage"
+weight = 500.0
+dialogues = "I JUST CANT STOP BEING MAD ABOUT THEME
+WHAT IS IT WITH THEME ANYWAY
+WHO THOUGHT THEME WAS A GOOD IDEA
+I HATE THEME
+I HATE IT SO MUCH I DON'T THINK I COULD HATE THEME ANY MORE THAN I DO
+I THINK I HAVE A STOMACH ULCER
+WHAT IS IT
+TERRIBLE TERRIBLE THEME
+IT'S SO TERRIBLE
+HATE IT
+SET THEME ON FIRE
+NO MORE THEME!!! NO MORE THEME!!!
+NO MORE
+I CAN'T TAKE IT ANYMORE
+"
 
-[sub_resource type="Resource" id="Resource_a1cdw"]
+[sub_resource type="Resource" id="Resource_xj55x"]
 script = ExtResource("1_nyfaj")
-name = "test 3"
+name = "science"
 weight = 1000.0
-dialogues = "theme test 3
-THEME test 3"
+dialogues = "welcome to theme research institute
+would you like to discuss theme
+my theme is on the fritz again
+what is the formula for theme
+we have discovered a new kind of theme
+theme research needs more funding
+we are uncovering the secrets of theme
+it is important to know more about theme
+the data says that theme is important
+we are looking into theme
+i am writing a paper on theme
+i am conducting an experiment on theme
+my glasses may fog up
+test tube
+stand back, scientists are at work"
 
-[sub_resource type="Resource" id="Resource_h6mjr"]
+[sub_resource type="Resource" id="Resource_qo8dd"]
 script = ExtResource("1_nyfaj")
-name = "test 4"
+name = "bumpkin"
 weight = 1000.0
-dialogues = "theme test 4
-THEME test 4"
+dialogues = "i heard they dont got theme round your parts
+what you doin in theme county city slicker
+hee yoo
+wharts that darn theme good for anyway
+they got theme at the store
+we dont cotton to theme folk around here
+my paw said i'd get theme someday
+wranglin theme
+theme soup for dinner
+well i'll be dipped in theme
+well i'll be
+bless your heart
+i'm fixin' to a mighty helping of theme tonight
+theme till the cows come home
+gimme some theme baby
+heavens to betsy"
 
-[sub_resource type="Resource" id="Resource_y3kht"]
+[sub_resource type="Resource" id="Resource_tnksj"]
 script = ExtResource("1_nyfaj")
-name = "test 5"
+name = "snob"
+weight = 500.0
+dialogues = "i don't think i will be partaking in theme tonight
+oh you aren't familiar with theme? such a shame
+what a bore
+oh darling
+heavens no
+one simply must try the theme
+oh dear
+oh my
+i am on a vacation to theme
+why yes i am wearing theme
+i prefer the theme, naturally"
+
+[sub_resource type="Resource" id="Resource_os8bi"]
+script = ExtResource("1_nyfaj")
+name = "philosopher"
 weight = 1000.0
-dialogues = "theme test 5
-THEME test 5"
+dialogues = "what is the meaning of theme
+what is life? is it theme?
+what could it mean
+life is like theme
+theme is the price we pay
+society plays a part in theme
+one must let go of theme
+a theme is like life
+i must ponder this
+pondering theme
+i must ponder theme
+deep thought about theme
+deeply thinking about theme"
+
+[sub_resource type="Resource" id="Resource_ifye6"]
+script = ExtResource("1_nyfaj")
+name = "mystic"
+weight = 1000.0
+dialogues = "the winds speak of theme
+i saw a vision of theme
+theme among the stars
+theme in my dreams
+seek theme through meditation
+i sense the presence of theme
+it is theme that will light the way
+the spirit of theme"
+
+[sub_resource type="Resource" id="Resource_g8o0b"]
+script = ExtResource("1_nyfaj")
+name = "merchant"
+weight = 1000.0
+dialogues = "looking for a good deal on theme?
+fine quality theme
+we are selling theme
+you want theme? i have it in mint condition
+the customers want theme
+supply and demand
+we are making a profit
+profits are down on theme
+it's a theme market"
+
+[sub_resource type="Resource" id="Resource_mmf0g"]
+script = ExtResource("1_nyfaj")
+name = "knight"
+weight = 1000.0
+dialogues = "i am bound by honor to theme
+a true knight of theme
+we are knights of theme
+we will engage in a battle of theme
+my lord
+theme makes for a good warrior
+i shall face theme"
+
+[sub_resource type="Resource" id="Resource_b4y23"]
+script = ExtResource("1_nyfaj")
+name = "cynic"
+weight = 1000.0
+dialogues = "you really believe in theme?
+theme isn't even real
+theme won't fix your problems pal
+theme comes and goes. never seen it do any good
+there's more to life than theme
+what do you even mean by theme
+sounds like poppycock
+no such thing as theme anyway
+you expect me to believe that theme exists?"
+
+[sub_resource type="Resource" id="Resource_x0tem"]
+script = ExtResource("1_nyfaj")
+name = "fiend"
+weight = 1000.0
+dialogues = "got any theme? i'm desperate here
+been ages since my last theme
+gotta get some theme or i'm gonna freak out
+where's the theme
+got any theme
+lookin for theme
+you sell theme?
+you got theme?
+need a hit of theme
+need that good stuff
+need that sweet theme
+sweet sweet theme
+need me some
+gotta get me some"
+
+[sub_resource type="Resource" id="Resource_exrsp"]
+script = ExtResource("1_nyfaj")
+name = "all caps love"
+weight = 1000.0
+dialogues = "I JUST LOVE THEME SO MUCH
+YIPPIE THEME
+IT'S GOOD TO HAVE THEME
+HURRAH FOR THEME
+CAN'T STOP THINKING ABOUT HOW MUCH I LOVE THEME
+I LOVE THEME
+I DREAM ABOUT THEME
+WHAT'S YOUR FAVORITE THING ABOUT THEME
+THEME I LOVE THEME
+THEME IT'S THE BEST"
+
+[sub_resource type="Resource" id="Resource_0108w"]
+script = ExtResource("1_nyfaj")
+name = "ignorant"
+weight = 1000.0
+dialogues = "theme? what are you talking about
+i've never heard of theme
+what is theme
+what?
+what are you saying
+is theme something you eat
+is theme something you play with
+what do you mean by theme
+i just dont get it 
+i dont get theme
+i dont understand theme
+i dont know what theme is
+can someone tell me what theme is"
+
+[sub_resource type="Resource" id="Resource_jwd2w"]
+script = ExtResource("1_nyfaj")
+name = "caveman"
+weight = 1000.0
+dialogues = "me hungry
+me want theme
+theme good
+me like theme
+me have theme
+theme me like
+me want big theme
+eat theme?
+eat theme
+me hungry for theme"
+
+[sub_resource type="Resource" id="Resource_jixns"]
+script = ExtResource("1_nyfaj")
+name = "chef"
+weight = 1000.0
+dialogues = "i cook the theme
+delicious theme coming right up
+for you i recommend the theme
+theme is my specialty dish
+theme delicious
+theme recipe
+my family's recipe
+one cup of theme one pinch of theme
+this dish was braised in theme
+fried theme with a theme batter
+theme is the key to this dish
+i have perfected roast theme
+if you cant handle the theme get out of the theme
+bon appetit"
+
+[sub_resource type="Resource" id="Resource_vs7cd"]
+script = ExtResource("1_nyfaj")
+name = "meta"
+weight = 1000.0
+dialogues = "where are we?
+what is this place?
+who are you?
+what am i?
+how did i get here?"
+
+[sub_resource type="Resource" id="Resource_5n2kg"]
+script = ExtResource("1_nyfaj")
+name = "crotchety"
+weight = 1000.0
+dialogues = "get off my lawn
+themes these days
+back in my day we didnt have theme
+i'm tired of theme i just want peace and quiet
+what is the internet
+you call this music
+we only had theme and we liked it
+you could get theme for a penny
+to be young again"
+
+[sub_resource type="Resource" id="Resource_qeer6"]
+script = ExtResource("1_nyfaj")
+name = "kid"
+weight = 1000.0
+dialogues = "golly, i sure like theme
+gee wizz
+say mister you got a nickel for a theme
+boy oh boy
+theme? aw beans
+i didnt mean nothin by it"
+
+[sub_resource type="Resource" id="Resource_pm7ah"]
+script = ExtResource("1_nyfaj")
+name = "alien"
+weight = 1000.0
+dialogues = "we come from planet theme
+we come in peace
+i breathe not air but theme
+i am from the theme galaxy
+far away in space there is a theme
+we are here for your theme
+take us to your theme"
+
+[sub_resource type="Resource" id="Resource_0fuuh"]
+script = ExtResource("1_nyfaj")
+name = "robot"
+weight = 1000.0
+dialogues = "theme protocol
+error theme not found
+error
+beep
+initiate theme
+i require more theme
+i was built to serve theme"
 
 [sub_resource type="Resource" id="Resource_500b8"]
 script = ExtResource("1_nyfaj")
@@ -65,7 +341,352 @@ anger
 being mad
 suffering"
 
+[sub_resource type="Resource" id="Resource_45unf"]
+script = ExtResource("1_nyfaj")
+name = "chilling"
+weight = 1000.0
+dialogues = "relaxing
+chilling
+being chill
+taking a chill pill
+loving to be chill
+chillaxing
+taking some me time
+.... i forgot
+yeah
+kickflip"
+
+[sub_resource type="Resource" id="Resource_12m8b"]
+script = ExtResource("1_nyfaj")
+name = "computer"
+weight = 1000.0
+dialogues = "transistor
+packet
+network
+silicon
+computer
+circuit
+technology"
+
+[sub_resource type="Resource" id="Resource_5ppxx"]
+script = ExtResource("1_nyfaj")
+name = "pop"
+weight = 1000.0
+dialogues = "trends
+fashion
+tv
+magazine
+music video
+platinum record
+trendy
+pop
+popstar
+brand
+merchandise
+logo
+drama"
+
+[sub_resource type="Resource" id="Resource_at6of"]
+script = ExtResource("1_nyfaj")
+name = "dude stuff"
+weight = 1000.0
+dialogues = "beer
+football
+the game
+keg
+party
+fist bump
+motorcycle
+jeans
+guitar
+the boys"
+
+[sub_resource type="Resource" id="Resource_wbpsq"]
+script = ExtResource("1_nyfaj")
+name = "knight"
+weight = 1000.0
+dialogues = "sword
+shield
+battle
+duke
+king
+joust
+squire
+honor"
+
+[sub_resource type="Resource" id="Resource_0crsb"]
+script = ExtResource("1_nyfaj")
+name = "body"
+weight = 1000.0
+dialogues = "hands
+eyes
+heart
+spine
+lungs
+nose
+tongue
+wenis
+toes
+knees"
+
+[sub_resource type="Resource" id="Resource_vrt73"]
+script = ExtResource("1_nyfaj")
+name = "career"
+weight = 1000.0
+dialogues = "job security
+career
+workplace
+networking
+middle manager
+deadlines
+coffee break
+meeting"
+
+[sub_resource type="Resource" id="Resource_y4yoj"]
+script = ExtResource("1_nyfaj")
+name = "beach"
+weight = 1000.0
+dialogues = "beach
+sand
+towel
+umbrella
+sunglasses
+surfboard
+beach ball
+waves
+ocean"
+
+[sub_resource type="Resource" id="Resource_wg5fu"]
+script = ExtResource("1_nyfaj")
+name = "retiree"
+weight = 1000.0
+dialogues = "grandchildren
+bingo
+health checkup
+nursing home
+retirement
+memories
+pension"
+
+[sub_resource type="Resource" id="Resource_sctu3"]
+script = ExtResource("1_nyfaj")
+name = "fitness"
+weight = 1000.0
+dialogues = "working out
+protein shake
+barbell
+bench press
+cardio
+push-up"
+
+[sub_resource type="Resource" id="Resource_jgx1u"]
+script = ExtResource("1_nyfaj")
+name = "outdoor"
+weight = 1000.0
+dialogues = "hiking
+camping
+fishing
+the great outdoors
+national park
+campfire"
+
+[sub_resource type="Resource" id="Resource_8xup4"]
+script = ExtResource("1_nyfaj")
+name = "animals"
+weight = 1000.0
+dialogues = "bird
+cat
+dog
+cow
+pig
+chicken
+goat"
+
+[sub_resource type="Resource" id="Resource_pnis5"]
+script = ExtResource("1_nyfaj")
+name = "home appliance"
+weight = 500.0
+dialogues = "microwave
+refrigerator
+gas oven
+induction stovetop
+coffee grinder"
+
+[sub_resource type="Resource" id="Resource_aver5"]
+script = ExtResource("1_nyfaj")
+name = "groceries"
+weight = 1000.0
+dialogues = "the groceries
+paper towels
+milk
+eggs
+the store
+going to the store
+getting groceries at the store
+toothpaste
+shampoo"
+
+[sub_resource type="Resource" id="Resource_rdb8r"]
+script = ExtResource("1_nyfaj")
+name = "caveman"
+weight = 1000.0
+dialogues = "rock
+club
+pelt
+hunt
+cave
+spear
+woolly mammoth"
+
+[sub_resource type="Resource" id="Resource_uymo6"]
+script = ExtResource("1_nyfaj")
+name = "video game"
+weight = 250.0
+dialogues = "video game
+gaming
+gamer chair
+voice chat
+open world
+crafting mechanic
+loot
+lore
+kill
+high score
+esports"
+
+[sub_resource type="Resource" id="Resource_cudpw"]
+script = ExtResource("1_nyfaj")
+name = "bug"
+weight = 1000.0
+dialogues = "insect
+spider
+arachnid
+thorax
+stinger
+bug
+proboscis
+chitin"
+
+[sub_resource type="Resource" id="Resource_lo23e"]
+script = ExtResource("1_nyfaj")
+name = "the way"
+weight = 1000.0
+dialogues = "the way"
+
+[sub_resource type="Resource" id="Resource_v5mpj"]
+script = ExtResource("1_nyfaj")
+name = "exclamation"
+weight = 500.0
+dialogues = "yes
+no"
+
+[sub_resource type="Resource" id="Resource_kqcbs"]
+script = ExtResource("1_nyfaj")
+name = "sparkle"
+weight = 1000.0
+dialogues = "sparkle
+shiny
+pretty
+sparkling
+sheen"
+
+[sub_resource type="Resource" id="Resource_6or4s"]
+script = ExtResource("1_nyfaj")
+name = "astronomy"
+weight = 1000.0
+dialogues = "star
+planet
+earth
+galaxy
+universe
+nebula
+constellation
+orbit"
+
+[sub_resource type="Resource" id="Resource_fjnky"]
+script = ExtResource("1_nyfaj")
+name = "art gallery"
+weight = 1000.0
+dialogues = "exhibit
+painting
+masterpiece
+artist
+gallery
+art
+beauty"
+
+[sub_resource type="Resource" id="Resource_lhqf5"]
+script = ExtResource("1_nyfaj")
+name = "virtue"
+weight = 1000.0
+dialogues = "virtue
+honor
+responsibility
+respect
+humility
+diligence
+kindness
+patience
+"
+
+[sub_resource type="Resource" id="Resource_t4gvh"]
+script = ExtResource("1_nyfaj")
+name = "horsemen"
+weight = 1000.0
+dialogues = "conquest
+war
+famine
+death"
+
+[sub_resource type="Resource" id="Resource_wsacs"]
+script = ExtResource("1_nyfaj")
+name = "heat"
+weight = 1000.0
+dialogues = "hot
+heat
+hotness
+warmth
+fire"
+
+[sub_resource type="Resource" id="Resource_xxrek"]
+script = ExtResource("1_nyfaj")
+name = "cold"
+weight = 1000.0
+dialogues = "cold
+coldness
+freeze
+ice"
+
+[sub_resource type="Resource" id="Resource_l0bnf"]
+script = ExtResource("1_nyfaj")
+name = "chemicals"
+weight = 1000.0
+dialogues = "acetone
+hydrochloric acid
+ammonia
+ethanol
+sulfuric acid
+benzene
+sodium hydroxide
+methanol
+hydrogen peroxide
+calcium carbonate
+sodium chloride"
+
+[sub_resource type="Resource" id="Resource_ykglc"]
+script = ExtResource("1_nyfaj")
+name = "mushroom"
+weight = 1000.0
+dialogues = "mushroom
+fungus
+fungi
+mycelium
+spore
+truffle
+toadstool
+amanita"
+
 [resource]
 script = ExtResource("2_kogup")
-dialogue_corpora = Array[ExtResource("1_nyfaj")]([SubResource("Resource_a04le"), SubResource("Resource_epslr"), SubResource("Resource_a1cdw"), SubResource("Resource_h6mjr"), SubResource("Resource_y3kht")])
-theme_corpora = Array[ExtResource("1_nyfaj")]([SubResource("Resource_500b8"), SubResource("Resource_h5p4q"), SubResource("Resource_lonot")])
+dialogue_corpora = Array[ExtResource("1_nyfaj")]([SubResource("Resource_a04le"), SubResource("Resource_lb6h3"), SubResource("Resource_xj55x"), SubResource("Resource_qo8dd"), SubResource("Resource_tnksj"), SubResource("Resource_os8bi"), SubResource("Resource_ifye6"), SubResource("Resource_g8o0b"), SubResource("Resource_mmf0g"), SubResource("Resource_b4y23"), SubResource("Resource_x0tem"), SubResource("Resource_exrsp"), SubResource("Resource_0108w"), SubResource("Resource_jwd2w"), SubResource("Resource_jixns"), SubResource("Resource_vs7cd"), SubResource("Resource_5n2kg"), SubResource("Resource_qeer6"), SubResource("Resource_pm7ah"), SubResource("Resource_0fuuh")])
+theme_corpora = Array[ExtResource("1_nyfaj")]([SubResource("Resource_500b8"), SubResource("Resource_h5p4q"), SubResource("Resource_lonot"), SubResource("Resource_45unf"), SubResource("Resource_12m8b"), SubResource("Resource_5ppxx"), SubResource("Resource_at6of"), SubResource("Resource_wbpsq"), SubResource("Resource_0crsb"), SubResource("Resource_vrt73"), SubResource("Resource_y4yoj"), SubResource("Resource_wg5fu"), SubResource("Resource_sctu3"), SubResource("Resource_jgx1u"), SubResource("Resource_8xup4"), SubResource("Resource_pnis5"), SubResource("Resource_aver5"), SubResource("Resource_rdb8r"), SubResource("Resource_uymo6"), SubResource("Resource_cudpw"), SubResource("Resource_lo23e"), SubResource("Resource_v5mpj"), SubResource("Resource_kqcbs"), SubResource("Resource_6or4s"), SubResource("Resource_fjnky"), SubResource("Resource_lhqf5"), SubResource("Resource_t4gvh"), SubResource("Resource_wsacs"), SubResource("Resource_xxrek"), SubResource("Resource_l0bnf"), SubResource("Resource_ykglc")])

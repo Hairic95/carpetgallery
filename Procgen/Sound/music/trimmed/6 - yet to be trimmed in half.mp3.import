@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bo3qo4ow6q2fp"
+path="res://.godot/imported/6 - yet to be trimmed in half.mp3-8e430ffdb91a40df843ca8b763853f4a.mp3str"
+
+[deps]
+
+source_file="res://Procgen/Sound/music/trimmed/6 - yet to be trimmed in half.mp3"
+dest_files=["res://.godot/imported/6 - yet to be trimmed in half.mp3-8e430ffdb91a40df843ca8b763853f4a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

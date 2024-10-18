@@ -1,6 +1,120 @@
-[gd_scene load_steps=2 format=3 uid="uid://bk3echnhc2r5y"]
+[gd_scene load_steps=7 format=3 uid="uid://bk3echnhc2r5y"]
 
 [ext_resource type="Script" path="res://screens/MainMenu.gd" id="1_gw7gq"]
+[ext_resource type="FontFile" uid="uid://dedq6nnrq1hg1" path="res://ui/font/pixel_operator/PixelOperator8-Bold.ttf" id="2_dd6sp"]
+[ext_resource type="Texture2D" uid="uid://crpnshk7udgap" path="res://ui/main_menu_select.png" id="2_nlvcv"]
+[ext_resource type="FontFile" uid="uid://dgft7p0iu1uxn" path="res://ui/font/pixel_operator/PixelOperator-Bold.ttf" id="3_773vv"]
+[ext_resource type="AudioStream" uid="uid://bpxy1am8juuuc" path="res://sound/ui/blip9.wav" id="5_ha3gd"]
+[ext_resource type="FontFile" uid="uid://xvat2pp7jfcv" path="res://ui/font/pixel_operator/PixelOperator8.ttf" id="5_val24"]
 
 [node name="MainMenu" type="CanvasLayer"]
+follow_viewport_enabled = true
 script = ExtResource("1_gw7gq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(0, -3)
+
+[node name="Pointer" type="Sprite2D" parent="Node2D"]
+unique_name_in_owner = true
+position = Vector2(-31.9761, -168.618)
+texture = ExtResource("2_nlvcv")
+
+[node name="Start" type="Node2D" parent="Node2D"]
+unique_name_in_owner = true
+position = Vector2(0.0477929, -13.2358)
+
+[node name="Label" type="Label" parent="Node2D/Start"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -26.0
+offset_top = -4.0
+offset_right = 27.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_dd6sp")
+theme_override_font_sizes/font_size = 8
+text = "start"
+metadata/_edit_use_anchors_ = true
+
+[node name="Options" type="Node2D" parent="Node2D"]
+unique_name_in_owner = true
+position = Vector2(0.0477877, 2.76425)
+
+[node name="Label" type="Label" parent="Node2D/Options"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -26.0
+offset_top = -4.0
+offset_right = 27.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_dd6sp")
+theme_override_font_sizes/font_size = 8
+text = "options"
+metadata/_edit_use_anchors_ = true
+
+[node name="Quit" type="Node2D" parent="Node2D"]
+unique_name_in_owner = true
+position = Vector2(0.0477877, 18.7642)
+
+[node name="Label" type="Label" parent="Node2D/Quit"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -26.0
+offset_top = -4.0
+offset_right = 27.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_dd6sp")
+theme_override_font_sizes/font_size = 8
+text = "quit"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="Node2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -54.5
+offset_top = -72.0
+offset_right = 54.5
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_773vv")
+theme_override_font_sizes/font_size = 16
+text = "carpet gallery"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label3" type="Label" parent="Node2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = 59.0
+offset_right = 120.0
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.227451, 0.227451, 0.227451, 1)
+theme_override_fonts/font = ExtResource("5_val24")
+theme_override_font_sizes/font_size = 8
+text = "code, art, sfx by ivy sly
+music by faec"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Blip" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_ha3gd")
+volume_db = -10.0
+pitch_scale = 2.0
+bus = &"Fx"

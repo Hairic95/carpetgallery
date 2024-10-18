@@ -6,4 +6,4 @@
 [node name="DialogueComponent" instance=ExtResource("1_kcyxt")]
 script = ExtResource("2_iklqj")
 dialogue_resource = null
-starting_title = "0"
+starting_title = ""
