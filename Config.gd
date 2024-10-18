@@ -2,21 +2,37 @@ extends Node
 
 signal hide_border_setting_changed
 
+const VOLUME_MIN = -60
+
 var screenshot_pixel_size = 4
-var fullscreen = false
+var fullscreen = false:
+	set(value):
+		fullscreen = value
+		Display.toggle_fullscreen(value)
 
 var master_volume: float:
 	set(value):
-		AudioServer.set_bus_volume_db(0, master_volume)
+		value = clamp(value, VOLUME_MIN, 0)
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), value)
 		save_config()
+	get:
+		return AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))
+
 var music_volume: float:
 	set(value):
-		AudioServer.set_bus_volume_db(1, music_volume)
+		value = clamp(value, VOLUME_MIN, 0)
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), value)
 		save_config()
+	get:
+		return AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music"))
+
 var fx_volume: float:
 	set(value):
-		AudioServer.set_bus_volume_db(2, fx_volume)
+		value = clamp(value, VOLUME_MIN, 0)
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Fx"), value)
 		save_config()
+	get:
+		return AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Fx"))
 
 var config = ConfigFile.new()
 

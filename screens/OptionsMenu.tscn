@@ -1,0 +1,162 @@
+[gd_scene load_steps=11 format=3 uid="uid://dtrr07tka387m"]
+
+[ext_resource type="Script" path="res://ui/options_menu.gd" id="1_t51cw"]
+[ext_resource type="Theme" uid="uid://cbmpq55a2rjgw" path="res://ui/theme.tres" id="2_pej8f"]
+[ext_resource type="Texture2D" uid="uid://crpnshk7udgap" path="res://ui/main_menu_select.png" id="2_ryomi"]
+[ext_resource type="Texture2D" uid="uid://ba73erhr6is70" path="res://ui/room browser/map_options_arrow.png" id="4_xq0g3"]
+[ext_resource type="AudioStream" uid="uid://bpxy1am8juuuc" path="res://sound/ui/blip9.wav" id="5_0tbyb"]
+[ext_resource type="AudioStream" uid="uid://e44e7dsks1iu" path="res://sound/mapexit.wav" id="6_1mu78"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8qgf4"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjlnj"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ci264"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c7c0a"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_t51cw")
+
+[node name="options menu" type="Node2D" parent="."]
+position = Vector2(28, 34)
+
+[node name="Pointer" type="Sprite2D" parent="options menu"]
+unique_name_in_owner = true
+position = Vector2(-19, 0)
+texture = ExtResource("2_ryomi")
+
+[node name="Fullscreen" type="Node2D" parent="options menu"]
+unique_name_in_owner = true
+position = Vector2(-13, 0)
+
+[node name="Label" type="Label" parent="options menu/Fullscreen"]
+offset_top = -4.0
+offset_right = 26.0
+offset_bottom = 4.0
+theme = ExtResource("2_pej8f")
+text = "fullscreen"
+metadata/_edit_use_anchors_ = true
+
+[node name="FullscreenOnLabel" type="Label" parent="options menu/Fullscreen"]
+offset_left = 125.0
+offset_top = -4.0
+offset_right = 190.0
+offset_bottom = 4.0
+theme = ExtResource("2_pej8f")
+text = "on"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Exit" type="Node2D" parent="options menu"]
+unique_name_in_owner = true
+position = Vector2(-13, -16)
+
+[node name="Label" type="Label" parent="options menu/Exit"]
+offset_top = -4.0
+offset_right = 26.0
+offset_bottom = 4.0
+theme = ExtResource("2_pej8f")
+text = "go back"
+metadata/_edit_use_anchors_ = true
+
+[node name="FxVolume" type="Node2D" parent="options menu"]
+unique_name_in_owner = true
+position = Vector2(-13, 16)
+
+[node name="Label" type="Label" parent="options menu/FxVolume"]
+offset_top = -4.0
+offset_right = 26.0
+offset_bottom = 4.0
+theme = ExtResource("2_pej8f")
+text = "fx volume"
+metadata/_edit_use_anchors_ = true
+
+[node name="FxProgressBar" type="ProgressBar" parent="options menu/FxVolume"]
+unique_name_in_owner = true
+offset_left = 118.0
+offset_top = -4.0
+offset_right = 197.0
+offset_bottom = 4.0
+theme_override_styles/background = SubResource("StyleBoxFlat_8qgf4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fjlnj")
+value = 100.0
+show_percentage = false
+
+[node name="MapOptionsArrow" type="Sprite2D" parent="options menu/FxVolume"]
+position = Vector2(112, 0)
+texture = ExtResource("4_xq0g3")
+
+[node name="MapOptionsArrow2" type="Sprite2D" parent="options menu/FxVolume"]
+position = Vector2(203, 0)
+texture = ExtResource("4_xq0g3")
+flip_h = true
+
+[node name="MusicVolume" type="Node2D" parent="options menu"]
+unique_name_in_owner = true
+position = Vector2(-13, 32)
+
+[node name="Label" type="Label" parent="options menu/MusicVolume"]
+offset_top = -4.0
+offset_right = 26.0
+offset_bottom = 4.0
+theme = ExtResource("2_pej8f")
+text = "music volume"
+
+[node name="MusicProgressBar" type="ProgressBar" parent="options menu/MusicVolume"]
+unique_name_in_owner = true
+offset_left = 118.0
+offset_top = -4.0
+offset_right = 197.0
+offset_bottom = 4.0
+theme_override_styles/background = SubResource("StyleBoxFlat_8qgf4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fjlnj")
+value = 100.0
+show_percentage = false
+
+[node name="MapOptionsArrow" type="Sprite2D" parent="options menu/MusicVolume"]
+position = Vector2(112, 0)
+texture = ExtResource("4_xq0g3")
+
+[node name="MapOptionsArrow2" type="Sprite2D" parent="options menu/MusicVolume"]
+position = Vector2(203, 0)
+texture = ExtResource("4_xq0g3")
+flip_h = true
+
+[node name="ClearData" type="Node2D" parent="options menu"]
+unique_name_in_owner = true
+position = Vector2(-13, 48)
+
+[node name="Label" type="Label" parent="options menu/ClearData"]
+offset_top = -4.0
+offset_right = 26.0
+offset_bottom = 4.0
+theme = ExtResource("2_pej8f")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "clear save data"
+metadata/_edit_use_anchors_ = true
+
+[node name="ClearDataProgressBar" type="ProgressBar" parent="options menu/ClearData"]
+unique_name_in_owner = true
+offset_left = 118.0
+offset_top = -4.0
+offset_right = 197.0
+offset_bottom = 4.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_ci264")
+theme_override_styles/fill = SubResource("StyleBoxFlat_c7c0a")
+show_percentage = false
+
+[node name="Blip" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_0tbyb")
+volume_db = -10.0
+pitch_scale = 2.0
+bus = &"Fx"
+
+[node name="Blip2" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_1mu78")
+bus = &"Fx"

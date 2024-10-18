@@ -9,7 +9,7 @@ func _input(event):
 	#elif event is InputEventMouse or event is InputEventKey:
 		keyboard = true
 		if event.pressed and event.keycode == KEY_F11:
-			Display.toggle_fullscreen() 
+			Config.fullscreen = !Config.fullscreen
 
 func can_process_input(node: Node) -> bool:
 	return node.get_meta("input_enabled", true)

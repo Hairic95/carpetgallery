@@ -7,7 +7,16 @@ signal exit_requested
 const MAX_ROOMS_LOADED = 3
 
 const RANDOM_ROOM = preload("res://worlds/InfiniteWorld/maps/RandomRoom.tscn")
-const SEED = 3443013762
+var SEED = 4218347264
+#var SEED = 4218347264
+#const SEED = 177793718
+#const SEED = 2491435265
+#const SEED = 3250095623
+#const SEED = 2906869802 # might be the one
+#const SEED = 4131231095
+#const SEED = 3514399619
+#const SEED = 407810971
+#const SEED = 567598017
 
 var lobby: RandomRoom
 
@@ -22,6 +31,9 @@ var loaded_rooms: Array[String] = []
 var can_screenshot = true
 
 func _ready() -> void:
+	#SEED = randi()
+	#print(SEED)
+	
 	setup_lobby.call_deferred()
 	room_browser.fast_travel_initiated.connect(_on_fast_travel_selected)
 	player.get_component(MapTraversalComponent).fast_travel_initiated.connect(_on_fast_travel_selected)

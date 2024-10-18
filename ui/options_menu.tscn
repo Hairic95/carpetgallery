@@ -1,14 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://cy6fh05tq6gce"]
+[gd_scene load_steps=3 format=3 uid="uid://cy6fh05tq6gce"]
 
 [ext_resource type="Theme" uid="uid://cbmpq55a2rjgw" path="res://ui/theme.tres" id="1_bjbiy"]
+[ext_resource type="Script" path="res://ui/options_menu.gd" id="1_em6oa"]
 
-[node name="options menu" type="Node2D"]
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_em6oa")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="options menu" type="Node2D" parent="."]
+
+[node name="Fullscreen" type="Node2D" parent="options menu"]
 position = Vector2(-13, 0)
 
-[node name="Label" type="Label" parent="Node2D"]
+[node name="Label" type="Label" parent="options menu/Fullscreen"]
 offset_top = -4.0
 offset_right = 26.0
 offset_bottom = 4.0
 theme = ExtResource("1_bjbiy")
+text = "fullscreen"

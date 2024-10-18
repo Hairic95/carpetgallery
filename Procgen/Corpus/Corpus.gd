@@ -1,10 +1,11 @@
 extends Node
 
-var corpus_resource: CorpusResource = preload("res://Procgen/Corpus/CorpusResource.tres")
+var corpus_resource: CorpusResource
 
 var corpus_markovs: Dictionary[String, MarkovChainGenerator]
 
 func _ready():
+	corpus_resource = ResourceLoader.load("res://Procgen/Corpus/CorpusResource.tres")
 	#for corpus in corpus_resource.dialogue_corpora:
 		#var markov = MarkovChainGenerator.new(1, true)
 		#markov.process_corpus(corpus.lines)
@@ -15,6 +16,8 @@ func _ready():
 		#for dialogue in generate_room_dialogues(rng, 5):
 			#print(dialogue)
 		#print("")
+	print(corpus_resource)
+	print(corpus_resource.dialogue_corpora)
 	pass
 
 func random_dialogue_corpus(rng: BetterRng) -> DialogueCorpus:

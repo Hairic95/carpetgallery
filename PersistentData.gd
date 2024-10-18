@@ -1,5 +1,7 @@
 extends Node
 
+const SAVE_CHUNK_SIZE = 100
+
 signal room_memory_updated(coords: Vector3i)
 signal bookmarks_updated(coords: Vector3i)
 signal player_location_changed(old: Vector3i, new: Vector3i)
@@ -83,7 +85,9 @@ func setup_bookmarks(dict):
 func setup_memories(dict):
 	var c = Time.get_ticks_msec()	
 	for cell in dict.memories:
-		memories[cell] = (VisitedRoomMemory.from_save_data(dict.memories[cell]))
+		var memory = (VisitedRoomMemory.from_save_data(dict.memories[cell]))
+		memories[cell] = memory
+		memory.updated.connect(room_memory_updated.emit.bind(cell))
 		room_memory_updated.emit(cell)
 		var c2 = Time.get_ticks_msec()
 		if c2 - c >= 8:
@@ -101,6 +105,13 @@ func remove_bookmark(coord: Vector3i):
 	save_game()
 
 func initialize_data():
+	while saving:
+		await get_tree().process_frame
+	memories.clear()
+	bookmarks.clear()
+	player_room_coords *= 0
+	memories.clear()
+	bookmarks.clear()
 	bookmarks[Vector3i(0, 0, 0)] = "center"
 
 func get_memory(coords: Vector3i) -> VisitedRoomMemory:

@@ -39,5 +39,8 @@ func _process(delta: float) -> void:
 		if selected == start:
 			PersistentData.load_game()
 			queue_scene_change("Game")
-		if selected == quit:
+		elif selected == quit:
 			queue_scene_change("Quit")
+		elif selected == options:
+			queue_scene_change("Options")
+		set_process(false)

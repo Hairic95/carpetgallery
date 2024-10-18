@@ -176,7 +176,7 @@ func generate(seed=null) -> void:
 	
 	initialize_generation()
 
-	amplitude = pow(rng_meta.randf_range(0.0, 1.0), 1.2)
+	amplitude = pow(rng_meta.randf_range(0.0, 1.0), 1.2) if !lobby else 0.0
 	#amplitude = 1.0
 	
 	var gradient_brightness = rng_color.randfn(-0.25, 0.25)
@@ -285,8 +285,8 @@ func generate_normal() -> void:
 	generate_audio_normal()
 
 func generate_audio_normal() -> void:
-	footstep_sound = rng_audio.weighted_choice_dict(AudioGen.footstep_sounds)
-	if pow(amplitude, 2) > 0.6 or num_total_objects >= rng_audio.randfn(10, 1) and rng_audio.percent(90):
+	footstep_sound = rng_audio.weighted_choice_dict(AudioGen.footstep_sounds) if !lobby else preload("res://Procgen/Sound/footstep/footstep3.wav")
+	if (pow(amplitude, 2) > 0.6 or num_total_objects >= rng_audio.randfn(10, 1)) and rng_audio.percent(90 if !lobby else 0):
 		music_stream = rng_audio.choose(AudioGen.music)
 	music_pitch = rng_audio.choose([0.5, 1.0, 1.0, 1.5])
 
@@ -536,7 +536,7 @@ func generate_floors_normal() -> void:
 			entrance_neighbors.append(entrance_cell + neighbor)
 	var CONNECTIONS_NEEDED = entrance_cells.size()
 
-	if rng_pattern.percent(70):
+	if rng_pattern.percent(70 if !lobby else 0):
 		for i in range(int(rng_pattern.randfn(1, 2))):
 			for j in range(3):
 				var pattern_mul = rng_pattern.randi()
@@ -791,7 +791,7 @@ func generate_objects_normal():
 	
 	const MAX_PATTERN_COUNT = 4
 
-	var num_object_sets := int(clampf((rng_object.randfn(2, 3)), 0, 5) * pow(amplitude, 1.5))
+	var num_object_sets := int(clampf((rng_object.randfn(2, 3)), 0, 5) * pow(amplitude, 1.5)) if !lobby else 0
 	var num_people_sets := mini(int(clampf(abs(rng_object.randfn(0.5, 1.)) * pow(amplitude, 1.75), 0, 10)), num_object_sets)
 	num_total_objects = 0
 	num_total_people = 0
@@ -957,6 +957,7 @@ func generate_objects_normal():
 					dialogue = Corpus.generate_dialogue(rng_person, theme_corpus, markov)
 				else:
 					dialogue = Corpus.process_dialogue(rng_person.choose(dialogue_corpus.lines), theme_corpus, rng_person)
+
 					
 				#var weight = max(rng_person.randfn(1.0, 5.0), 1.0)
 				#weight_dict[dialogue] = int(weight)

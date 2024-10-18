@@ -12,7 +12,8 @@ var instantiation_thread: Thread
 
 var scenes = {
 	"MainMenu": "res://screens/MainMenu.tscn",
-	"Game": "res://screens/Game.tscn"
+	"Game": "res://screens/Game.tscn",
+	"Options": "res://screens/OptionsMenu.tscn",
 }
 
 enum ScreenTransitionType {

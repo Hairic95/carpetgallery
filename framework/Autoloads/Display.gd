@@ -14,10 +14,11 @@ func _ready():
 	#Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 	#focused = true
 	pass
-	
-func toggle_fullscreen():
+
+func toggle_fullscreen(on = null):
 	var mode = DisplayServer.window_get_mode()
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN if mode == DisplayServer.WINDOW_MODE_WINDOWED else DisplayServer.WINDOW_MODE_WINDOWED)
+	var fullscreen = mode == DisplayServer.WINDOW_MODE_WINDOWED if on == null else on
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN if fullscreen else DisplayServer.WINDOW_MODE_WINDOWED)
 	window_mode_changed.emit()
 
 func _notification(what):
