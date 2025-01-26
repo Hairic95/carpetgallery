@@ -51,7 +51,7 @@ func load_config():
 	if err != OK:
 		return
 
-	screenshot_pixel_size = config.get_value("display", "screenshot_pixel_size", 4)
+	#screenshot_pixel_size = config.get_value("display", "screenshot_pixel_size", 4)
 	fullscreen = config.get_value("display", "fullscreen", false)
 	
 
@@ -61,7 +61,7 @@ func load_config():
 
 func save_config():
 	config = ConfigFile.new()
-	config.set_value("display", "screenshot_pixel_size", screenshot_pixel_size)
+	#config.set_value("display", "screenshot_pixel_size", screenshot_pixel_size)
 	config.set_value("display", "fullscreen", fullscreen)
 	config.set_value("audio", "master_volume", master_volume)
 	config.set_value("audio", "music_volume", music_volume)

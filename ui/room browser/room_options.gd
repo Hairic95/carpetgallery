@@ -20,6 +20,8 @@ var tween
 @onready var num_people_label: Label = %NumPeopleLabel
 @onready var people_class_label: Label = %PeopleClassLabel
 @onready var door_class_label: Label = %DoorClassLabel
+@onready var bookmark_label: Label = %BookmarkLabel
+@onready var bookmark_sprite: Sprite2D = %BookmarkSprite
 
 
 func reset():
@@ -37,6 +39,8 @@ func process_room(room: RoomBox2D):
 	num_people_label.text = "company: %s" % (("%d" % room.memory.num_people) if room.memory else "???")
 	people_class_label.text = "%s" % (("lively" if room.memory.num_people > 0 or room.memory.has_dialogue() else "dormant") if room.memory else "???")
 	door_class_label.text = "%s" % (("portalic" if room.memory.has_door() else "euclidean") if room.memory else "???")
+	bookmark_label.text = "%s" % PersistentData.bookmarks[room.coords] if PersistentData.bookmarks.has(room.coords) else ""
+
 	
 	if tween:
 		tween.kill()
@@ -120,4 +124,8 @@ func _draw():
 		door_class_label.position = line_1_end + Vector2(0, 2 + LINE_SPACING * 5)
 		door_class_label.visible_ratio = drawing_line_2_amount
 		
-	pass
+		bookmark_label.position = line_1_end + Vector2(0, 0 - LINE_SPACING)
+		bookmark_label.visible_ratio = drawing_line_2_amount
+		bookmark_sprite.position = line_1_end + Vector2(2, 1)
+		bookmark_label.visible = PersistentData.bookmarks.has(room.coords) and bookmark_label.text.strip_edges() != coords_label.text
+		#bookmark_sprite.visible = PersistentData.bookmarks.has(room.coords) and drawing_line_2_amount > 0

@@ -53,6 +53,7 @@ func save_game() -> void:
 	var save_file = FileAccess.open_compressed("user://game.save", FileAccess.WRITE)
 	save_file.store_var(dict, false)
 	saving = false
+	#print("saved")
 
 func load_game() -> void:
 	if not FileAccess.file_exists("user://game.save"):
@@ -122,4 +123,4 @@ func add_memory(room: RandomRoom):
 	memories[room.room_coords] = memory
 	memory.updated.connect(room_memory_updated.emit.bind(room.room_coords))
 	room_memory_updated.emit(room.room_coords)
-	save_game()
+	#save_game()

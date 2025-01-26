@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvqgysheewwu1"]
+[gd_scene load_steps=16 format=3 uid="uid://cvqgysheewwu1"]
 
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_cteef"]
 [ext_resource type="FontFile" uid="uid://xvat2pp7jfcv" path="res://ui/font/pixel_operator/PixelOperator8.ttf" id="2_uh76n"]
@@ -58,6 +58,11 @@ DialogueButton/colors/font_color = Color(0.501961, 0.501961, 0.501961, 1)
 Panel/styles/panel = SubResource("StyleBoxFlat_3p60d")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_akmts")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2y46s"]
+bg_color = Color(0, 0, 0, 1)
+border_width_top = 1
+border_color = Color(1, 1, 1, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udoex"]
 bg_color = Color(0, 0, 0, 1)
 
@@ -95,6 +100,7 @@ offset_right = 116.0
 offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2y46s")
 
 [node name="Dialogue" type="MarginContainer" parent="Balloon/Panel"]
 layout_mode = 2

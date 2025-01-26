@@ -10,9 +10,11 @@ func take_screenshot() -> Texture2D:
 	var tex = ImageTexture.create_from_image(image)
 	image.resize(image.get_width() * Config.screenshot_pixel_size, image.get_height() * Config.screenshot_pixel_size, Image.INTERPOLATE_NEAREST)
 	#image.resize(30, 22, Image.INTERPOLATE_NEAREST)
+	#var timestamp = ("%x" % (Time.get_unix_time_from_system()))
+	var filename = "[%s, %s]" % [PersistentData.player_room_coords_2d.x, PersistentData.player_room_coords_2d.y]
 	if OS.get_name() == "Web":
 		var buf = image.save_png_to_buffer()
-		JavaScriptBridge.download_buffer(buf, str(PersistentData.player_room_coords_2d) + ".png")
+		JavaScriptBridge.download_buffer(buf, filename + ".png")
 	else:
-		image.save_png(dir.path_join(str(PersistentData.player_room_coords_2d) + ".png")) # TODO: 3d
+		image.save_png(dir.path_join(filename + ".png")) # TODO: 3d
 	return tex

@@ -36,7 +36,7 @@ func _process(delta: float) -> void:
 			text_edit.grab_focus.call_deferred()
 			text_edit.grab_click_focus.call_deferred()
 		
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_down"):
 			name_selected.emit(null)
 
 func _on_text_edit_text_submitted(new_text: String) -> void:

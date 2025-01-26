@@ -1,0 +1,1225 @@
+[gd_scene load_steps=56 format=3 uid="uid://bxr7amsh7uhc2"]
+
+[ext_resource type="Script" path="res://Procgen/Corpus/Corpus.gd" id="1_ah8m0"]
+[ext_resource type="Script" path="res://Procgen/Corpus/DialogueCorpus.gd" id="2_y6rdd"]
+[ext_resource type="Script" path="res://Procgen/Corpus/CorpusResource.gd" id="3_os8kf"]
+
+[sub_resource type="Resource" id="Resource_ldmfc"]
+script = ExtResource("2_y6rdd")
+name = "protector"
+weight = 1000.0
+dialogues = "it is our duty to protect theme
+we are sworn protectors of theme
+i will guard theme with my life
+theme is more important to me than theme
+who are you and what do you want with theme
+MUST. PROTECT. THEME.
+it is the opinion of me and the other guardians of theme that you should not be here bothering our beloved theme
+beloved theme
+theme is fragile and needs us around to protect it
+stay outta our way
+i'm watching you
+we're watching you
+what are you doing here"
+
+[sub_resource type="Resource" id="Resource_twh3y"]
+script = ExtResource("2_y6rdd")
+name = "all caps rage"
+weight = 1000.0
+dialogues = "I JUST CANT STOP BEING MAD ABOUT THEME
+WHAT IS IT WITH THEME ANYWAY
+WHO THOUGHT THEME WAS A GOOD IDEA
+I HATE THEME
+I HATE IT SO MUCH I DON'T THINK I COULD HATE THEME ANY MORE THAN I DO
+I THINK I HAVE A STOMACH ULCER
+WHAT IS IT
+TERRIBLE TERRIBLE THEME
+IT'S SO TERRIBLE
+HATE IT
+SET THEME ON FIRE
+NO MORE THEME!!! NO MORE THEME!!!
+NO MORE
+I CAN'T TAKE IT ANYMORE"
+
+[sub_resource type="Resource" id="Resource_gsrfg"]
+script = ExtResource("2_y6rdd")
+name = "science"
+weight = 1000.0
+dialogues = "welcome to theme research institute
+would you like to discuss theme
+my theme is on the fritz again
+what is the formula for theme
+we have discovered a new kind of theme
+theme research needs more funding
+we are uncovering the secrets of theme
+it is important to know more about theme
+the data says that theme is important
+we are looking into theme
+i am writing a paper on theme
+i am conducting an experiment on theme
+my glasses may fog up
+test tube
+stand back, scientists are at work"
+
+[sub_resource type="Resource" id="Resource_6t0xb"]
+script = ExtResource("2_y6rdd")
+name = "bumpkin"
+weight = 1000.0
+dialogues = "i heard they dont got theme round your parts
+what you doin in theme county city slicker
+hee yoo
+wharts that darn theme good for anyway
+they got theme at the store
+we dont cotton to theme folk around here
+my paw said i'd get theme someday
+wranglin theme
+theme soup for dinner
+well i'll be dipped in theme
+well i'll be
+bless your heart
+i'm fixin' to a mighty helping of theme tonight
+theme till the cows come home
+gimme some theme baby
+heavens to betsy"
+
+[sub_resource type="Resource" id="Resource_jyski"]
+script = ExtResource("2_y6rdd")
+name = "snob"
+weight = 1000.0
+dialogues = "i don't think i will be partaking in theme tonight
+oh you aren't familiar with theme? such a shame
+what a bore
+oh darling
+heavens no
+one simply must try the theme
+oh dear
+oh my
+i am on a vacation to theme
+why yes i am wearing theme
+i prefer the theme, naturally"
+
+[sub_resource type="Resource" id="Resource_lfjmp"]
+script = ExtResource("2_y6rdd")
+name = "philosopher"
+weight = 1000.0
+dialogues = "what is the meaning of theme
+what is life? is it theme?
+what could it mean
+life is like theme
+theme is the price we pay
+society plays a part in theme
+one must let go of theme
+a theme is like life
+i must ponder this
+pondering theme
+i must ponder theme
+deep thought about theme
+deeply thinking about theme"
+
+[sub_resource type="Resource" id="Resource_x3m31"]
+script = ExtResource("2_y6rdd")
+name = "mystic"
+weight = 1000.0
+dialogues = "the winds speak of theme
+i saw a vision of theme
+theme among the stars
+theme in my dreams
+seek theme through meditation
+i sense the presence of theme
+it is theme that will light the way
+the spirit of theme"
+
+[sub_resource type="Resource" id="Resource_xb2gl"]
+script = ExtResource("2_y6rdd")
+name = "merchant"
+weight = 1000.0
+dialogues = "looking for a good deal on theme?
+fine quality theme
+we are selling theme
+you want theme? i have it in mint condition
+the customers want theme
+supply and demand
+we are making a profit
+profits are down on theme
+it's a theme market"
+
+[sub_resource type="Resource" id="Resource_k3do5"]
+script = ExtResource("2_y6rdd")
+name = "knight"
+weight = 1000.0
+dialogues = "i am bound by honor to theme
+a true knight of theme
+we are knights of theme
+we will engage in a battle of theme
+my lord
+theme makes for a good warrior
+i shall face theme"
+
+[sub_resource type="Resource" id="Resource_p5r7a"]
+script = ExtResource("2_y6rdd")
+name = "cynic"
+weight = 1000.0
+dialogues = "you really believe in theme?
+theme isn't even real
+theme won't fix your problems pal
+theme comes and goes. never seen it do any good
+there's more to life than theme
+what do you even mean by theme
+sounds like poppycock
+no such thing as theme anyway
+you expect me to believe that theme exists?"
+
+[sub_resource type="Resource" id="Resource_8w6ts"]
+script = ExtResource("2_y6rdd")
+name = "fiend"
+weight = 1000.0
+dialogues = "got any theme? i'm desperate here
+been ages since my last theme
+gotta get some theme or i'm gonna freak out
+where's the theme
+got any theme
+lookin for theme
+you sell theme?
+you got theme?
+need a hit of theme
+need that good stuff
+need that sweet theme
+sweet sweet theme
+need me some
+gotta get me some"
+
+[sub_resource type="Resource" id="Resource_23rnw"]
+script = ExtResource("2_y6rdd")
+name = "all caps love"
+weight = 1000.0
+dialogues = "I JUST LOVE THEME SO MUCH
+YIPPIE THEME
+IT'S GOOD TO HAVE THEME
+HURRAH FOR THEME
+CAN'T STOP THINKING ABOUT HOW MUCH I LOVE THEME
+I LOVE THEME
+I DREAM ABOUT THEME
+WHAT'S YOUR FAVORITE THING ABOUT THEME
+THEME I LOVE THEME
+THEME IT'S THE BEST"
+
+[sub_resource type="Resource" id="Resource_jkgxf"]
+script = ExtResource("2_y6rdd")
+name = "ignorant"
+weight = 1000.0
+dialogues = "theme? what are you talking about
+i've never heard of theme
+what is theme
+what?
+what are you saying
+is theme something you eat
+is theme something you play with
+what do you mean by theme
+i just dont get it 
+i dont get theme
+i dont understand theme
+i dont know what theme is
+can someone tell me what theme is"
+
+[sub_resource type="Resource" id="Resource_i6re5"]
+script = ExtResource("2_y6rdd")
+name = "caveman"
+weight = 1000.0
+dialogues = "me hungry
+me want theme
+theme good
+me like theme
+me have theme
+theme me like
+me want big theme
+eat theme?
+eat theme
+me hungry for theme"
+
+[sub_resource type="Resource" id="Resource_gpj0n"]
+script = ExtResource("2_y6rdd")
+name = "chef"
+weight = 1000.0
+dialogues = "i cook the theme
+delicious theme coming right up
+for you i recommend the theme
+theme is my specialty dish
+theme delicious
+theme recipe
+my family's recipe
+one cup of theme one pinch of theme
+this dish was braised in theme
+fried theme with a theme batter
+theme is the key to this dish
+i have perfected roast theme
+if you cant handle the theme get out of the theme
+bon appetit"
+
+[sub_resource type="Resource" id="Resource_mx8ph"]
+script = ExtResource("2_y6rdd")
+name = "meta"
+weight = 1000.0
+dialogues = "where are we?
+what is this place?
+who are you?
+what am i?
+how did i get here?"
+
+[sub_resource type="Resource" id="Resource_vld5k"]
+script = ExtResource("2_y6rdd")
+name = "crotchety"
+weight = 1000.0
+dialogues = "get off my lawn
+themes these days
+back in my day we didnt have theme
+i'm tired of theme i just want peace and quiet
+what is the internet
+you call this music
+we only had theme and we liked it
+you could get theme for a penny
+to be young again"
+
+[sub_resource type="Resource" id="Resource_6irrt"]
+script = ExtResource("2_y6rdd")
+name = "kid"
+weight = 1000.0
+dialogues = "golly, i sure like theme
+gee wizz
+say mister you got a nickel for a theme
+boy oh boy
+theme? aw beans
+i didnt mean nothin by it"
+
+[sub_resource type="Resource" id="Resource_wev2u"]
+script = ExtResource("2_y6rdd")
+name = "alien"
+weight = 1000.0
+dialogues = "we come from planet theme
+we come in peace
+i breathe not air but theme
+i am from the theme galaxy
+far away in space there is a theme
+we are here for your theme
+take us to your theme"
+
+[sub_resource type="Resource" id="Resource_kkm4n"]
+script = ExtResource("2_y6rdd")
+name = "robot"
+weight = 1000.0
+dialogues = "theme protocol
+error theme not found
+error
+beep
+initiate theme
+i require more theme
+i was built to serve theme"
+
+[sub_resource type="Resource" id="Resource_eu5ij"]
+script = ExtResource("2_y6rdd")
+name = "fast food"
+weight = 1000.0
+dialogues = "burger
+fries
+hot dog
+milk shake"
+
+[sub_resource type="Resource" id="Resource_waq5w"]
+script = ExtResource("2_y6rdd")
+name = "romance"
+weight = 1000.0
+dialogues = "love
+kiss
+hug
+romance"
+
+[sub_resource type="Resource" id="Resource_8d5tq"]
+script = ExtResource("2_y6rdd")
+name = "hatred"
+weight = 1000.0
+dialogues = "hatred
+anger
+being mad
+suffering"
+
+[sub_resource type="Resource" id="Resource_x2g4p"]
+script = ExtResource("2_y6rdd")
+name = "chilling"
+weight = 1000.0
+dialogues = "relaxing
+chilling
+being chill
+taking a chill pill
+loving to be chill
+chillaxing
+taking some me time
+.... i forgot
+yeah
+kickflip"
+
+[sub_resource type="Resource" id="Resource_q6jer"]
+script = ExtResource("2_y6rdd")
+name = "computer"
+weight = 1000.0
+dialogues = "transistor
+packet
+network
+silicon
+computer
+circuit
+technology"
+
+[sub_resource type="Resource" id="Resource_gl2dr"]
+script = ExtResource("2_y6rdd")
+name = "pop"
+weight = 1000.0
+dialogues = "trends
+fashion
+tv
+magazine
+music video
+platinum record
+trendy
+pop
+popstar
+brand
+merchandise
+logo
+drama"
+
+[sub_resource type="Resource" id="Resource_kunux"]
+script = ExtResource("2_y6rdd")
+name = "dude stuff"
+weight = 1000.0
+dialogues = "beer
+football
+the game
+keg
+party
+fist bump
+motorcycle
+jeans
+guitar
+the boys"
+
+[sub_resource type="Resource" id="Resource_qf13h"]
+script = ExtResource("2_y6rdd")
+name = "knight"
+weight = 1000.0
+dialogues = "sword
+shield
+battle
+duke
+king
+joust
+squire
+honor"
+
+[sub_resource type="Resource" id="Resource_mqyos"]
+script = ExtResource("2_y6rdd")
+name = "body"
+weight = 1000.0
+dialogues = "hands
+eyes
+heart
+spine
+lungs
+nose
+tongue
+wenis
+toes
+knees"
+
+[sub_resource type="Resource" id="Resource_lrtou"]
+script = ExtResource("2_y6rdd")
+name = "career"
+weight = 1000.0
+dialogues = "job security
+career
+workplace
+networking
+middle manager
+deadlines
+coffee break
+meeting"
+
+[sub_resource type="Resource" id="Resource_mpnso"]
+script = ExtResource("2_y6rdd")
+name = "beach"
+weight = 1000.0
+dialogues = "beach
+sand
+towel
+umbrella
+sunglasses
+surfboard
+beach ball
+waves
+ocean"
+
+[sub_resource type="Resource" id="Resource_odm7y"]
+script = ExtResource("2_y6rdd")
+name = "retiree"
+weight = 1000.0
+dialogues = "grandchildren
+bingo
+health checkup
+nursing home
+retirement
+memories
+pension"
+
+[sub_resource type="Resource" id="Resource_16eov"]
+script = ExtResource("2_y6rdd")
+name = "fitness"
+weight = 1000.0
+dialogues = "working out
+protein shake
+barbell
+bench press
+cardio
+push-up"
+
+[sub_resource type="Resource" id="Resource_wieqx"]
+script = ExtResource("2_y6rdd")
+name = "outdoor"
+weight = 1000.0
+dialogues = "hiking
+camping
+fishing
+the great outdoors
+national park
+campfire"
+
+[sub_resource type="Resource" id="Resource_7h6bf"]
+script = ExtResource("2_y6rdd")
+name = "animals"
+weight = 1000.0
+dialogues = "bird
+cat
+dog
+cow
+pig
+chicken
+goat"
+
+[sub_resource type="Resource" id="Resource_oebrc"]
+script = ExtResource("2_y6rdd")
+name = "home appliance"
+weight = 1000.0
+dialogues = "microwave
+refrigerator
+gas oven
+induction stovetop
+coffee grinder"
+
+[sub_resource type="Resource" id="Resource_p5yqi"]
+script = ExtResource("2_y6rdd")
+name = "groceries"
+weight = 1000.0
+dialogues = "the groceries
+paper towels
+milk
+eggs
+the store
+going to the store
+getting groceries at the store
+toothpaste
+shampoo"
+
+[sub_resource type="Resource" id="Resource_0kcif"]
+script = ExtResource("2_y6rdd")
+name = "caveman"
+weight = 1000.0
+dialogues = "rock
+club
+pelt
+hunt
+cave
+spear
+woolly mammoth"
+
+[sub_resource type="Resource" id="Resource_ubbl0"]
+script = ExtResource("2_y6rdd")
+name = "video game"
+weight = 1000.0
+dialogues = "video game
+gaming
+gamer chair
+voice chat
+open world
+crafting mechanic
+loot
+lore
+kill
+high score
+esports"
+
+[sub_resource type="Resource" id="Resource_sx0xi"]
+script = ExtResource("2_y6rdd")
+name = "bug"
+weight = 1000.0
+dialogues = "insect
+spider
+arachnid
+thorax
+stinger
+bug
+proboscis
+chitin"
+
+[sub_resource type="Resource" id="Resource_cmyox"]
+script = ExtResource("2_y6rdd")
+name = "the way"
+weight = 1000.0
+dialogues = "the way"
+
+[sub_resource type="Resource" id="Resource_0xf6g"]
+script = ExtResource("2_y6rdd")
+name = "exclamation"
+weight = 1000.0
+dialogues = "yes
+no"
+
+[sub_resource type="Resource" id="Resource_8nafi"]
+script = ExtResource("2_y6rdd")
+name = "sparkle"
+weight = 1000.0
+dialogues = "sparkle
+shiny
+pretty
+sparkling
+sheen"
+
+[sub_resource type="Resource" id="Resource_2tlfl"]
+script = ExtResource("2_y6rdd")
+name = "astronomy"
+weight = 1000.0
+dialogues = "star
+planet
+earth
+galaxy
+universe
+nebula
+constellation
+orbit"
+
+[sub_resource type="Resource" id="Resource_hr433"]
+script = ExtResource("2_y6rdd")
+name = "art gallery"
+weight = 1000.0
+dialogues = "exhibit
+painting
+masterpiece
+artist
+gallery
+art
+beauty"
+
+[sub_resource type="Resource" id="Resource_1m4wj"]
+script = ExtResource("2_y6rdd")
+name = "virtue"
+weight = 1000.0
+dialogues = "virtue
+honor
+responsibility
+respect
+humility
+diligence
+kindness
+patience"
+
+[sub_resource type="Resource" id="Resource_kwivg"]
+script = ExtResource("2_y6rdd")
+name = "horsemen"
+weight = 1000.0
+dialogues = "conquest
+war
+famine
+death"
+
+[sub_resource type="Resource" id="Resource_un11e"]
+script = ExtResource("2_y6rdd")
+name = "heat"
+weight = 1000.0
+dialogues = "hot
+heat
+hotness
+warmth
+fire"
+
+[sub_resource type="Resource" id="Resource_50cxy"]
+script = ExtResource("2_y6rdd")
+name = "cold"
+weight = 1000.0
+dialogues = "cold
+coldness
+freeze
+ice"
+
+[sub_resource type="Resource" id="Resource_ei4dq"]
+script = ExtResource("2_y6rdd")
+name = "chemicals"
+weight = 1000.0
+dialogues = "acetone
+hydrochloric acid
+ammonia
+ethanol
+sulfuric acid
+benzene
+sodium hydroxide
+methanol
+hydrogen peroxide
+calcium carbonate
+sodium chloride"
+
+[sub_resource type="Resource" id="Resource_cbyjq"]
+script = ExtResource("2_y6rdd")
+name = "mushroom"
+weight = 1000.0
+dialogues = "mushroom
+fungus
+fungi
+mycelium
+spore
+truffle
+toadstool
+amanita"
+
+[sub_resource type="Resource" id="Resource_p5djb"]
+script = ExtResource("3_os8kf")
+dialogue_corpora = Array[ExtResource("2_y6rdd")]([SubResource("Resource_ldmfc"), SubResource("Resource_twh3y"), SubResource("Resource_gsrfg"), SubResource("Resource_6t0xb"), SubResource("Resource_jyski"), SubResource("Resource_lfjmp"), SubResource("Resource_x3m31"), SubResource("Resource_xb2gl"), SubResource("Resource_k3do5"), SubResource("Resource_p5r7a"), SubResource("Resource_8w6ts"), SubResource("Resource_23rnw"), SubResource("Resource_jkgxf"), SubResource("Resource_i6re5"), SubResource("Resource_gpj0n"), SubResource("Resource_mx8ph"), SubResource("Resource_vld5k"), SubResource("Resource_6irrt"), SubResource("Resource_wev2u"), SubResource("Resource_kkm4n")])
+theme_corpora = Array[ExtResource("2_y6rdd")]([SubResource("Resource_eu5ij"), SubResource("Resource_waq5w"), SubResource("Resource_8d5tq"), SubResource("Resource_x2g4p"), SubResource("Resource_q6jer"), SubResource("Resource_gl2dr"), SubResource("Resource_kunux"), SubResource("Resource_qf13h"), SubResource("Resource_mqyos"), SubResource("Resource_lrtou"), SubResource("Resource_mpnso"), SubResource("Resource_odm7y"), SubResource("Resource_16eov"), SubResource("Resource_wieqx"), SubResource("Resource_7h6bf"), SubResource("Resource_oebrc"), SubResource("Resource_p5yqi"), SubResource("Resource_0kcif"), SubResource("Resource_ubbl0"), SubResource("Resource_sx0xi"), SubResource("Resource_cmyox"), SubResource("Resource_0xf6g"), SubResource("Resource_8nafi"), SubResource("Resource_2tlfl"), SubResource("Resource_hr433"), SubResource("Resource_1m4wj"), SubResource("Resource_kwivg"), SubResource("Resource_un11e"), SubResource("Resource_50cxy"), SubResource("Resource_ei4dq"), SubResource("Resource_cbyjq")])
+
+[node name="Corpus" type="Node"]
+script = ExtResource("1_ah8m0")
+corpus_resource = SubResource("Resource_p5djb")
+dialogue_unwrapped = "protector
+it is our duty to protect theme
+we are sworn protectors of theme
+i will guard theme with my life
+theme is more important to me than theme
+who are you and what do you want with theme
+MUST. PROTECT. THEME.
+it is the opinion of me and the other guardians of theme that you should not be here bothering our beloved theme
+beloved theme
+theme is fragile and needs us around to protect it
+stay outta our way
+i'm watching you
+we're watching you
+what are you doing here
+------
+all caps rage
+I JUST CANT STOP BEING MAD ABOUT THEME
+WHAT IS IT WITH THEME ANYWAY
+WHO THOUGHT THEME WAS A GOOD IDEA
+I HATE THEME
+I HATE IT SO MUCH I DON'T THINK I COULD HATE THEME ANY MORE THAN I DO
+I THINK I HAVE A STOMACH ULCER
+WHAT IS IT
+TERRIBLE TERRIBLE THEME
+IT'S SO TERRIBLE
+HATE IT
+SET THEME ON FIRE
+NO MORE THEME!!! NO MORE THEME!!!
+NO MORE
+I CAN'T TAKE IT ANYMORE
+------
+science
+welcome to theme research institute
+would you like to discuss theme
+my theme is on the fritz again
+what is the formula for theme
+we have discovered a new kind of theme
+theme research needs more funding
+we are uncovering the secrets of theme
+it is important to know more about theme
+the data says that theme is important
+we are looking into theme
+i am writing a paper on theme
+i am conducting an experiment on theme
+my glasses may fog up
+test tube
+stand back, scientists are at work
+------
+bumpkin
+i heard they dont got theme round your parts
+what you doin in theme county city slicker
+hee yoo
+wharts that darn theme good for anyway
+they got theme at the store
+we dont cotton to theme folk around here
+my paw said i'd get theme someday
+wranglin theme
+theme soup for dinner
+well i'll be dipped in theme
+well i'll be
+bless your heart
+i'm fixin' to a mighty helping of theme tonight
+theme till the cows come home
+gimme some theme baby
+heavens to betsy
+------
+snob
+i don't think i will be partaking in theme tonight
+oh you aren't familiar with theme? such a shame
+what a bore
+oh darling
+heavens no
+one simply must try the theme
+oh dear
+oh my
+i am on a vacation to theme
+why yes i am wearing theme
+i prefer the theme, naturally
+------
+philosopher
+what is the meaning of theme
+what is life? is it theme?
+what could it mean
+life is like theme
+theme is the price we pay
+society plays a part in theme
+one must let go of theme
+a theme is like life
+i must ponder this
+pondering theme
+i must ponder theme
+deep thought about theme
+deeply thinking about theme
+------
+mystic
+the winds speak of theme
+i saw a vision of theme
+theme among the stars
+theme in my dreams
+seek theme through meditation
+i sense the presence of theme
+it is theme that will light the way
+the spirit of theme
+------
+merchant
+looking for a good deal on theme?
+fine quality theme
+we are selling theme
+you want theme? i have it in mint condition
+the customers want theme
+supply and demand
+we are making a profit
+profits are down on theme
+it's a theme market
+------
+knight
+i am bound by honor to theme
+a true knight of theme
+we are knights of theme
+we will engage in a battle of theme
+my lord
+theme makes for a good warrior
+i shall face theme
+------
+cynic
+you really believe in theme?
+theme isn't even real
+theme won't fix your problems pal
+theme comes and goes. never seen it do any good
+there's more to life than theme
+what do you even mean by theme
+sounds like poppycock
+no such thing as theme anyway
+you expect me to believe that theme exists?
+------
+fiend
+got any theme? i'm desperate here
+been ages since my last theme
+gotta get some theme or i'm gonna freak out
+where's the theme
+got any theme
+lookin for theme
+you sell theme?
+you got theme?
+need a hit of theme
+need that good stuff
+need that sweet theme
+sweet sweet theme
+need me some
+gotta get me some
+------
+all caps love
+I JUST LOVE THEME SO MUCH
+YIPPIE THEME
+IT'S GOOD TO HAVE THEME
+HURRAH FOR THEME
+CAN'T STOP THINKING ABOUT HOW MUCH I LOVE THEME
+I LOVE THEME
+I DREAM ABOUT THEME
+WHAT'S YOUR FAVORITE THING ABOUT THEME
+THEME I LOVE THEME
+THEME IT'S THE BEST
+------
+ignorant
+theme? what are you talking about
+i've never heard of theme
+what is theme
+what?
+what are you saying
+is theme something you eat
+is theme something you play with
+what do you mean by theme
+i just dont get it 
+i dont get theme
+i dont understand theme
+i dont know what theme is
+can someone tell me what theme is
+------
+caveman
+me hungry
+me want theme
+theme good
+me like theme
+me have theme
+theme me like
+me want big theme
+eat theme?
+eat theme
+me hungry for theme
+------
+chef
+i cook the theme
+delicious theme coming right up
+for you i recommend the theme
+theme is my specialty dish
+theme delicious
+theme recipe
+my family's recipe
+one cup of theme one pinch of theme
+this dish was braised in theme
+fried theme with a theme batter
+theme is the key to this dish
+i have perfected roast theme
+if you cant handle the theme get out of the theme
+bon appetit
+------
+meta
+where are we?
+what is this place?
+who are you?
+what am i?
+how did i get here?
+------
+crotchety
+get off my lawn
+themes these days
+back in my day we didnt have theme
+i'm tired of theme i just want peace and quiet
+what is the internet
+you call this music
+we only had theme and we liked it
+you could get theme for a penny
+to be young again
+------
+kid
+golly, i sure like theme
+gee wizz
+say mister you got a nickel for a theme
+boy oh boy
+theme? aw beans
+i didnt mean nothin by it
+------
+alien
+we come from planet theme
+we come in peace
+i breathe not air but theme
+i am from the theme galaxy
+far away in space there is a theme
+we are here for your theme
+take us to your theme
+------
+robot
+theme protocol
+error theme not found
+error
+beep
+initiate theme
+i require more theme
+i was built to serve theme
+------
+"
+themes_unwrapped = "fast food
+burger
+fries
+hot dog
+milk shake
+------
+romance
+love
+kiss
+hug
+romance
+------
+hatred
+hatred
+anger
+being mad
+suffering
+------
+chilling
+relaxing
+chilling
+being chill
+taking a chill pill
+loving to be chill
+chillaxing
+taking some me time
+.... i forgot
+yeah
+kickflip
+------
+computer
+transistor
+packet
+network
+silicon
+computer
+circuit
+technology
+------
+pop
+trends
+fashion
+tv
+magazine
+music video
+platinum record
+trendy
+pop
+popstar
+brand
+merchandise
+logo
+drama
+------
+dude stuff
+beer
+football
+the game
+keg
+party
+fist bump
+motorcycle
+jeans
+guitar
+the boys
+------
+knight
+sword
+shield
+battle
+duke
+king
+joust
+squire
+honor
+------
+body
+hands
+eyes
+heart
+spine
+lungs
+nose
+tongue
+wenis
+toes
+knees
+------
+career
+job security
+career
+workplace
+networking
+middle manager
+deadlines
+coffee break
+meeting
+------
+beach
+beach
+sand
+towel
+umbrella
+sunglasses
+surfboard
+beach ball
+waves
+ocean
+------
+retiree
+grandchildren
+bingo
+health checkup
+nursing home
+retirement
+memories
+pension
+------
+fitness
+working out
+protein shake
+barbell
+bench press
+cardio
+push-up
+------
+outdoor
+hiking
+camping
+fishing
+the great outdoors
+national park
+campfire
+------
+animals
+bird
+cat
+dog
+cow
+pig
+chicken
+goat
+------
+home appliance
+microwave
+refrigerator
+gas oven
+induction stovetop
+coffee grinder
+------
+groceries
+the groceries
+paper towels
+milk
+eggs
+the store
+going to the store
+getting groceries at the store
+toothpaste
+shampoo
+------
+caveman
+rock
+club
+pelt
+hunt
+cave
+spear
+woolly mammoth
+------
+video game
+video game
+gaming
+gamer chair
+voice chat
+open world
+crafting mechanic
+loot
+lore
+kill
+high score
+esports
+------
+bug
+insect
+spider
+arachnid
+thorax
+stinger
+bug
+proboscis
+chitin
+------
+the way
+the way
+------
+exclamation
+yes
+no
+------
+sparkle
+sparkle
+shiny
+pretty
+sparkling
+sheen
+------
+astronomy
+star
+planet
+earth
+galaxy
+universe
+nebula
+constellation
+orbit
+------
+art gallery
+exhibit
+painting
+masterpiece
+artist
+gallery
+art
+beauty
+------
+virtue
+virtue
+honor
+responsibility
+respect
+humility
+diligence
+kindness
+patience
+------
+horsemen
+conquest
+war
+famine
+death
+------
+heat
+hot
+heat
+hotness
+warmth
+fire
+------
+cold
+cold
+coldness
+freeze
+ice
+------
+chemicals
+acetone
+hydrochloric acid
+ammonia
+ethanol
+sulfuric acid
+benzene
+sodium hydroxide
+methanol
+hydrogen peroxide
+calcium carbonate
+sodium chloride
+------
+mushroom
+mushroom
+fungus
+fungi
+mycelium
+spore
+truffle
+toadstool
+amanita
+------
+"

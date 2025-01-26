@@ -23,6 +23,10 @@ func setup():
 func _physics_process(delta):
 	if intent == null:
 		return
+	
+	if Input.is_action_just_pressed("tertiary"):
+		screenshot_intent.emit()
+
 	if dialogue_box.active:
 		intent.reset()
 		return
@@ -30,9 +34,6 @@ func _physics_process(delta):
 	intent.move_dir = Utils.bools_to_vector2(Input.is_action_pressed("move_left"), Input.is_action_pressed("move_right"), Input.is_action_pressed("move_up"), Input.is_action_pressed("move_down")).normalized()
 	intent.aim_global = get_global_mouse_position()
 	intent.interact = Input.is_action_just_pressed("primary") if interact_timer.is_stopped() else false
-	
-	if !busy and Input.is_action_just_pressed("tertiary"):
-		screenshot_intent.emit()
 
 	Debug.dbg("interact", intent.interact)
 	

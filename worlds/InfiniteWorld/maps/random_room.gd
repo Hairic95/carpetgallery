@@ -957,7 +957,8 @@ func generate_objects_normal():
 					dialogue = Corpus.generate_dialogue(rng_person, theme_corpus, markov)
 				else:
 					dialogue = Corpus.process_dialogue(rng_person.choose(dialogue_corpus.lines), theme_corpus, rng_person)
-
+				#print(dialogue_corpus)
+				#dialogue = "text"
 					
 				#var weight = max(rng_person.randfn(1.0, 5.0), 1.0)
 				#weight_dict[dialogue] = int(weight)

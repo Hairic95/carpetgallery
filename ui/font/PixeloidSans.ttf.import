@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/PixeloidSans.ttf-a636400a90cddcb6c657dc97ee3f
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

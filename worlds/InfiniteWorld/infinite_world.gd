@@ -42,7 +42,13 @@ func _ready() -> void:
 	player.hide()
 	super._ready()
 
+func _process(delta: float) -> void:
+	if Debug.enabled and Input.is_action_just_pressed("debug_random"):
+		_on_fast_travel_selected(Vector3i(randi_range(-100, 100), randi_range(-100, 100), 0))
+
 func _on_screenshot_intent():
+	if pause_screen_layer.menu_open:
+		return
 	if !can_screenshot:
 		return
 	can_screenshot = false
@@ -107,7 +113,7 @@ func _on_fast_travel_selected(coords: Vector3i,fade=false):
 	await changed_active_map
 	move_object(player, active_map.name, "CenterEntrance")
 	tp_to_room.call_deferred(active_map)
-	#_on_fast_travel_selected(Vector3i(randi_range(-1000, 1000), randi_range(-1000, 1000), 0))
+
 
 func setup_lobby() -> void:
 	lobby = initialize_room(RoomInfo.coords_to_name(PersistentData.player_room_coords))

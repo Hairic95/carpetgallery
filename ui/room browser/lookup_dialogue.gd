@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 	position.x = get_parent().offset.x
 
 	if is_open:
-		if Input.is_action_just_pressed("ui_cancel"):
+		if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_down"):
 			coords_selected.emit(null)
 			close()
 			return
