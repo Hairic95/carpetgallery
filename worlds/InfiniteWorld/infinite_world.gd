@@ -37,7 +37,7 @@ func _ready() -> void:
 	NetworkSocket.on_set_seed.connect(on_set_seed)
 	NetworkSocket.web_socket_connected.connect(web_socket_connected)
 	NetworkSocket.connection.connect(on_completed_connection)
-	NetworkSocket.connect_to_server("127.0.0.1:6900", "Test")
+	NetworkSocket.connect_to_server("localhost:61900", "Test")
 
 
 func _process(delta: float) -> void:
@@ -223,6 +223,7 @@ func player_join(data) -> void:
 	new_player_object.map_coordinates = Vector2(data.map_coordinates.x, data.map_coordinates.y)
 	add_child(new_player_object)
 	new_player_object.remove_component("MapTraversalComponent")
+	new_player_object.remove_component("InteractComponent")
 	new_player_object.add_to_group("OtherPlayer")
 	new_player_object.set_web_id(data.id, data.id)
 	new_player_object.show()
