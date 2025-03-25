@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://wbwn3fyc5bx0"]
 
 [ext_resource type="PackedScene" uid="uid://ckdj8lntj2rnd" path="res://object/BaseObject2D.tscn" id="1_mn6tm"]
-[ext_resource type="Script" path="res://object/component/HealthComponent.gd" id="3_54x1s"]
-[ext_resource type="Script" path="res://object/component/CharacterIntentComponent.gd" id="5_b6nee"]
+[ext_resource type="Script" uid="uid://btnagynmw6f5w" path="res://object/component/HealthComponent.gd" id="3_54x1s"]
+[ext_resource type="Script" uid="uid://y4ehgwuu1vt1" path="res://object/component/CharacterIntentComponent.gd" id="5_b6nee"]
 [ext_resource type="PackedScene" uid="uid://c2frq1qhl2yty" path="res://object/component/map_traversal_component.tscn" id="5_v4o8a"]
-[ext_resource type="Script" path="res://object/objects/character/states/Idle.gd" id="6_a6rd1"]
-[ext_resource type="Script" path="res://object/objects/character/states/Move.gd" id="7_mcxbw"]
-[ext_resource type="Script" path="res://object/objects/character/states/Die.gd" id="8_wx3fr"]
+[ext_resource type="Script" uid="uid://u3i5xf4s8qt0" path="res://object/objects/character/states/Idle.gd" id="6_a6rd1"]
+[ext_resource type="Script" uid="uid://noi6beqpkde6" path="res://object/objects/character/states/Move.gd" id="7_mcxbw"]
+[ext_resource type="Script" uid="uid://dk3hnrm61a7c7" path="res://object/objects/character/states/Die.gd" id="8_wx3fr"]
 
 [node name="CharacterObject" instance=ExtResource("1_mn6tm")]
 texture_filter = 1

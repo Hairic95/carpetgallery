@@ -9,7 +9,7 @@ func _ready():
 	if dialogue_resource == null:
 		dialogue_resource = DialogueResource.new()
 
-func be_interacted_with(object: BaseObject2D):
+func be_interacted_with(object: NetworkBody):
 	if dialogue_resource:
 		var dialogue_box_component: DialogueBoxComponent = object.get_component(DialogueBoxComponent)
 		if dialogue_box_component:

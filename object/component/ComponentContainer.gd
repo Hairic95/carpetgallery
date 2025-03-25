@@ -2,8 +2,7 @@ extends Node2D
 
 class_name ComponentContainer
 
-@export var object: BaseObject2D
-@export var body: BaseObjectBody2D
+@export var object: NetworkBody
 
 var component_names = {}
 var component_types = {}
@@ -64,7 +63,6 @@ func add(component: BaseComponent, deferred=true):
 		component_types[component.script].append(component)
 
 	component.object = object
-	component.body = body
 	component.container = self
 	if deferred:
 		if component.get_parent() != self:
@@ -104,4 +102,4 @@ func set_flip(dir):
 
 func apply_body_rotation():
 	for component in rotate_components:
-		component.rotation = body.rotation
+		component.rotation = object.rotation

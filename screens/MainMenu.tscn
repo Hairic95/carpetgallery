@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bk3echnhc2r5y"]
 
-[ext_resource type="Script" path="res://screens/MainMenu.gd" id="1_gw7gq"]
+[ext_resource type="Script" uid="uid://dfj554d26kfrw" path="res://screens/MainMenu.gd" id="1_gw7gq"]
 [ext_resource type="FontFile" uid="uid://dedq6nnrq1hg1" path="res://ui/font/pixel_operator/PixelOperator8-Bold.ttf" id="2_dd6sp"]
 [ext_resource type="Texture2D" uid="uid://crpnshk7udgap" path="res://ui/main_menu_select.png" id="2_nlvcv"]
 [ext_resource type="FontFile" uid="uid://dgft7p0iu1uxn" path="res://ui/font/pixel_operator/PixelOperator-Bold.ttf" id="3_773vv"]
@@ -13,19 +13,19 @@ script = ExtResource("1_gw7gq")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Main" type="Node2D" parent="."]
 position = Vector2(0, -3)
 
-[node name="Pointer" type="Sprite2D" parent="Node2D"]
+[node name="Pointer" type="Sprite2D" parent="Main"]
 unique_name_in_owner = true
-position = Vector2(-31.9761, -13.618)
+position = Vector2(-31.9761, -19)
 texture = ExtResource("2_nlvcv")
 
-[node name="Start" type="Node2D" parent="Node2D"]
+[node name="Start" type="Node2D" parent="Main"]
 unique_name_in_owner = true
-position = Vector2(0.0477929, -13.2358)
+position = Vector2(0.0955858, -19)
 
-[node name="Label" type="Label" parent="Node2D/Start"]
+[node name="Label" type="Label" parent="Main/Start"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -40,11 +40,30 @@ theme_override_font_sizes/font_size = 8
 text = "start"
 metadata/_edit_use_anchors_ = true
 
-[node name="Options" type="Node2D" parent="Node2D"]
+[node name="Online" type="Node2D" parent="Main"]
 unique_name_in_owner = true
-position = Vector2(0.0477877, 2.76425)
+position = Vector2(0.0477929, -5.7642)
 
-[node name="Label" type="Label" parent="Node2D/Options"]
+[node name="Label" type="Label" parent="Main/Online"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -26.5
+offset_top = -4.0
+offset_right = 26.5
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_dd6sp")
+theme_override_font_sizes/font_size = 8
+text = "online"
+metadata/_edit_use_anchors_ = true
+
+[node name="Options" type="Node2D" parent="Main"]
+unique_name_in_owner = true
+position = Vector2(0.0477877, 10.2358)
+
+[node name="Label" type="Label" parent="Main/Options"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -59,11 +78,11 @@ theme_override_font_sizes/font_size = 8
 text = "options"
 metadata/_edit_use_anchors_ = true
 
-[node name="Quit" type="Node2D" parent="Node2D"]
+[node name="Quit" type="Node2D" parent="Main"]
 unique_name_in_owner = true
-position = Vector2(0.0477877, 18.7642)
+position = Vector2(0.0477877, 26.2358)
 
-[node name="Label" type="Label" parent="Node2D/Quit"]
+[node name="Label" type="Label" parent="Main/Quit"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -78,7 +97,7 @@ theme_override_font_sizes/font_size = 8
 text = "quit"
 metadata/_edit_use_anchors_ = true
 
-[node name="Label2" type="Label" parent="Node2D"]
+[node name="Label2" type="Label" parent="Main"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -94,7 +113,82 @@ text = "carpet gallery"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Label3" type="Label" parent="Node2D"]
+[node name="Label3" type="Label" parent="Main"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = 55.0
+offset_right = 120.0
+offset_bottom = 74.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.227451, 0.227451, 0.227451, 1)
+theme_override_fonts/font = ExtResource("5_val24")
+theme_override_font_sizes/font_size = 8
+text = "code, art, sfx by ivy sly
+music by faec"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Online" type="Node2D" parent="."]
+visible = false
+
+[node name="Title" type="Label" parent="Online"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -54.5
+offset_top = -72.0
+offset_right = 54.5
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_773vv")
+theme_override_font_sizes/font_size = 16
+text = "carpet gallery"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Online"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -37.0
+offset_top = -26.0
+offset_right = 37.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_dd6sp")
+theme_override_font_sizes/font_size = 8
+text = "Connect to"
+
+[node name="IpAddress" type="LineEdit" parent="Online"]
+unique_name_in_owner = true
+offset_left = -79.0
+offset_top = -9.0
+offset_right = 79.0
+offset_bottom = 7.0
+theme_override_fonts/font = ExtResource("5_val24")
+theme_override_font_sizes/font_size = 8
+text = "127.0.0.1:6900"
+
+[node name="Label2" type="Label" parent="Online"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -84.5
+offset_top = 17.0
+offset_right = 84.5
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_dd6sp")
+theme_override_font_sizes/font_size = 8
+text = "Presse Z to connect"
+
+[node name="Label3" type="Label" parent="Online"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

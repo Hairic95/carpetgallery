@@ -22,6 +22,7 @@ func _ready():
 	pass
 
 func _process(delta: float) -> void:
+	"""
 	if !world.transitioning and !player.get_component(PlayerControlComponent).busy:
 		if !menu_open:
 			if Input.is_action_just_pressed("secondary"):
@@ -31,9 +32,12 @@ func _process(delta: float) -> void:
 				animation_player.play("Pause")
 			if Input.is_action_just_pressed("menu"):
 				open_menu_screen.call_deferred()
+	"""
 
 func open_menu_screen():
+	"""
 	menu_open = true
+	
 	player.get_component(PlayerControlComponent).busy = true
 	menu_screen.open()
 	var selection = await menu_screen.option_selected
@@ -43,7 +47,7 @@ func open_menu_screen():
 		player.get_component(PlayerControlComponent).busy = false
 	if selection == "quit":
 		exit_requested.emit()
-
+"""
 
 func _on_room_browser_exit():
 	menu_open = false

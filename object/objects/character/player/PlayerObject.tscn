@@ -1,14 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4xyucl0qhhel"]
+[gd_scene load_steps=12 format=3 uid="uid://cysfoaf0insu0"]
 
 [ext_resource type="PackedScene" uid="uid://wbwn3fyc5bx0" path="res://object/objects/character/CharacterObject.tscn" id="1_n0wm2"]
 [ext_resource type="Texture2D" uid="uid://bn4qv6stf5bs0" path="res://object/objects/character/player/sprites/idle.png" id="3_5glil"]
-[ext_resource type="Script" path="res://object/component/PlayerControlComponent.gd" id="3_8p3hi"]
+[ext_resource type="Script" uid="uid://yww0kh2bt4ju" path="res://object/component/PlayerControlComponent.gd" id="3_8p3hi"]
 [ext_resource type="Texture2D" uid="uid://c17dih3ycs52f" path="res://object/objects/character/player/sprites/walk1.png" id="4_kxlql"]
 [ext_resource type="Texture2D" uid="uid://deuwdeqe18xs" path="res://object/objects/character/player/sprites/walk2.png" id="5_4bj70"]
 [ext_resource type="PackedScene" uid="uid://bqtxg7aa6q3hn" path="res://object/component/interact_component.tscn" id="8_35sb0"]
 [ext_resource type="PackedScene" uid="uid://b7ohek2ne8prl" path="res://object/component/DialogueBoxComponent.tscn" id="9_tem6k"]
-[ext_resource type="Script" path="res://object/component/FootstepComponent.gd" id="9_x8ulf"]
-[ext_resource type="Script" path="res://object/component/DebugComponent.gd" id="10_s5mnh"]
+[ext_resource type="Script" uid="uid://0edlsuf085yt" path="res://object/component/FootstepComponent.gd" id="9_x8ulf"]
+[ext_resource type="Script" uid="uid://cd7prg211jtfx" path="res://object/component/DebugComponent.gd" id="10_s5mnh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_u70fo"]
 animations = [{
@@ -50,6 +50,7 @@ bus = &"Fx"
 
 [node name="Body" parent="." index="1"]
 collision_layer = 6
+collision_mask = 1
 drag = 10.0
 
 [node name="CollisionShape2D" parent="Body" index="0"]
@@ -71,9 +72,8 @@ position = Vector2(142.378, 168.387)
 [node name="DebugComponent" type="Node2D" parent="Components" index="6"]
 script = ExtResource("10_s5mnh")
 
-[node name="FootstepComponent" type="Node2D" parent="Components" index="7" node_paths=PackedStringArray("sprite", "footstep_node")]
+[node name="FootstepComponent" type="Node2D" parent="Components" index="7" node_paths=PackedStringArray("footstep_node")]
 script = ExtResource("9_x8ulf")
-sprite = NodePath("../../Flip/Sprite")
 footstep_node = NodePath("../../Flip/Sounds/Footstep")
 
 [node name="Idle" parent="StateMachine" index="0"]

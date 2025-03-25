@@ -1,5 +1,4 @@
-extends Node2D
-
+extends NetworkBody
 class_name BaseObject2D
 
 var x:
@@ -27,6 +26,8 @@ var fx = ObjectFx.new(self)
 
 var auto_setup_components = true
 
+var current_state = "Idle"
+
 var map: BaseMap:
 	get:
 		return get_parent()
@@ -45,18 +46,14 @@ var sounds = {}
 
 @export var start_flipped = false
 
-@onready var body: BaseObjectBody2D = %Body
 @onready var components: ComponentContainer = %Components
 @onready var sprite: AnimatedSprite2D = %Sprite
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
-@onready var state_machine: StateMachine2D = %StateMachine
 @onready var flip: Node2D = $"%Flip"
 
 func _ready():
-	body.moved.connect(follow_body)
 	if start_flipped: set_flip(-1)
-
-	state_machine.init()
+	
 	if animation_player and animation_player.has_animation("RESET"):
 		animation_player.play("RESET")
 	if Engine.is_editor_hint():
@@ -72,21 +69,17 @@ func _ready():
 
 func reset_rotation():
 	flip.rotation = 0
-	body.rotation = 0
 
 func set_flip(dir):
 	if dir < 0:
 		flip.scale.x = -1
-		state_machine.scale.x = -1
 		components.set_flip(-1)
 	elif dir > 0:
 		flip.scale.x = 1
 		components.set_flip(1)
-		state_machine.scale.x = 1
 
 func follow_body(xy: Vector2):
 	self.xy = xy
-	body.position *= 0
 
 func add_component(component: BaseComponent) -> void:
 	components.add(component)
@@ -118,11 +111,10 @@ func get_nearby_object(object_name: String) -> BaseObject2D:
 func stop_sound(sound_name: String):
 	sounds[sound_name].stop()
 
-func change_state(state_name):
-	state_machine.queue_state(state_name)
+func set_state(state):
+	if current_state == state:
+		%Sprite.play(state)
 
 func _physics_process(delta):
-	if !hitstopped and state_machine:
-		state_machine.update(delta)
-	flip.rotation = body.rotation
-	state_machine.rotation = body.rotation
+	pass
+	

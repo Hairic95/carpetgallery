@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bxj8c4je48ejt"]
 
 [ext_resource type="PackedScene" uid="uid://ckdj8lntj2rnd" path="res://object/BaseObject2D.tscn" id="1_8cx8j"]
-[ext_resource type="Shader" path="res://framework/HitFlash.gdshader" id="2_jwrdd"]
-[ext_resource type="Script" path="res://object/state/ObjectState.gd" id="3_8wh5t"]
+[ext_resource type="Shader" uid="uid://ba1m378ocb8dn" path="res://framework/HitFlash.gdshader" id="2_jwrdd"]
+[ext_resource type="Script" uid="uid://beqatgwsiwa67" path="res://object/state/ObjectState.gd" id="3_8wh5t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jmgm5"]
 resource_local_to_scene = true

@@ -7,7 +7,7 @@ signal exit_requested
 const MAX_ROOMS_LOADED = 3
 
 const RANDOM_ROOM = preload("res://worlds/InfiniteWorld/maps/RandomRoom.tscn")
-var SEED = 4218347264
+#var SEED = 4218347264
 #var SEED = 4218347264
 #const SEED = 177793718
 #const SEED = 2491435265
@@ -17,13 +17,14 @@ var SEED = 4218347264
 #const SEED = 3514399619
 #const SEED = 407810971
 #const SEED = 567598017
+var SEED = 12
 
 var lobby: RandomRoom
 
 var loaded_rooms: Array[String] = []
 
 @onready var camera: GoodCamera = $GoodCamera
-@export var player: BaseObject2D
+@export var player: NetworkBody
 @export var room_browser: RoomBrowser2D
 @onready var pause_screen_layer: PauseScreenLayer = $PauseScreenLayer
 @onready var screenshot_flash: ColorRect = %ScreenshotFlash
@@ -31,16 +32,13 @@ var loaded_rooms: Array[String] = []
 var can_screenshot = true
 
 func _ready() -> void:
-	#SEED = randi()
-	#print(SEED)
-	
-	setup_lobby.call_deferred()
-	room_browser.fast_travel_initiated.connect(_on_fast_travel_selected)
-	player.get_component(MapTraversalComponent).fast_travel_initiated.connect(_on_fast_travel_selected)
-	pause_screen_layer.exit_requested.connect(exit_requested.emit)
-	player.get_component(PlayerControlComponent).screenshot_intent.connect(_on_screenshot_intent)
-	player.hide()
-	super._ready()
+	NetworkSocket.player_join.connect(player_join)
+	NetworkSocket.update_user_list.connect(get_users_result)
+	NetworkSocket.on_set_seed.connect(on_set_seed)
+	NetworkSocket.web_socket_connected.connect(web_socket_connected)
+	NetworkSocket.connection.connect(on_completed_connection)
+	NetworkSocket.connect_to_server("127.0.0.1:6900", "Test")
+
 
 func _process(delta: float) -> void:
 	if Debug.enabled and Input.is_action_just_pressed("debug_random"):
@@ -205,3 +203,53 @@ func mix64(k: int) -> int:
 	k = (k ^ (k >> 27)) * -7723592293110705685
 	k = k ^ (k >> 31)
 	return k & 0x7FFFFFFFFFFFFFFF  # Ensure 64-bit signed integer
+
+func on_set_seed(seed: String) -> void:
+	SEED = hash(seed)
+	setup_lobby.call_deferred()
+	room_browser.fast_travel_initiated.connect(_on_fast_travel_selected)
+	#player.get_component(MapTraversalComponent).fast_travel_initiated.connect(_on_fast_travel_selected)
+	pause_screen_layer.exit_requested.connect(exit_requested.emit)
+	#player.get_component(PlayerControlComponent).screenshot_intent.connect(_on_screenshot_intent)
+	player.hide()
+	super._ready()
+	player.owner_uuid = NetworkSocket.current_web_id
+	player.entity_uuid = NetworkSocket.current_web_id
+
+func player_join(data) -> void:
+	var new_player_object = preload("res://object/objects/character/player/player.tscn").instantiate()
+	new_player_object.hide()
+	new_player_object.global_position = Vector2(data.position.x, data.position.y)
+	new_player_object.map_coordinates = Vector2(data.map_coordinates.x, data.map_coordinates.y)
+	add_child(new_player_object)
+	new_player_object.remove_component("MapTraversalComponent")
+	new_player_object.add_to_group("OtherPlayer")
+	new_player_object.set_web_id(data.id, data.id)
+	new_player_object.show()
+
+func get_users_result(users: Array) -> void:
+	print(NetworkSocket.current_web_id)
+	for user in users:
+		if user.id != NetworkSocket.current_web_id:
+			
+			var new_player_object = preload("res://object/objects/character/player/player.tscn").instantiate()
+			new_player_object.hide()
+			new_player_object.global_position = Vector2(user.position.x, user.position.y)
+			new_player_object.map_coordinates = Vector2(user.map_coordinates.x, user.map_coordinates.y)
+			add_child(new_player_object)
+			new_player_object.add_to_group("OtherPlayer")
+			new_player_object.remove_component("MapTraversalComponent")
+			
+			new_player_object.set_web_id(user.id, user.id)
+			new_player_object.show()
+		
+			print(user.id)
+
+func web_socket_connected():
+	NetworkSocket.send_message_connect("TEST", player.global_position, Vector2(0, 0))
+
+func on_completed_connection(result: bool):
+	if result:
+		NetworkSocket.send_get_seed()
+		NetworkSocket.send_message_get_users()
+	

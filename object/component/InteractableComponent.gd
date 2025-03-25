@@ -15,7 +15,7 @@ func _ready():
 func add_method(callable: Callable):
 	callables.append(callable)
 
-func be_interacted_with(object: BaseObject2D):
+func be_interacted_with(object: NetworkBody):
 	for callable in callables:
 		callable.call(object)
 	

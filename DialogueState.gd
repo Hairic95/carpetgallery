@@ -1,6 +1,6 @@
 extends Node
 
-var talking_to: BaseObject2D
+var talking_to: NetworkBody
 var rng: BetterRng = BetterRng.new()
 var vars:
 	get:

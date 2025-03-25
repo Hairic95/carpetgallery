@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://by5c463m57u0r"]
 
-[ext_resource type="Script" path="res://World.gd" id="1_oka5v"]
-[ext_resource type="PackedScene" uid="uid://c4xyucl0qhhel" path="res://object/objects/character/player/PlayerObject.tscn" id="2_3ddsv"]
+[ext_resource type="Script" uid="uid://3ybaxlfpu7xe" path="res://World.gd" id="1_oka5v"]
+[ext_resource type="PackedScene" uid="uid://c4wn04hjsbh2f" path="res://object/objects/character/player/player.tscn" id="2_g2rf2"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_oka5v")
 
-[node name="PlayerObject" parent="." instance=ExtResource("2_3ddsv")]
-y_sort_enabled = true
+[node name="Player" parent="." instance=ExtResource("2_g2rf2")]
 
 [node name="ActiveMap" type="Node2D" parent="."]
 y_sort_enabled = true

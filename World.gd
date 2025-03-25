@@ -8,7 +8,7 @@ signal started_map_transition(old, new)
 @onready var active_map_node = $ActiveMap
 @onready var inactive_map_node = $InactiveMaps
 @onready var transition_screen = %TransitionScreen
-@onready var player_object = $PlayerObject
+@onready var player_object = $Player
 
 var active_map: BaseMap:
 	get:
@@ -44,10 +44,7 @@ func remove_map(map: String):
 		instance.queue_free()
 
 func spawn_player() -> void:
-	if player_object.get_parent() != active_map and player_object.get_parent():
-		player_object.get_parent().remove_child(player_object)
-	active_map.add_child(player_object)
-	player_object.xy = active_map.player_start.global_position
+	player_object.global_position = active_map.player_start.global_position
 	#if player_object:
 		#player_object.get_component(CameraComponent).on_entered_map()
 
@@ -89,10 +86,8 @@ func map_transition(map: String, fade=true) -> void:
 	await tween.finished
 	transitioning = false
 
-func move_object(object: BaseObject2D, map: String = "", entrance: String="") -> void:
+func move_object(object: NetworkBody, map: String = "", entrance: String="") -> void:
 	if map in maps:
 		var map_node: BaseMap = maps[map]
 		if entrance in map_node.entrances:
-			object.map.remove_child(object)
-			map_node.add_child(object)
-			object.xy = map_node.entrances[entrance].global_position
+			object.global_position = map_node.entrances[entrance].global_position

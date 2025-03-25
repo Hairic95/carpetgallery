@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=3 uid="uid://ds8wg31ytc5qs"]
 
 [ext_resource type="PackedScene" uid="uid://by5c463m57u0r" path="res://worlds/GameWorld.tscn" id="1_5mud7"]
-[ext_resource type="Script" path="res://worlds/InfiniteWorld/infinite_world.gd" id="2_0de8f"]
-[ext_resource type="Script" path="res://framework/GoodCamera.gd" id="3_mwjpx"]
+[ext_resource type="Script" uid="uid://bdiemj462hpeq" path="res://worlds/InfiniteWorld/infinite_world.gd" id="2_0de8f"]
+[ext_resource type="Script" uid="uid://brvwdafox41uf" path="res://framework/GoodCamera.gd" id="3_mwjpx"]
 [ext_resource type="PackedScene" uid="uid://cxr6ncr17xqdn" path="res://ui/pause_screen.tscn" id="4_t0pv0"]
-[ext_resource type="Script" path="res://ui/pause_screen_layer.gd" id="5_hsebt"]
+[ext_resource type="Script" uid="uid://b2ba2rq8lepfq" path="res://ui/pause_screen_layer.gd" id="5_hsebt"]
 [ext_resource type="PackedScene" uid="uid://bd1yhnn11tfkh" path="res://ui/menu_screen.tscn" id="6_4eu4m"]
 [ext_resource type="AudioStream" uid="uid://e44e7dsks1iu" path="res://sound/mapexit.wav" id="6_6repu"]
 [ext_resource type="AudioStream" uid="uid://bwh0jyib7qwpp" path="res://sound/screenie.wav" id="8_toh1w"]
@@ -159,46 +159,28 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mtjha"]
 _data = {
-&"RESET": SubResource("Animation_g4x2k"),
 &"Pause": SubResource("Animation_e7usb"),
+&"RESET": SubResource("Animation_g4x2k"),
 &"Unpause": SubResource("Animation_od1xk")
 }
 
-[node name="InfiniteWorld" node_paths=PackedStringArray("player", "room_browser") instance=ExtResource("1_5mud7")]
+[node name="InfiniteWorld" node_paths=PackedStringArray("player", "room_browser") groups=["World"] instance=ExtResource("1_5mud7")]
+y_sort_enabled = true
 script = ExtResource("2_0de8f")
-player = NodePath("PlayerObject")
+player = NodePath("Player")
 room_browser = NodePath("PauseScreenLayer/SubViewportContainer/SubViewport/PauseScreen/SubViewportContainer/SubViewport/RoomBrowser")
 metadata/_edit_vertical_guides_ = [120.0]
 metadata/_edit_horizontal_guides_ = [88.0]
 
-[node name="PlayerObject" parent="." index="0"]
-texture_filter = 0
-position = Vector2(0, 8)
+[node name="Player" parent="." index="0" groups=["Player"]]
 
 [node name="GoodCamera" type="Camera2D" parent="." index="2"]
 ignore_rotation = false
 script = ExtResource("3_mwjpx")
 
-[node name="CanvasLayer" parent="." index="4"]
-layer = 127
-
-[node name="TransitionScreen" parent="CanvasLayer" index="0"]
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
-
-[node name="ScreenshotFlash" type="ColorRect" parent="CanvasLayer" index="1"]
-unique_name_in_owner = true
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 1, 1, 0)
-
-[node name="PauseScreenLayer" type="CanvasLayer" parent="." index="5" node_paths=PackedStringArray("player", "camera", "world", "room_browser")]
+[node name="PauseScreenLayer" type="CanvasLayer" parent="." index="4" node_paths=PackedStringArray("camera", "world", "room_browser")]
 layer = 128
 script = ExtResource("5_hsebt")
-player = NodePath("../PlayerObject")
 camera = NodePath("../GoodCamera")
 world = NodePath("..")
 room_browser = NodePath("SubViewportContainer/SubViewport/PauseScreen/SubViewportContainer/SubViewport/RoomBrowser")
@@ -226,9 +208,8 @@ canvas_item_default_texture_filter = 0
 size = Vector2i(240, 176)
 render_target_update_mode = 4
 
-[node name="PauseScreen" parent="PauseScreenLayer/SubViewportContainer/SubViewport" index="0" node_paths=PackedStringArray("player", "world") instance=ExtResource("4_t0pv0")]
+[node name="PauseScreen" parent="PauseScreenLayer/SubViewportContainer/SubViewport" index="0" node_paths=PackedStringArray("world") instance=ExtResource("4_t0pv0")]
 unique_name_in_owner = true
-player = NodePath("../../../../PlayerObject")
 world = NodePath("../../../..")
 
 [node name="RoomBrowser" parent="PauseScreenLayer/SubViewportContainer/SubViewport/PauseScreen/SubViewportContainer/SubViewport" index="0" node_paths=PackedStringArray("game_camera")]
@@ -238,16 +219,32 @@ game_camera = NodePath("../../../../../../../GoodCamera")
 visible = false
 position = Vector2(120, 88)
 
-[node name="MapExitSound" type="AudioStreamPlayer2D" parent="." index="6"]
+[node name="MapExitSound" type="AudioStreamPlayer2D" parent="." index="5"]
 stream = ExtResource("6_6repu")
 volume_db = -80.0
 pitch_scale = 2.0
 bus = &"Fx"
 
-[node name="CameraSound1" type="AudioStreamPlayer" parent="." index="7"]
+[node name="CameraSound1" type="AudioStreamPlayer" parent="." index="6"]
 stream = ExtResource("8_toh1w")
 volume_db = -10.0
 pitch_scale = 1.5
 bus = &"Fx"
+
+[node name="CanvasLayer" parent="." index="7"]
+layer = 127
+
+[node name="TransitionScreen" parent="CanvasLayer" index="0"]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="ScreenshotFlash" type="ColorRect" parent="CanvasLayer" index="1"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 
 [editable path="PauseScreenLayer/SubViewportContainer/SubViewport/PauseScreen"]
