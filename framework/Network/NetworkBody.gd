@@ -31,7 +31,6 @@ func _ready():
 func _physics_process(delta):
 	if is_client_owner():
 		if packet_time >= packet_timer:
-			
 			NetworkSocket.send_message_to_lobby({
 				"entity_id": entity_uuid, #NetworkSocket.current_web_id,
 				"type": NetworkConstants.GenericAction_EntityUpdatePosition,
@@ -71,12 +70,9 @@ func change_map_coordinates(_map_coords: Vector2) -> void:
 		for other_player in get_tree().get_nodes_in_group("OtherPlayer"):
 			if other_player is NetworkBody:
 				if other_player.map_coordinates == _map_coords:
-					print(other_player.entity_uuid)
-					print(other_player.target_position)
-					print(other_player.global_position)
-					global_position = target_position
+					other_player.global_position = other_player.target_position
 				else:
-					global_position = Vector2(-100, -100)
+					other_player.global_position = Vector2(-100, -100)
 
 func remote_entity_position_update(data):
 	if data.entity_id == entity_uuid:
@@ -90,6 +86,7 @@ func remote_entity_update_state(data):
 
 func remote_entity_hard_update_position(data):
 	if data.entity_id == entity_uuid:
+		target_position = Vector2(data.position.x, data.position.y)
 		global_position = Vector2(data.position.x, data.position.y)
 
 func remote_entity_misc_process_data(data):
@@ -111,9 +108,8 @@ func remote_entity_update_flip(data):
 func remote_entity_update_map_coordinates(data):
 	if data.entity_id == entity_uuid:
 		map_coordinates = Vector2(data.map_coordinates.x, data.map_coordinates.y)
-		var pos = Vector2(data.position.x, data.position.y)
 		if GlobalState.player.map_coordinates == map_coordinates:
-			global_position = pos
+			remote_entity_hard_update_position(data)
 		else:
 			global_position = Vector2(-100, -100)
 

@@ -117,7 +117,6 @@ func _physics_process(delta):
 	else:
 		if GlobalState.player.map_coordinates == map_coordinates:
 			global_position = lerp(global_position, target_position, .3)
-			print(visible)
 		else:
 			global_position = Vector2(-100, -100)
 

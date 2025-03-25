@@ -91,3 +91,6 @@ func move_object(object: NetworkBody, map: String = "", entrance: String="") -> 
 		var map_node: BaseMap = maps[map]
 		if entrance in map_node.entrances:
 			object.global_position = map_node.entrances[entrance].global_position
+			var map_x = int(map.split("_")[0])
+			var map_y = int(map.split("_")[1])
+			object.change_map_coordinates(Vector2(map_x, map_y))

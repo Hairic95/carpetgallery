@@ -14,12 +14,7 @@ func on_area_entered(area):
 	if !(area is MapExit):
 		return
 	
-	object.set_process(false)
 	GlobalState.world.map_transition.call_deferred(area.map)
 	await GlobalState.world.changed_active_map
 	GlobalState.world.move_object.call_deferred(object, area.map, area.entrance)
 	
-	var map_x = int(area.map.split("_")[0])
-	var map_y = int(area.map.split("_")[1])
-	object.change_map_coordinates(Vector2(map_x, map_y))
-	object.set_process(true)
