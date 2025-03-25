@@ -11,8 +11,15 @@
 [node name="CharacterObject" instance=ExtResource("1_mn6tm")]
 texture_filter = 1
 
-[node name="Body" parent="." index="1"]
-collision_mask = 5
+[node name="StateMachine#Idle" type="Node2D" parent="." index="0"]
+script = ExtResource("6_a6rd1")
+update = false
+
+[node name="StateMachine#Move" type="Node2D" parent="." index="1"]
+script = ExtResource("7_mcxbw")
+
+[node name="StateMachine#Die" type="Node2D" parent="." index="2"]
+script = ExtResource("8_wx3fr")
 
 [node name="HealthComponent" type="Node2D" parent="Components" index="0"]
 script = ExtResource("3_54x1s")
@@ -21,16 +28,3 @@ script = ExtResource("3_54x1s")
 script = ExtResource("5_b6nee")
 
 [node name="MapTraversalComponent" parent="Components" index="2" instance=ExtResource("5_v4o8a")]
-
-[node name="StateMachine" parent="." index="3"]
-visible = false
-
-[node name="Idle" type="Node2D" parent="StateMachine" index="0"]
-script = ExtResource("6_a6rd1")
-update = false
-
-[node name="Move" type="Node2D" parent="StateMachine" index="1"]
-script = ExtResource("7_mcxbw")
-
-[node name="Die" type="Node2D" parent="StateMachine" index="2"]
-script = ExtResource("8_wx3fr")

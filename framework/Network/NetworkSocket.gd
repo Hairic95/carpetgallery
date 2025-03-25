@@ -72,7 +72,7 @@ func _process(_delta):
 
 func connect_to_server(server_url: String, username : String):
 	if _is_web_socket_connected():
-		web_socket_client.disconnect_from_host(1000, "Reconnecting")
+		web_socket_client.close()
 	
 	current_username = username
 	
@@ -83,7 +83,7 @@ func connect_to_server(server_url: String, username : String):
 	await get_tree().create_timer(4.0).timeout
 	
 	if !(_is_web_socket_connected()):
-		web_socket_client.disconnect_from_host()
+		web_socket_client.close()
 		emit_signal("web_socket_disconnected")
 	
 
@@ -182,10 +182,10 @@ func parse_message_received(json_message):
 					current_web_id = json_message.payload.webId
 					emit_signal("connection", json_message.payload.success)
 					if !json_message.payload.success:
-						web_socket_client.disconnect_from_host(1000, "Couldn't authenticate")
+						web_socket_client.close()
 				else:
 					emit_signal("connection", false)
-					web_socket_client.disconnect_from_host(1000, "Couldn't authenticate")
+					web_socket_client.close()
 			NetworkConstants.Action_GetUsers:
 				if json_message.payload.has("users"):
 					update_user_list.emit(json_message.payload.users)

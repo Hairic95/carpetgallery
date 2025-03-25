@@ -114,6 +114,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_3glep")
 
 [node name="Components" type="Node2D" parent="." node_paths=PackedStringArray("object")]
+unique_name_in_owner = true
 script = ExtResource("5_rgcxx")
 object = NodePath("..")
 

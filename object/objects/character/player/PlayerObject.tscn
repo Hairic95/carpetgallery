@@ -10,6 +10,9 @@
 [ext_resource type="Script" uid="uid://0edlsuf085yt" path="res://object/component/FootstepComponent.gd" id="9_x8ulf"]
 [ext_resource type="Script" uid="uid://cd7prg211jtfx" path="res://object/component/DebugComponent.gd" id="10_s5mnh"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xal3m"]
+size = Vector2(4, 4)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_u70fo"]
 animations = [{
 "frames": [{
@@ -32,11 +35,16 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xal3m"]
-size = Vector2(4, 4)
-
 [node name="PlayerObject" groups=["Player"] instance=ExtResource("1_n0wm2")]
 y_sort_enabled = false
+
+[node name="StateMachine_Move#Timer" type="Timer" parent="." index="0"]
+wait_time = 0.01
+one_shot = true
+
+[node name="Body#CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_xal3m")
 
 [node name="Sprite" parent="Flip" index="1"]
 position = Vector2(0, -7)
@@ -47,15 +55,6 @@ animation = &"Move"
 volume_db = -10.0
 max_polyphony = 3
 bus = &"Fx"
-
-[node name="Body" parent="." index="1"]
-collision_layer = 6
-collision_mask = 1
-drag = 10.0
-
-[node name="CollisionShape2D" parent="Body" index="0"]
-position = Vector2(0, -2)
-shape = SubResource("RectangleShape2D_xal3m")
 
 [node name="PlayerControlComponent" type="Node2D" parent="Components" index="2"]
 script = ExtResource("3_8p3hi")
@@ -75,17 +74,3 @@ script = ExtResource("10_s5mnh")
 [node name="FootstepComponent" type="Node2D" parent="Components" index="7" node_paths=PackedStringArray("footstep_node")]
 script = ExtResource("9_x8ulf")
 footstep_node = NodePath("../../Flip/Sounds/Footstep")
-
-[node name="Idle" parent="StateMachine" index="0"]
-update = true
-
-[node name="Move" parent="StateMachine" index="1"]
-accel_speed = 1800
-custom_animation = "Idle"
-
-[node name="Timer" type="Timer" parent="StateMachine/Move" index="0"]
-wait_time = 0.01
-one_shot = true
-
-[node name="Die" parent="StateMachine" index="2"]
-update_flip = false

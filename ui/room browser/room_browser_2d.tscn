@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://bhlbnqxjhlfxi"]
 
-[ext_resource type="Script" path="res://ui/room browser/room_browser_2d.gd" id="1_l77cy"]
+[ext_resource type="Script" uid="uid://bt3ra4thyimuu" path="res://ui/room browser/room_browser_2d.gd" id="1_l77cy"]
 [ext_resource type="Texture2D" uid="uid://be10ryxuesjpf" path="res://ui/room browser/rect_grabber.png" id="2_xce5i"]
 [ext_resource type="PackedScene" uid="uid://beak3m83k0m1c" path="res://ui/room browser/room_options.tscn" id="3_6un4t"]
 [ext_resource type="PackedScene" uid="uid://cknovjyftciny" path="res://ui/room browser/lookup_dialogue.tscn" id="4_2qvqv"]

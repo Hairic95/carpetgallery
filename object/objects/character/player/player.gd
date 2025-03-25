@@ -244,3 +244,6 @@ func remote_entity_update_flip(data):
 
 func remove_component(component):
 	$Components.remove(component)
+
+func get_component(type) -> BaseComponent:
+	return %Components.get_component(type)

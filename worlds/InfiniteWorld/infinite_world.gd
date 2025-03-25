@@ -208,7 +208,7 @@ func on_set_seed(seed: String) -> void:
 	SEED = hash(seed)
 	setup_lobby.call_deferred()
 	room_browser.fast_travel_initiated.connect(_on_fast_travel_selected)
-	#player.get_component(MapTraversalComponent).fast_travel_initiated.connect(_on_fast_travel_selected)
+	player.get_component("MapTraversalComponent").fast_travel_initiated.connect(_on_fast_travel_selected)
 	pause_screen_layer.exit_requested.connect(exit_requested.emit)
 	#player.get_component(PlayerControlComponent).screenshot_intent.connect(_on_screenshot_intent)
 	player.hide()
