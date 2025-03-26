@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4wn04hjsbh2f"]
+[gd_scene load_steps=14 format=3 uid="uid://c4wn04hjsbh2f"]
 
 [ext_resource type="Script" uid="uid://b7yhlg3jhjg7c" path="res://object/objects/character/player/player.gd" id="1_hbs4k"]
 [ext_resource type="Texture2D" uid="uid://bn4qv6stf5bs0" path="res://object/objects/character/player/sprites/idle.png" id="2_8us3e"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://2vpmwhd5fhfb" path="res://Procgen/Sound/footstep/footstep3.wav" id="5_d5a4v"]
 [ext_resource type="PackedScene" uid="uid://c2frq1qhl2yty" path="res://object/component/map_traversal_component.tscn" id="5_hh12u"]
 [ext_resource type="Script" uid="uid://bfayn73bnynrj" path="res://object/component/ComponentContainer.gd" id="5_rgcxx"]
+[ext_resource type="PackedScene" uid="uid://b7vto1aoq6lj3" path="res://object/push_box.tscn" id="8_2fei5"]
 
 [sub_resource type="Animation" id="Animation_3glep"]
 resource_name = "Idle"
@@ -120,3 +121,6 @@ object = NodePath("..")
 
 [node name="MapTraversalComponent" parent="Components" instance=ExtResource("5_hh12u")]
 position = Vector2(0, -2)
+
+[node name="PushBox" parent="." node_paths=PackedStringArray("object") instance=ExtResource("8_2fei5")]
+object = NodePath("..")

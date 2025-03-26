@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7vto1aoq6lj3"]
+
+[ext_resource type="Script" uid="uid://ddwl6gb5m7eox" path="res://object/push_box.gd" id="1_h8llc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3glep"]
+radius = 3.0
+height = 9.99999
+
+[node name="PushBox" type="Area2D"]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_h8llc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_3glep")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
