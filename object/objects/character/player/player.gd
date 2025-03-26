@@ -247,3 +247,6 @@ func remove_component(component):
 
 func get_component(type) -> BaseComponent:
 	return %Components.get_component(type)
+
+func reset_momentum():
+	movement_direction = Vector2.ZERO

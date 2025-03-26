@@ -20,12 +20,8 @@ func _ready():
 	update_sprite_parent.call_deferred()
 
 func _physics_process(delta):
-	var intent = get_component(CharacterIntentComponent)
-	if intent:
-		if intent.move_dir:
-			area.position = intent.move_dir * DISTANCE
-		if intent.interact:
-			interact(get_selected_component())
+	if Input.is_action_just_pressed("primary"):
+		interact(get_selected_component())
 
 func _process(delta: float) -> void:
 	var component = get_selected_component()
@@ -44,10 +40,10 @@ func update_sprite_parent():
 	if !is_instance_valid(sprite):
 		sprite = Sprite2D.new()
 	var sprite_parent = sprite.get_parent()
-	if sprite.get_parent() != object.map:
+	if sprite.get_parent() != GlobalState.map && GlobalState.map:
 		if sprite.get_parent() != null:
 			sprite.get_parent().remove_child.call_deferred(sprite)
-		object.map.add_child.call_deferred(sprite)
+		GlobalState.map.add_child.call_deferred(sprite)
 
 func on_area_entered(area):
 	overlapping.append(area)
@@ -58,7 +54,7 @@ func on_area_exited(area):
 func interact(component: InteractableComponent):
 	if component:
 		component.be_interacted_with(object)
-		body.reset_momentum()
+		object.reset_momentum()
 
 func get_selected_component():
 	var invalid = []

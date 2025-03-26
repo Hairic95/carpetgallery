@@ -8,7 +8,6 @@ var follow_body_rotation = false
 var container: ComponentContainer
 
 var object: NetworkBody
-var body: NetworkBody
 
 func get_component(type) -> BaseComponent:
 	return container.get_component(type)

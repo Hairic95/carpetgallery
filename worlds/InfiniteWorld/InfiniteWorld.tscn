@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=3 uid="uid://ds8wg31ytc5qs"]
 
 [ext_resource type="PackedScene" uid="uid://by5c463m57u0r" path="res://worlds/GameWorld.tscn" id="1_5mud7"]
-[ext_resource type="Script" uid="uid://bdiemj462hpeq" path="res://worlds/InfiniteWorld/infinite_world.gd" id="2_0de8f"]
-[ext_resource type="Script" uid="uid://brvwdafox41uf" path="res://framework/GoodCamera.gd" id="3_mwjpx"]
+[ext_resource type="Script" uid="uid://dpsj1x3b3306q" path="res://worlds/InfiniteWorld/infinite_world.gd" id="2_0de8f"]
+[ext_resource type="Script" uid="uid://wdgy834tcxp6" path="res://framework/GoodCamera.gd" id="3_mwjpx"]
 [ext_resource type="PackedScene" uid="uid://cxr6ncr17xqdn" path="res://ui/pause_screen.tscn" id="4_t0pv0"]
-[ext_resource type="Script" uid="uid://b2ba2rq8lepfq" path="res://ui/pause_screen_layer.gd" id="5_hsebt"]
+[ext_resource type="Script" uid="uid://b2s2h257wwp5m" path="res://ui/pause_screen_layer.gd" id="5_hsebt"]
 [ext_resource type="PackedScene" uid="uid://bd1yhnn11tfkh" path="res://ui/menu_screen.tscn" id="6_4eu4m"]
 [ext_resource type="AudioStream" uid="uid://e44e7dsks1iu" path="res://sound/mapexit.wav" id="6_6repu"]
 [ext_resource type="AudioStream" uid="uid://bwh0jyib7qwpp" path="res://sound/screenie.wav" id="8_toh1w"]
