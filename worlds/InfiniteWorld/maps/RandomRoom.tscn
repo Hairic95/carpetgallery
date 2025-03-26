@@ -1,11 +1,11 @@
 [gd_scene load_steps=20 format=3 uid="uid://bhsmf5jajpiwx"]
 
 [ext_resource type="PackedScene" uid="uid://d32qqlgba5t66" path="res://worlds/map/BaseMap.tscn" id="1_j24tu"]
-[ext_resource type="Script" path="res://worlds/InfiniteWorld/maps/random_room.gd" id="2_0stkl"]
-[ext_resource type="Script" path="res://worlds/map/MapColors.gd" id="3_rvtdq"]
-[ext_resource type="Script" path="res://worlds/map/MapEntrance.gd" id="4_8umeq"]
+[ext_resource type="Script" uid="uid://cyaqpjlgokhh1" path="res://worlds/InfiniteWorld/maps/random_room.gd" id="2_0stkl"]
+[ext_resource type="Script" uid="uid://c2si70c2f4tng" path="res://worlds/map/MapColors.gd" id="3_rvtdq"]
+[ext_resource type="Script" uid="uid://cla40v0eahiwj" path="res://worlds/map/MapEntrance.gd" id="4_8umeq"]
 [ext_resource type="Texture2D" uid="uid://dvagedsolu0vi" path="res://Procgen/Map/assets/arrow1.png" id="5_4at03"]
-[ext_resource type="Script" path="res://worlds/InfiniteWorld/maps/ExitArrow.gd" id="5_kbena"]
+[ext_resource type="Script" uid="uid://dh67r2ns0wv" path="res://worlds/InfiniteWorld/maps/ExitArrow.gd" id="5_kbena"]
 [ext_resource type="Texture2D" uid="uid://bjw121h1vdsb8" path="res://Procgen/Map/assets/arrow2.png" id="6_23udm"]
 [ext_resource type="PackedScene" uid="uid://c8lob8qiba1er" path="res://worlds/map/MapExit.tscn" id="8_ihjeg"]
 
