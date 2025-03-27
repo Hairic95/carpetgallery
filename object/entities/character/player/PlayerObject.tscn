@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://cysfoaf0insu0"]
+
+[ext_resource type="PackedScene" uid="uid://wbwn3fyc5bx0" path="res://object/entities/character/CharacterObject.tscn" id="1_n0wm2"]
+[ext_resource type="Texture2D" uid="uid://bn4qv6stf5bs0" path="res://object/entities/character/player/sprites/idle.png" id="3_5glil"]
+[ext_resource type="Script" uid="uid://yww0kh2bt4ju" path="res://object/component/PlayerControlComponent.gd" id="3_8p3hi"]
+[ext_resource type="Texture2D" uid="uid://c17dih3ycs52f" path="res://object/entities/character/player/sprites/walk1.png" id="4_kxlql"]
+[ext_resource type="Texture2D" uid="uid://deuwdeqe18xs" path="res://object/entities/character/player/sprites/walk2.png" id="5_4bj70"]
+[ext_resource type="PackedScene" uid="uid://bqtxg7aa6q3hn" path="res://object/component/interact_component.tscn" id="8_35sb0"]
+[ext_resource type="PackedScene" uid="uid://b7ohek2ne8prl" path="res://object/component/DialogueBoxComponent.tscn" id="9_tem6k"]
+[ext_resource type="Script" uid="uid://0edlsuf085yt" path="res://object/component/FootstepComponent.gd" id="9_x8ulf"]
+[ext_resource type="Script" uid="uid://cd7prg211jtfx" path="res://object/component/DebugComponent.gd" id="10_s5mnh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xal3m"]
+size = Vector2(4, 4)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u70fo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_5glil")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_kxlql")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4bj70")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 10.0
+}]
+
+[node name="PlayerObject" groups=["Player"] instance=ExtResource("1_n0wm2")]
+y_sort_enabled = false
+
+[node name="StateMachine_Move#Timer" type="Timer" parent="." index="0"]
+wait_time = 0.01
+one_shot = true
+
+[node name="Body#CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_xal3m")
+
+[node name="Sprite" parent="Flip" index="1"]
+position = Vector2(0, -7)
+sprite_frames = SubResource("SpriteFrames_u70fo")
+animation = &"Move"
+
+[node name="Footstep" type="AudioStreamPlayer2D" parent="Flip/Sounds" index="0"]
+volume_db = -10.0
+max_polyphony = 3
+bus = &"Fx"
+
+[node name="PlayerControlComponent" type="Node2D" parent="Components" index="2"]
+script = ExtResource("3_8p3hi")
+
+[node name="MapTraversalComponent" parent="Components" index="3"]
+position = Vector2(0, -5)
+
+[node name="InteractComponent" parent="Components" index="4" instance=ExtResource("8_35sb0")]
+position = Vector2(0, -5)
+
+[node name="DialogueBoxComponent" parent="Components" index="5" instance=ExtResource("9_tem6k")]
+position = Vector2(142.378, 168.387)
+
+[node name="DebugComponent" type="Node2D" parent="Components" index="6"]
+script = ExtResource("10_s5mnh")
+
+[node name="FootstepComponent" type="Node2D" parent="Components" index="7" node_paths=PackedStringArray("footstep_node")]
+script = ExtResource("9_x8ulf")
+footstep_node = NodePath("../../Flip/Sounds/Footstep")

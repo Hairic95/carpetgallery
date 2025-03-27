@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://d32qqlgba5t66"]
 
 [ext_resource type="TileSet" uid="uid://dn1lepwsghsui" path="res://worlds/map/TileSet.tres" id="1_j7pr7"]
-[ext_resource type="Script" uid="uid://cnnodgv2s64yi" path="res://worlds/map/MapColors.gd" id="2_0wudk"]
-[ext_resource type="Script" uid="uid://b048qg5s7dsfn" path="res://worlds/map/BaseMap.gd" id="2_o02fw"]
+[ext_resource type="Script" uid="uid://c2si70c2f4tng" path="res://worlds/map/MapColors.gd" id="2_0wudk"]
+[ext_resource type="Script" uid="uid://0v6hblb73ucj" path="res://worlds/map/BaseMap.gd" id="2_o02fw"]
 
 [sub_resource type="Resource" id="Resource_g15di"]
 script = ExtResource("2_0wudk")

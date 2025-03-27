@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_12"
+type="Resource"
+uid="uid://qav7nsmkp5wb"
+path="res://.godot/imported/couchguy.dialogue-772fdae6a89d80d60d73c659b3ab6a03.tres"
+
+[deps]
+
+source_file="res://object/entities/character/couchguy/couchguy.dialogue"
+dest_files=["res://.godot/imported/couchguy.dialogue-772fdae6a89d80d60d73c659b3ab6a03.tres"]
+
+[params]
+
+defaults=true

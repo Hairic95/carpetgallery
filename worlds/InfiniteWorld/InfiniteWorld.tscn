@@ -172,13 +172,16 @@ room_browser = NodePath("PauseScreenLayer/SubViewportContainer/SubViewport/Pause
 metadata/_edit_vertical_guides_ = [120.0]
 metadata/_edit_horizontal_guides_ = [88.0]
 
-[node name="Player" parent="." index="0" groups=["Player"]]
+[node name="Entities" type="Node2D" parent="." index="0"]
+unique_name_in_owner = true
 
-[node name="GoodCamera" type="Camera2D" parent="." index="2"]
+[node name="Player" parent="." index="1" groups=["Player"]]
+
+[node name="GoodCamera" type="Camera2D" parent="." index="3"]
 ignore_rotation = false
 script = ExtResource("3_mwjpx")
 
-[node name="PauseScreenLayer" type="CanvasLayer" parent="." index="4" node_paths=PackedStringArray("player", "camera", "world", "room_browser")]
+[node name="PauseScreenLayer" type="CanvasLayer" parent="." index="5" node_paths=PackedStringArray("player", "camera", "world", "room_browser")]
 layer = 128
 script = ExtResource("5_hsebt")
 player = NodePath("../Player")
@@ -220,19 +223,19 @@ game_camera = NodePath("../../../../../../../GoodCamera")
 visible = false
 position = Vector2(120, 88)
 
-[node name="MapExitSound" type="AudioStreamPlayer2D" parent="." index="5"]
+[node name="MapExitSound" type="AudioStreamPlayer2D" parent="." index="6"]
 stream = ExtResource("6_6repu")
 volume_db = -80.0
 pitch_scale = 2.0
 bus = &"Fx"
 
-[node name="CameraSound1" type="AudioStreamPlayer" parent="." index="6"]
+[node name="CameraSound1" type="AudioStreamPlayer" parent="." index="7"]
 stream = ExtResource("8_toh1w")
 volume_db = -10.0
 pitch_scale = 1.5
 bus = &"Fx"
 
-[node name="CanvasLayer" parent="." index="7"]
+[node name="CanvasLayer" parent="." index="8"]
 layer = 127
 
 [node name="TransitionScreen" parent="CanvasLayer" index="0"]

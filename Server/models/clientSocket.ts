@@ -3,25 +3,24 @@ import { Vector2 } from "./vector2";
 import { LoggerHelper } from "../helpers/logger-helper";
 
 export class ClientSocket {
-  username: String;
+  username: string;
   socket: WebSocket;
-  id: String;
+  id: string;
   position: Vector2;
-  map_coordinates: Vector2;
-  direction: Vector2;
+  mapCoordinates: Vector2;
   logoutTimeout: NodeJS.Timeout;
 
   constructor(
     socket: WebSocket,
-    id: String,
+    id: string,
     position: Vector2 = new Vector2(0, 0),
-    direction = new Vector2(0, 0)
+    mapCoordinates = new Vector2(0, 0)
   ) {
     try {
       this.socket = socket;
       this.id = id;
       this.position = position;
-      this.direction = direction;
+      this.mapCoordinates = mapCoordinates;
 
       this.logoutTimeout = setTimeout(() => {
         LoggerHelper.logWarn(`Closing socket ${this.id}. No validation.`);

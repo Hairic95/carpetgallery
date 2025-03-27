@@ -7,16 +7,6 @@ signal exit_requested
 const MAX_ROOMS_LOADED = 3
 
 const RANDOM_ROOM = preload("res://worlds/InfiniteWorld/maps/RandomRoom.tscn")
-#var SEED = 4218347264
-#var SEED = 4218347264
-#const SEED = 177793718
-#const SEED = 2491435265
-#const SEED = 3250095623
-#const SEED = 2906869802 # might be the one
-#const SEED = 4131231095
-#const SEED = 3514399619
-#const SEED = 407810971
-#const SEED = 567598017
 var SEED = 12
 
 var lobby: RandomRoom
@@ -37,6 +27,7 @@ func _ready() -> void:
 	NetworkSocket.on_set_seed.connect(on_set_seed)
 	NetworkSocket.web_socket_connected.connect(web_socket_connected)
 	NetworkSocket.connection.connect(on_completed_connection)
+	NetworkSocket.set_room_content.connect(set_room_content)
 	NetworkSocket.connect_to_server("localhost:61900", "Test")
 
 
@@ -153,12 +144,19 @@ func activate_map(map: String) -> void:
 	await get_tree().physics_frame
 	
 func map_transition(map: String, fade=true) -> void:
+	for child in %Entities.get_children():
+		child.queue_free.call_deferred()
+	
 	if !(map in maps):
 		initialize_room(map)
 	$MapExitSound.play()
 	player.hide()
 	await super.map_transition(map, fade)
+	
+	NetworkSocket.send_get_room_data(player.map_coordinates)
+	
 	save_memory_screenshot()
+	
 	
 func initialize_room(map: String) -> RandomRoom:
 	var room_info := process_room_info(map)
@@ -217,7 +215,7 @@ func on_set_seed(seed: String) -> void:
 	player.entity_uuid = NetworkSocket.current_web_id
 
 func player_join(data) -> void:
-	var new_player_object = preload("res://object/objects/character/player/player.tscn").instantiate()
+	var new_player_object = preload("res://object/entities/character/player/player.tscn").instantiate()
 	new_player_object.hide()
 	new_player_object.global_position = Vector2(data.position.x, data.position.y)
 	new_player_object.map_coordinates = Vector2(data.map_coordinates.x, data.map_coordinates.y)
@@ -229,11 +227,10 @@ func player_join(data) -> void:
 	new_player_object.show()
 
 func get_users_result(users: Array) -> void:
-	print(NetworkSocket.current_web_id)
 	for user in users:
 		if user.id != NetworkSocket.current_web_id:
 			
-			var new_player_object = preload("res://object/objects/character/player/player.tscn").instantiate()
+			var new_player_object = preload("res://object/entities/character/player/player.tscn").instantiate()
 			new_player_object.hide()
 			new_player_object.global_position = Vector2(user.position.x, user.position.y)
 			new_player_object.map_coordinates = Vector2(user.map_coordinates.x, user.map_coordinates.y)
@@ -244,13 +241,37 @@ func get_users_result(users: Array) -> void:
 			new_player_object.set_web_id(user.id, user.id)
 			new_player_object.show()
 		
-			print(user.id)
 
 func web_socket_connected():
-	NetworkSocket.send_message_connect("TEST", player.global_position, Vector2(0, 0))
+	player.map_coordinates = Vector2(PersistentData.player_room_coords.x, PersistentData.player_room_coords.y)
+	NetworkSocket.send_message_connect("User", player.global_position, player.map_coordinates)
+	
+	NetworkSocket.send_get_room_data(player.map_coordinates)
 
 func on_completed_connection(result: bool):
 	if result:
 		NetworkSocket.send_get_seed()
 		NetworkSocket.send_message_get_users()
+		player.set_username(NetworkSocket.current_username)
+func set_room_content(data):
 	
+	for entity in data.entities:
+		var new_test_entity = load("res://object/entities/character/neutral/moving_test_entity.tscn").instantiate()
+		new_test_entity.entity_uuid = entity.id
+		new_test_entity.global_position = Vector2(entity.position.x, entity.position.y)
+		new_test_entity.owner_uuid = entity.currentOwnerId
+		new_test_entity.map_coordinates = Vector2(entity.mapCoordinates.x, entity.mapCoordinates.y)
+		%Entities.add_child.call_deferred(new_test_entity)
+	
+	if data.entities.size() == 0:
+		if $Entities.get_child_count() == 0:
+			for i in 9:
+				for y in 10:
+					var new_test_entity = load("res://object/entities/character/neutral/moving_test_entity.tscn").instantiate()
+					new_test_entity.is_new = true
+					new_test_entity.global_position = Vector2(-30 * 4.5 + i * 30, 0)
+					new_test_entity.owner_uuid = NetworkSocket.current_web_id
+					new_test_entity.map_coordinates = player.map_coordinates
+					%Entities.add_child.call_deferred(new_test_entity)
+					await get_tree().create_timer(.04).timeout
+				

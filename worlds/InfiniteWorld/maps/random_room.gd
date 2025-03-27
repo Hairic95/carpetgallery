@@ -936,9 +936,6 @@ func generate_objects_normal():
 				mat = color_scheme_materials[rng_object.randi() % num_color_schemes]
 			object.sprite.material = mat
 			
-			if disable_collision:
-				object.body.shape.disabled = true
-			
 			var behavior = base_behavior
 			if rng_object.percent(10):
 				behavior = rng_object.weighted_choice_dict(behavior_dict)

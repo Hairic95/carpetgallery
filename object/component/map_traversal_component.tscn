@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c2frq1qhl2yty"]
 
-[ext_resource type="Script" path="res://object/objects/character/MapTraversalComponent.gd" id="1_wrirg"]
+[ext_resource type="Script" uid="uid://b3egg5hduvrt3" path="res://object/entities/character/MapTraversalComponent.gd" id="1_wrirg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e3jlr"]
 radius = 4.0

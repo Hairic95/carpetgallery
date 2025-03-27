@@ -1,12 +1,39 @@
-import { v4 } from "uuid";
 import { ClientSocket } from "../models/clientSocket";
-import { Lobby } from "../models/lobby";
 import { ProtocolHelper } from "./protocol-handler";
 import { LoggerHelper } from "../helpers/logger-helper";
+import { GameEntity } from "../models/game-entity";
+import { Vector2 } from "../models/vector2";
 
 export class GameServerHandler {
   public connectedClients: ClientSocket[] = [];
-  public lobbies: Lobby[] = [];
+  public entities: GameEntity[] = [];
+  entityDespawnDistance = 5;
+
+  constructor() {
+    setInterval(() => {
+      for (const entity of this.entities) {
+        if (
+          this.connectedClients.filter((el) => {
+            const x_distance = el.mapCoordinates.x - entity.mapCoordinates.x;
+            const y_distance = el.mapCoordinates.y - entity.mapCoordinates.y;
+            return (
+              x_distance <= this.entityDespawnDistance &&
+              x_distance >= -this.entityDespawnDistance &&
+              y_distance <= this.entityDespawnDistance &&
+              y_distance >= -this.entityDespawnDistance
+            );
+          }).length === 0
+        ) {
+          this.removeEntity(entity.id);
+        }
+      }
+    }, 3 * 60 * 1000);
+
+    setInterval(() => {
+      console.log("Connected client count: " + this.connectedClients.length);
+      console.log("Entity count: " + this.entities.length);
+    }, 10 * 1000);
+  }
 
   public addClient(clientSocket: ClientSocket) {
     try {
@@ -19,25 +46,33 @@ export class GameServerHandler {
     }
   }
 
+  public addEntity(newEntity: GameEntity): void {
+    this.entities.push(newEntity);
+  }
+  public removeEntity(entityId: string): void {
+    const index = this.entities.findIndex((el) => el.id === entityId);
+    this.entities.splice(index, 1);
+  }
+  public removeEntityInRoom(mapCoordinates: Vector2): void {
+    const entitiesToRemove = this.getRoomEntities(mapCoordinates);
+    for (const entity of entitiesToRemove) {
+    }
+  }
+
+  public getEntity(entityId: string): GameEntity | undefined {
+    return this.entities.find((el) => el.id === entityId);
+  }
+  public getRoomEntities(mapCoordinates: Vector2): GameEntity[] {
+    return this.entities.filter(
+      (el) =>
+        el.mapCoordinates.x === mapCoordinates.x &&
+        el.mapCoordinates.y === mapCoordinates.y
+    );
+  }
+
   public removeClient(clientId: String) {
     try {
-      // 1) If the player was in a lobby then remove the player from it
-      for (const lobby of this.lobbies) {
-        for (const player of lobby.players) {
-          if (player.id === clientId) {
-            lobby.removePlayer(clientId);
-            if (lobby.players.length === 0) {
-              this.removeLobby(lobby.id);
-
-              // Alert all clients the changes to the lobbies
-              for (const client of this.connectedClients) {
-                ProtocolHelper.sendLobbyList(this, client);
-              }
-            }
-          }
-        }
-      }
-      // 2) Remove the client from the connected client list
+      // 1) Remove the client from the connected client list
       const clientIndex: number = this.connectedClients.findIndex(
         (el) => el.id === clientId
       );
@@ -48,65 +83,15 @@ export class GameServerHandler {
           `[GameServerHandler.removeClient()] attempted to remove an inexistant client`
         );
       }
+      for (const entity of this.entities.filter(
+        (el) => el.currentOwnerId === clientId
+      )) {
+        entity.currentOwnerId = null;
+      }
       ProtocolHelper.sendPlayerDisconnectToAll(this, clientId);
     } catch (err: any) {
       LoggerHelper.logError(
         `[GameServerHandler.removeClient()] An error had occurred while removing a client: ${err}`
-      );
-      throw err;
-    }
-  }
-
-  public createLobby(): Lobby {
-    try {
-      const newLobby = new Lobby(v4());
-      this.lobbies.push(newLobby);
-      return newLobby;
-    } catch (err: any) {
-      LoggerHelper.logError(
-        `[GameServerHandler.createLobby()] An error had occurred while creating a new lobby: ${err}`
-      );
-      throw err;
-    }
-  }
-
-  public getLobbyById(lobbyId: String): Lobby | undefined {
-    try {
-      return this.lobbies.find((el) => el.id === lobbyId);
-    } catch (err: any) {
-      LoggerHelper.logError(
-        `[GameServerHandler.getLobbyById()] An error had occurred while searching for a lobby by its id: ${err}`
-      );
-      throw err;
-    }
-  }
-
-  public getLobbyByPlayerId(clientId: String): Lobby | undefined {
-    try {
-      return this.lobbies.find(
-        (el) => el.players.findIndex((player) => player.id === clientId) > -1
-      );
-    } catch (err: any) {
-      LoggerHelper.logError(
-        `[GameServerHandler.getLobbyById()] An error had occurred while searching for a lobby by one of its player: ${err}`
-      );
-      throw err;
-    }
-  }
-
-  public getLobbies() {
-    return this.lobbies.map((el) => el.get());
-  }
-
-  public removeLobby(lobbyId: String) {
-    try {
-      const index = this.lobbies.findIndex((el) => el.id === lobbyId);
-      if (index !== -1) {
-        this.lobbies.splice(index, 1);
-      }
-    } catch (err: any) {
-      LoggerHelper.logError(
-        `[GameServerHandler.removeLobby()] An error had occurred while removing a lobby: ${err}`
       );
       throw err;
     }

@@ -33,6 +33,14 @@ const Action_Heartbeat = "Heartbeat"
 const Action_GetSeed = "GetSeed"
 const Action_SetSeed = "SetSeed"
 
+const Action_AddEntity = "AddEntity"
+const Action_AddedEntity = "AddedEntity"
+const Action_UpdatedEntity = "UpdatedEntity"
+const Action_RemoveEntity = "RemoveEntity"
+const Action_RemoveEntitiesFromRoom = "RemoveEntitiesFromRoom"
+const Action_GetRoomData = "GetRoomData"
+const Action_SetRoomData = "SetRoomData"
+
 # GENERIC MESSAGES
 
 const GenericAction_EntityHardUpdatePosition = "EntityHardUpdatePosition"

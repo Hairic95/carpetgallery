@@ -1,13 +1,13 @@
 import { v4 } from "uuid";
 import { EAction, EGenericAction } from "../base/enumerators";
 import { ClientSocket } from "../models/clientSocket";
-import { Lobby } from "../models/lobby";
 import { Message } from "../models/message";
 
 import { GameServerHandler } from "./game-server-handler";
 import { Constants } from "../base/constants";
 import { LoggerHelper } from "../helpers/logger-helper";
 import { seed } from "../configuration.json";
+import { GameEntity } from "../models/game-entity";
 
 export class ProtocolHelper {
   public static sendPlayerDisconnectToAll = (
@@ -42,8 +42,7 @@ export class ProtocolHelper {
       username: playerClient.username,
       id: playerClient.id,
       position: playerClient.position,
-      map_coordinates: playerClient.map_coordinates,
-      direction: playerClient.direction,
+      map_coordinates: playerClient.mapCoordinates,
     });
     try {
       for (const client of gameServer.connectedClients) {
@@ -77,21 +76,6 @@ export class ProtocolHelper {
         case EAction.GetUsers:
           ProtocolHelper.sendUserList(gameServer, clientSocket);
           break;
-        case EAction.GetLobbies:
-          ProtocolHelper.sendLobbyList(gameServer, clientSocket);
-          break;
-        case EAction.GetOwnLobby:
-          ProtocolHelper.sendLobby(gameServer, clientSocket);
-          break;
-        case EAction.CreateLobby:
-          ProtocolHelper.createNewLobby(gameServer, clientSocket);
-          break;
-        case EAction.LeaveLobby:
-          ProtocolHelper.leaveLobby(gameServer, clientSocket, message);
-          break;
-        case EAction.JoinLobby:
-          ProtocolHelper.joinExistingLobby(gameServer, clientSocket, message);
-          break;
         case EAction.Heartbeat:
           ProtocolHelper.processHeartbeat(gameServer, clientSocket);
           break;
@@ -103,6 +87,13 @@ export class ProtocolHelper {
             clientSocket,
             new Message(EAction.SetSeed, { seed: seed })
           );
+          break;
+        case EAction.AddEntity:
+          ProtocolHelper.addEntity(gameServer, clientSocket, message);
+          break;
+        case EAction.GetRoomData:
+          ProtocolHelper.sendRoomData(gameServer, clientSocket, message);
+          break;
       }
     } catch (err) {
       LoggerHelper.logError(
@@ -122,8 +113,8 @@ export class ProtocolHelper {
         clearTimeout(clientSocket.logoutTimeout);
         clientSocket.username = message.payload.username;
         clientSocket.position = message.payload.position;
-        console.log(message.payload.map_coordinates);
-        clientSocket.map_coordinates = message.payload.map_coordinates;
+
+        clientSocket.mapCoordinates = message.payload.map_coordinates;
         LoggerHelper.logInfo(`Connection confirmed for ${clientSocket.id}`);
         ProtocolHelper.sendPlayerConnectionToAll(gameServer, clientSocket);
 
@@ -160,7 +151,7 @@ export class ProtocolHelper {
             username: el.username,
             id: el.id,
             position: el.position,
-            map_coordinates: el.map_coordinates,
+            map_coordinates: el.mapCoordinates,
           };
         }),
       });
@@ -172,161 +163,6 @@ export class ProtocolHelper {
     }
   };
 
-  public static sendLobbyList = (
-    gameServer: GameServerHandler,
-    clientSocket: ClientSocket
-  ) => {
-    try {
-      const lobbyListMessage: Message = new Message(EAction.GetLobbies, {
-        success: true,
-        lobbies: gameServer.getLobbies(),
-      });
-      clientSocket.socket.send(lobbyListMessage.toString());
-    } catch (err: any) {
-      LoggerHelper.logError(
-        `[ProtocolHelper.sendLobbies()] An error had occurred while parsing a message: ${err}`
-      );
-    }
-  };
-
-  public static sendLobby = (
-    gameServer: GameServerHandler,
-    clientSocket: ClientSocket
-  ) => {
-    try {
-      const lobby: Lobby = gameServer.getLobbyByPlayerId(clientSocket.id);
-      if (!!lobby) {
-        const message = new Message(EAction.GetOwnLobby, {
-          lobby: lobby.get(),
-        });
-        clientSocket.socket.send(message.toString());
-      }
-    } catch (err: any) {
-      LoggerHelper.logError(
-        `[ProtocolHelper.sendLobby()] An error had occurred while parsing a message: ${err}`
-      );
-    }
-  };
-
-  private static createNewLobby = (
-    gameServer: GameServerHandler,
-    clientSocket: ClientSocket
-  ) => {
-    try {
-      if (gameServer.getLobbyByPlayerId(clientSocket.id)) {
-        LoggerHelper.logWarn(
-          `Client ${clientSocket.id} is requesting a new lobby while inside a lobby.`
-        );
-        const invalidLobbyMessage = new Message(EAction.CreateLobby, {
-          success: false,
-        });
-        clientSocket.socket.send(invalidLobbyMessage.toString());
-        return false;
-      } else {
-        LoggerHelper.logInfo(`Client ${clientSocket.id} created a new lobby.`);
-        const newLobby = gameServer.createLobby();
-        newLobby.addPlayer(clientSocket);
-
-        const createLobbySuccessMessage = new Message(EAction.CreateLobby, {
-          success: true,
-        });
-        clientSocket.socket.send(createLobbySuccessMessage.toString());
-        // Alert all clients the changes to the lobbies
-        gameServer.connectedClients.forEach((el) => {
-          ProtocolHelper.sendLobbyList(gameServer, el);
-        });
-      }
-    } catch (err: any) {
-      LoggerHelper.logError(
-        `[ProtocolHelper.createNewLobby()] An error had occurred while parsing a message: ${err}`
-      );
-    }
-  };
-
-  private static leaveLobby = (
-    gameServer: GameServerHandler,
-    clientSocket: ClientSocket,
-    message: Message
-  ) => {
-    try {
-      const lobby = gameServer.getLobbyByPlayerId(clientSocket.id);
-      if (!!lobby) {
-        lobby.removePlayer(clientSocket.id);
-
-        const createLobbySuccessMessage = new Message(EAction.LeaveLobby, {
-          success: true,
-        });
-        clientSocket.socket.send(createLobbySuccessMessage.toString());
-        // If the lobby is empty, erase it
-        if (lobby.players.length === 0) {
-          gameServer.removeLobby(lobby.id);
-        } else {
-          for (let el of lobby.players) {
-            el.socket.send(
-              new Message(EAction.PlayerLeft, {
-                webId: clientSocket.id,
-              }).toString()
-            );
-          }
-        }
-        // Alert all clients the changes to the lobbies
-        gameServer.connectedClients.forEach((el) =>
-          ProtocolHelper.sendLobbyList(gameServer, el)
-        );
-      }
-    } catch (err: any) {
-      LoggerHelper.logError(
-        `[ProtocolHelper.leaveLobby()] An error had occurred while parsing a message: ${err}`
-      );
-    }
-  };
-
-  private static joinExistingLobby = (
-    gameServer: GameServerHandler,
-    clientSocket: ClientSocket,
-    message: Message
-  ) => {
-    try {
-      const lobbyToJoin: Lobby | undefined = gameServer.getLobbyById(
-        message.payload.id
-      );
-      if (!!lobbyToJoin) {
-        if (lobbyToJoin.addPlayer(clientSocket)) {
-          const joinLobbySuccessMessage = new Message(EAction.JoinLobby, {
-            success: true,
-            lobbyId: lobbyToJoin.id,
-          });
-          clientSocket.socket.send(joinLobbySuccessMessage.toString());
-          // Alert all clients the changes to the lobbies
-          gameServer.connectedClients.forEach((el) =>
-            ProtocolHelper.sendLobbyList(gameServer, el)
-          );
-          lobbyToJoin.players.forEach((el) => {
-            ProtocolHelper.sendLobbyChanged(el, lobbyToJoin);
-          });
-
-          if (lobbyToJoin.players.length >= 2 && !lobbyToJoin.isGameStarted) {
-            setTimeout(() => {
-              lobbyToJoin.isGameStarted = true;
-              lobbyToJoin.players.forEach((el) => {
-                ProtocolHelper.sendGameStarted(el);
-              });
-            }, 1000);
-          }
-        }
-      } else {
-        const joinLobbyFailureMessage = new Message(EAction.JoinLobby, {
-          success: false,
-        });
-        clientSocket.socket.send(joinLobbyFailureMessage.toString());
-      }
-    } catch (err: any) {
-      LoggerHelper.logError(
-        `[ProtocolHelper.joinExistingLobby()] An error had occurred while parsing a message: ${err}`
-      );
-    }
-  };
-
   public static sendGameStarted(clientSocket: ClientSocket) {
     try {
       const lobbyListMessage: Message = new Message(EAction.GameStarted, {});
@@ -334,27 +170,6 @@ export class ProtocolHelper {
     } catch (err: any) {
       LoggerHelper.logError(
         `[ProtocolHelper.sendGameStarted()] An error had occurred while parsing a message: ${err}`
-      );
-    }
-  }
-
-  /**
-   *
-   * @param clientSocket
-   * @param lobbyToJoin
-   */
-  public static sendLobbyChanged(
-    clientSocket: ClientSocket,
-    lobbyToJoin: Lobby
-  ) {
-    try {
-      const lobbyListMessage: Message = new Message(EAction.LobbyChanged, {
-        lobby: lobbyToJoin.get(),
-      });
-      clientSocket.socket.send(lobbyListMessage.toString());
-    } catch (err: any) {
-      LoggerHelper.logError(
-        `[ProtocolHelper.sendLobbyChanged()] An error had occurred while parsing a message: ${err}`
       );
     }
   }
@@ -385,14 +200,37 @@ export class ProtocolHelper {
     message: Message
   ) => {
     try {
-      // const lobby: Lobby = gameServer.getLobbyByPlayerId(clientSocket.id);
-      // if (!!lobby) {
-      if (!!message.payload.position) {
-        clientSocket.position = message.payload.position;
-      }
       if (!!message.payload.map_coordinates) {
-        console.log(message.payload.map_coordinates);
-        clientSocket.map_coordinates = message.payload.map_coordinates;
+        const oldRoomCoordinates = clientSocket.mapCoordinates;
+        clientSocket.mapCoordinates = message.payload.map_coordinates;
+        const masterlessEntities = gameServer
+          .getRoomEntities(oldRoomCoordinates)
+          .filter((el) => el.currentOwnerId === clientSocket.id);
+
+        const otherClient = gameServer.connectedClients.find(
+          (el) =>
+            el.mapCoordinates.x == oldRoomCoordinates.x &&
+            el.mapCoordinates.y == oldRoomCoordinates.y
+        );
+
+        for (const entity of masterlessEntities) {
+          if (!!otherClient) {
+            entity.currentOwnerId = otherClient.id;
+            otherClient.socket.send(
+              new Message(EAction.UpdatedEntity, { entity: entity }).toString()
+            );
+          } else {
+            entity.currentOwnerId = null;
+          }
+        }
+      }
+      if (!!message.payload.entity_id && !!message.payload.position) {
+        const entity = gameServer.getEntity(message.payload.entity_id);
+        if (entity) {
+          entity.position = message.payload.position;
+        } else {
+          clientSocket.position = message.payload.position;
+        }
       }
       const lobbyMessage = new Message(EAction.MessageToLobby, message.payload);
       for (const player of gameServer.connectedClients) {
@@ -400,12 +238,6 @@ export class ProtocolHelper {
           player.socket.send(lobbyMessage.toString());
         }
       }
-      // lobby.players.forEach((el) => {
-      //   if (el !== clientSocket) {
-      //     el.socket.send(lobbyMessage.toString());
-      //   }
-      // });
-      // }
     } catch (err: any) {
       LoggerHelper.logError(
         `[ProtocolHelper.sendMessageToLobby()] An error had occurred while parsing a message: ${err}`
@@ -424,6 +256,64 @@ export class ProtocolHelper {
   ) => {
     try {
       clientSocket.socket.send(message.toString());
+    } catch (err: any) {
+      LoggerHelper.logError(
+        `[ProtocolHelper.sendMessageToLobby()] An error had occurred while parsing a message: ${err}`
+      );
+    }
+  };
+  /**
+   *
+   * @param gameServer
+   * @param clientSocket
+   * @param message
+   */
+  private static addEntity = (
+    gameServer: GameServerHandler,
+    clientSocket: ClientSocket,
+    message: Message
+  ) => {
+    try {
+      gameServer.addEntity(
+        new GameEntity(
+          message.payload.id,
+          message.payload.position,
+          message.payload.map_coordinates,
+          message.payload.type,
+          clientSocket.id
+        )
+      );
+    } catch (err: any) {
+      LoggerHelper.logError(
+        `[ProtocolHelper.sendMessageToLobby()] An error had occurred while parsing a message: ${err}`
+      );
+    }
+  };
+  /**
+   *
+   * @param gameServer
+   * @param clientSocket
+   * @param message
+   */
+  private static sendRoomData = (
+    gameServer: GameServerHandler,
+    clientSocket: ClientSocket,
+    message: Message
+  ) => {
+    try {
+      const roomEntities: GameEntity[] = gameServer.getRoomEntities(
+        message.payload.map_coordinates
+      );
+      for (const entity of roomEntities.filter(
+        (el) => el.currentOwnerId === null
+      )) {
+        entity.currentOwnerId = clientSocket.id;
+      }
+      clientSocket.socket.send(
+        new Message(EAction.SetRoomData, {
+          entities: roomEntities,
+        }).toString()
+      );
     } catch (err: any) {
       LoggerHelper.logError(
         `[ProtocolHelper.sendMessageToLobby()] An error had occurred while parsing a message: ${err}`

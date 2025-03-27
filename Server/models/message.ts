@@ -16,7 +16,7 @@ export class Message {
     }
   }
 
-  static fromString(message: String): Message {
+  static fromString(message: string): Message {
     try {
       const parsedMessage = JSON.parse(message.toString());
       if (parsedMessage) {
@@ -31,7 +31,7 @@ export class Message {
     }
   }
 
-  toString(): String {
+  toString(): string {
     try {
       const array = {
         action: this.action,

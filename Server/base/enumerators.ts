@@ -5,13 +5,6 @@ export enum EAction {
   PlayerJoin = "PlayerJoin",
   PlayerLeft = "PlayerLeft",
 
-  GetLobbies = "GetLobbies",
-  GetOwnLobby = "GetOwnLobby",
-  CreateLobby = "CreateLobby",
-  JoinLobby = "JoinLobby",
-  LobbyChanged = "LobbyChanged",
-  LeaveLobby = "LeaveLobby",
-
   GameStarted = "GameStarted",
 
   MessageToLobby = "MessageToLobby",
@@ -19,6 +12,14 @@ export enum EAction {
 
   GetSeed = "GetSeed",
   SetSeed = "SetSeed",
+
+  AddEntity = "AddEntity",
+  AddedEntity = "AddedEntity",
+  UpdatedEntity = "UpdatedEntity",
+  RemoveEntity = "RemoveEntity",
+  RemoveEntitiesFromRoom = "RemoveEntitiesFromRoom",
+  GetRoomData = "GetRoomData",
+  SetRoomData = "SetRoomData",
 }
 
 export enum EGenericAction {

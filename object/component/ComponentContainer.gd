@@ -13,8 +13,7 @@ var rotate_components = []
 var is_setup = false
 
 func _ready():
-	if object.auto_setup_components:
-		setup()
+	setup()
 
 func _physics_process(delta):
 	apply_body_rotation()

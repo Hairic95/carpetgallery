@@ -22,12 +22,6 @@ signal update_user_list(success, users)
 signal player_join(id, position, direction)
 signal player_left(webId)
 
-signal update_lobby_list(lobbies)
-signal get_own_lobby(lobby)
-signal created_lobby(success)
-signal joined_lobby(success)
-signal left_lobby(success)
-signal lobby_changed(lobby)
 signal get_users_result(users)
 
 signal game_started()
@@ -42,6 +36,10 @@ signal entity_misc_one_off(data)
 signal entity_death(data)
 signal entity_spawn(data)
 signal on_set_seed(seed)
+
+signal entity_added(data)
+signal entity_updated(data)
+signal set_room_content(data)
 
 func _ready():
 	var new_timer = Timer.new()
@@ -140,27 +138,7 @@ func send_message_get_users():
 	if _is_web_socket_connected():
 		_send_message(NetworkConstants.Action_GetUsers,  {})
 
-func send_message_get_lobbies():
-	if _is_web_socket_connected():
-		_send_message(NetworkConstants.Action_GetLobbies, {})
-
-func send_message_get_own_lobby():
-	if _is_web_socket_connected():
-		_send_message(NetworkConstants.Action_GetOwnLobby, {})
-
-func send_message_create_lobby():
-	if _is_web_socket_connected():
-		_send_message(NetworkConstants.Action_CreateLobby, {})
-
-func send_message_join_lobby(idLobby : String):
-	if _is_web_socket_connected():
-		_send_message(NetworkConstants.Action_JoinLobby, { "id": idLobby })
-
-func send_message_leave_lobby():
-	if _is_web_socket_connected():
-		_send_message(NetworkConstants.Action_LeaveLobby, {})
-
-func send_message_to_lobby(messageContent):
+func send_message(messageContent):
 	if _is_web_socket_connected():
 		_send_message(NetworkConstants.Action_MessageToLobby, messageContent)
 
@@ -171,7 +149,14 @@ func send_message_heartbeat():
 func send_get_seed():
 	if _is_web_socket_connected():
 		_send_message(NetworkConstants.Action_GetSeed, {})
-	
+
+func send_add_entity(entity):
+	if _is_web_socket_connected():
+		_send_message(NetworkConstants.Action_AddEntity, entity)
+
+func send_get_room_data(map_coordinates):
+	if _is_web_socket_connected():
+		_send_message(NetworkConstants.Action_GetRoomData, {"map_coordinates": {"x": map_coordinates.x, "y": map_coordinates.y,}})
 
 func parse_message_received(json_message):
 	if json_message.has("action") && json_message.has("payload"):
@@ -247,6 +232,12 @@ func parse_message_received(json_message):
 				current_map_key = json_message.payload.mapKey
 			NetworkConstants.Action_SetSeed:
 				on_set_seed.emit(json_message.payload.seed)
+			NetworkConstants.Action_AddedEntity:
+				entity_added.emit(json_message.payload)
+			NetworkConstants.Action_UpdatedEntity:
+				entity_updated.emit(json_message.payload)
+			NetworkConstants.Action_SetRoomData:
+				set_room_content.emit(json_message.payload)
 
 func current_pos_in_lobby():
 	if lobby_data:

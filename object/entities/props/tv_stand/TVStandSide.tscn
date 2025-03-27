@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://7uw4re5ewkgs"]
+
+[ext_resource type="PackedScene" uid="uid://fvhkxdqrhwdx" path="res://object/entities/props/tv_stand/TVStand.tscn" id="1_jnrj7"]
+[ext_resource type="Shader" uid="uid://ba1m378ocb8dn" path="res://framework/HitFlash.gdshader" id="2_5x213"]
+[ext_resource type="Texture2D" uid="uid://cbip8s1i8ctpu" path="res://object/entities/props/tv_stand/tv_stand2.png" id="3_wahw5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aeqd8"]
+resource_local_to_scene = true
+shader = ExtResource("2_5x213")
+shader_parameter/flash = false
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lx47i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_wahw5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7fndi"]
+size = Vector2(6, 8)
+
+[node name="TVStand" instance=ExtResource("1_jnrj7")]
+
+[node name="Sprite" parent="Flip" index="1"]
+material = SubResource("ShaderMaterial_aeqd8")
+sprite_frames = SubResource("SpriteFrames_lx47i")
+
+[node name="CollisionShape2D" parent="Body" index="0"]
+shape = SubResource("RectangleShape2D_7fndi")
