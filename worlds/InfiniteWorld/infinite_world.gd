@@ -279,7 +279,6 @@ func set_room_content(data):
 
 func entity_added(entity_data):
 	var new_test_entity = load("res://object/entities/character/neutral/moving_test_entity.tscn").instantiate()
-	new_test_entity.is_new = true
 	new_test_entity.global_position = Vector2(entity_data.position.x, entity_data.position.y) 
 	new_test_entity.owner_uuid = NetworkSocket.current_web_id
 	new_test_entity.map_coordinates = Vector2(entity_data.map_coordinates.x, entity_data.map_coordinates.y)

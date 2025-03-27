@@ -324,16 +324,23 @@ export class ProtocolHelper {
           clientSocket.id
         )
       );
-      ProtocolHelper.sendMessageToRoom(
-        gameServer,
-        clientSocket,
-        new Message(EAction.AddedEntity, {
-          id: message.payload.id,
-          position: message.payload.position,
-          map_coordinates: message.payload.map_coordinates,
-          entity_type: message.payload.entityType,
-        })
-      );
+      const messageToSend = new Message(EAction.AddedEntity, {
+        id: message.payload.id,
+        position: message.payload.position,
+        map_coordinates: message.payload.map_coordinates,
+        entity_type: message.payload.entityType,
+      });
+      console.log(messageToSend);
+
+      for (const player of gameServer.connectedClients.filter(
+        (el) =>
+          el.mapCoordinates.equal(clientSocket.mapCoordinates) &&
+          el.id !== clientSocket.id
+      )) {
+        if (clientSocket.id !== player.id) {
+          player.socket.send(messageToSend.toString());
+        }
+      }
     } catch (err: any) {
       LoggerHelper.logError(
         `[ProtocolHelper.sendMessageToLobby()] An error had occurred while parsing a message: ${err}`

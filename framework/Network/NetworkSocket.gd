@@ -215,6 +215,7 @@ func parse_message_received(json_message):
 			NetworkConstants.Action_SetSeed:
 				on_set_seed.emit(json_message.payload.seed)
 			NetworkConstants.Action_AddedEntity:
+				print("ADDED ENTITY")
 				entity_added.emit(json_message.payload)
 			NetworkConstants.Action_UpdatedEntity:
 				entity_updated.emit(json_message.payload)
