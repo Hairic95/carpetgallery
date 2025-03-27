@@ -7,7 +7,8 @@ export enum EAction {
 
   GameStarted = "GameStarted",
 
-  MessageToLobby = "MessageToLobby",
+  MessageToRoom = "MessageToRoom",
+  MessageToServer = "MessageToServer",
   Heartbeat = "Heartbeat",
 
   GetSeed = "GetSeed",

@@ -6,7 +6,6 @@ var web_socket_client : WebSocketPeer = null
 var socket_initialized = false
 
 var current_web_id = ""
-var is_lobby_master = false
 
 var lobby_data = null
 var current_map_key = "Map001"
@@ -140,7 +139,11 @@ func send_message_get_users():
 
 func send_message(messageContent):
 	if _is_web_socket_connected():
-		_send_message(NetworkConstants.Action_MessageToLobby, messageContent)
+		_send_message(NetworkConstants.Action_MessageToRoom, messageContent)
+
+func send_message_to_server(messageContent):
+	if _is_web_socket_connected():
+		_send_message(NetworkConstants.Action_MessageToServer, messageContent)
 
 func send_message_heartbeat():
 	if _is_web_socket_connected():
@@ -174,34 +177,13 @@ func parse_message_received(json_message):
 			NetworkConstants.Action_GetUsers:
 				if json_message.payload.has("users"):
 					update_user_list.emit(json_message.payload.users)
-			NetworkConstants.Action_GetLobbies:
-				if json_message.payload.has("lobbies"):
-					emit_signal("update_lobby_list", json_message.payload.lobbies)
-			NetworkConstants.Action_GetOwnLobby:
-				if json_message.payload.has("lobby"):
-					emit_signal("get_own_lobby", json_message.payload.lobby)
 			NetworkConstants.Action_PlayerJoin:
 				if json_message.payload.has("id") && json_message.payload.has("position"):
 					emit_signal("player_join", json_message.payload)
 			NetworkConstants.Action_PlayerLeft:
 				if json_message.payload.has("webId"):
 					emit_signal("player_left", json_message.payload.webId)
-			NetworkConstants.Action_CreateLobby:
-				if json_message.payload.has("success"):
-					emit_signal("created_lobby", json_message.payload.success)
-				is_lobby_master = true
-			NetworkConstants.Action_JoinLobby:
-				if json_message.payload.has("success"):
-					emit_signal("joined_lobby", json_message.payload.success)
-			NetworkConstants.Action_LeaveLobby:
-				if json_message.payload.has("success"):
-					emit_signal("left_lobby", json_message.payload.success)
-				is_lobby_master = false
-			NetworkConstants.Action_LobbyChanged:
-				if json_message.payload.has("lobby"):
-					emit_signal("lobby_changed", json_message.payload.lobby)
-					lobby_data = json_message.payload.lobby
-			NetworkConstants.Action_MessageToLobby:
+			NetworkConstants.Action_MessageToRoom, NetworkConstants.Action_MessageToServer:
 				if json_message.payload.has("type"):
 					match (json_message.payload.type):
 						NetworkConstants.GenericAction_EntityUpdatePosition:

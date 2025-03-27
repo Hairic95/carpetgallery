@@ -51,7 +51,7 @@ func _physics_process(delta):
 func change_map_coordinates(_map_coords: Vector2) -> void:
 	if is_client_owner():
 		map_coordinates = _map_coords
-		NetworkSocket.send_message({
+		NetworkSocket.send_message_to_server({
 			"entity_id": entity_uuid,
 			"type": NetworkConstants.GenericAction_EntityUpdateMapCoordinates,
 			"map_coordinates": {

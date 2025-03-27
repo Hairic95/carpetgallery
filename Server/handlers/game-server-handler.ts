@@ -32,6 +32,10 @@ export class GameServerHandler {
     setInterval(() => {
       console.log("Connected client count: " + this.connectedClients.length);
       console.log("Entity count: " + this.entities.length);
+
+      for (const player of this.connectedClients) {
+        console.log(player.mapCoordinates);
+      }
     }, 10 * 1000);
   }
 

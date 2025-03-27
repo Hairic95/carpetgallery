@@ -31,7 +31,7 @@ func _ready():
 		entity_uuid = uuid.v4()
 		NetworkSocket.send_add_entity({
 			"id": entity_uuid,
-			"type": "test",
+			"entity_type": "test",
 			"position": {
 				"x": global_position.x,
 				"y": global_position.y

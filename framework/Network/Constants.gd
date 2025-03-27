@@ -27,7 +27,8 @@ const Action_MapSelected = "MapSelected"
 
 const Action_GameStarted = "GameStarted"
 
-const Action_MessageToLobby = "MessageToLobby"
+const Action_MessageToRoom = "MessageToRoom"
+const Action_MessageToServer = "MessageToServer"
 const Action_Heartbeat = "Heartbeat"
 
 const Action_GetSeed = "GetSeed"

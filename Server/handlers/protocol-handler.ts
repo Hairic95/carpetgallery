@@ -8,6 +8,7 @@ import { Constants } from "../base/constants";
 import { LoggerHelper } from "../helpers/logger-helper";
 import { seed } from "../configuration.json";
 import { GameEntity } from "../models/game-entity";
+import { Vector2 } from "../models/vector2";
 
 export class ProtocolHelper {
   public static sendPlayerDisconnectToAll = (
@@ -79,8 +80,11 @@ export class ProtocolHelper {
         case EAction.Heartbeat:
           ProtocolHelper.processHeartbeat(gameServer, clientSocket);
           break;
-        case EAction.MessageToLobby:
-          ProtocolHelper.sendMessageToLobby(gameServer, clientSocket, message);
+        case EAction.MessageToServer:
+          ProtocolHelper.sendMessageToServer(gameServer, clientSocket, message);
+          break;
+        case EAction.MessageToRoom:
+          ProtocolHelper.sendMessageToRoom(gameServer, clientSocket, message);
           break;
         case EAction.GetSeed:
           ProtocolHelper.sendMessageToClient(
@@ -114,7 +118,10 @@ export class ProtocolHelper {
         clientSocket.username = message.payload.username;
         clientSocket.position = message.payload.position;
 
-        clientSocket.mapCoordinates = message.payload.map_coordinates;
+        clientSocket.mapCoordinates = new Vector2(
+          message.payload.map_coordinates.x,
+          message.payload.map_coordinates.y
+        );
         LoggerHelper.logInfo(`Connection confirmed for ${clientSocket.id}`);
         ProtocolHelper.sendPlayerConnectionToAll(gameServer, clientSocket);
 
@@ -194,7 +201,43 @@ export class ProtocolHelper {
    * @param clientSocket
    * @param message
    */
-  private static sendMessageToLobby = (
+  private static sendMessageToRoom = (
+    gameServer: GameServerHandler,
+    clientSocket: ClientSocket,
+    message: Message
+  ) => {
+    try {
+      if (!!message.payload.entity_id && !!message.payload.position) {
+        const entity = gameServer.getEntity(message.payload.entity_id);
+        if (entity) {
+          entity.position = message.payload.position;
+        } else {
+          clientSocket.position = message.payload.position;
+        }
+      }
+      const lobbyMessage = new Message(EAction.MessageToRoom, message.payload);
+      for (const player of gameServer.connectedClients.filter(
+        (el) =>
+          el.mapCoordinates.equal(clientSocket.mapCoordinates) &&
+          el.id !== clientSocket.id
+      )) {
+        if (clientSocket.id !== player.id) {
+          player.socket.send(lobbyMessage.toString());
+        }
+      }
+    } catch (err: any) {
+      LoggerHelper.logError(
+        `[ProtocolHelper.sendMessageToLobby()] An error had occurred while parsing a message: ${err}`
+      );
+    }
+  };
+  /**
+   *
+   * @param gameServer
+   * @param clientSocket
+   * @param message
+   */
+  private static sendMessageToServer = (
     gameServer: GameServerHandler,
     clientSocket: ClientSocket,
     message: Message
@@ -202,7 +245,10 @@ export class ProtocolHelper {
     try {
       if (!!message.payload.map_coordinates) {
         const oldRoomCoordinates = clientSocket.mapCoordinates;
-        clientSocket.mapCoordinates = message.payload.map_coordinates;
+        clientSocket.mapCoordinates = new Vector2(
+          message.payload.map_coordinates.x,
+          message.payload.map_coordinates.y
+        );
         const masterlessEntities = gameServer
           .getRoomEntities(oldRoomCoordinates)
           .filter((el) => el.currentOwnerId === clientSocket.id);
@@ -224,15 +270,10 @@ export class ProtocolHelper {
           }
         }
       }
-      if (!!message.payload.entity_id && !!message.payload.position) {
-        const entity = gameServer.getEntity(message.payload.entity_id);
-        if (entity) {
-          entity.position = message.payload.position;
-        } else {
-          clientSocket.position = message.payload.position;
-        }
-      }
-      const lobbyMessage = new Message(EAction.MessageToLobby, message.payload);
+      const lobbyMessage = new Message(
+        EAction.MessageToServer,
+        message.payload
+      );
       for (const player of gameServer.connectedClients) {
         if (clientSocket.id !== player.id) {
           player.socket.send(lobbyMessage.toString());
@@ -279,9 +320,19 @@ export class ProtocolHelper {
           message.payload.id,
           message.payload.position,
           message.payload.map_coordinates,
-          message.payload.type,
+          message.payload.entityType,
           clientSocket.id
         )
+      );
+      ProtocolHelper.sendMessageToRoom(
+        gameServer,
+        clientSocket,
+        new Message(EAction.AddedEntity, {
+          id: message.payload.id,
+          position: message.payload.position,
+          map_coordinates: message.payload.map_coordinates,
+          entity_type: message.payload.entityType,
+        })
       );
     } catch (err: any) {
       LoggerHelper.logError(

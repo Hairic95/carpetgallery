@@ -28,6 +28,7 @@ func _ready() -> void:
 	NetworkSocket.web_socket_connected.connect(web_socket_connected)
 	NetworkSocket.connection.connect(on_completed_connection)
 	NetworkSocket.set_room_content.connect(set_room_content)
+	NetworkSocket.entity_added.connect(entity_added)
 	NetworkSocket.connect_to_server("localhost:61900", "Test")
 
 
@@ -275,3 +276,11 @@ func set_room_content(data):
 					%Entities.add_child.call_deferred(new_test_entity)
 					await get_tree().create_timer(.04).timeout
 				
+
+func entity_added(entity_data):
+	var new_test_entity = load("res://object/entities/character/neutral/moving_test_entity.tscn").instantiate()
+	new_test_entity.is_new = true
+	new_test_entity.global_position = Vector2(entity_data.position.x, entity_data.position.y) 
+	new_test_entity.owner_uuid = NetworkSocket.current_web_id
+	new_test_entity.map_coordinates = Vector2(entity_data.map_coordinates.x, entity_data.map_coordinates.y)
+	%Entities.add_child.call_deferred(new_test_entity)
